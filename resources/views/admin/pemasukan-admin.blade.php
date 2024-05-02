@@ -1,322 +1,551 @@
-@extends('layouts.main-admin')
-
+@extends('layouts.index')
 @section('content')
-    <div class="page-header">
-        <div class="row align-items-center">
-            <div class="col">
-                <h3 class="page-title">Halaman Pemasukan</h3>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Pemasukan</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="student-group-form">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search by ID ...">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-fluid">
+        <!--begin::Card-->
+        <div class="card">
+            <!--begin::Card header-->
+            <div class="card-header border-0 pt-6">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <!--begin::Search-->
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
+                        <input type="text" data-kt-user-table-filter="search"
+                            class="form-control form-control-solid w-250px ps-13" placeholder="Search user" />
+                    </div>
+                    <!--end::Search-->
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search by Name ...">
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search by Phone ...">
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="search-student-btn">
-                    <button type="btn" class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card card-table comman-shadow">
-                <div class="card-body">
-                    <div class="page-header">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="page-title">Kelola Data Pemasukan</h3>
+                <!--begin::Card title-->
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Toolbar-->
+                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                        <!--begin::Filter-->
+                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
+                            <i class="ki-outline ki-filter fs-2"></i>Filter</button>
+                        <!--begin::Menu 1-->
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                            <!--begin::Header-->
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
                             </div>
-                            <div class="col-auto text-end float-end ms-auto download-grp">
-                                {{-- <a href="students.html" class="btn btn-outline-gray me-2 active"><i
-                                        class="feather-list"></i></a>
-                                <a href="students-grid.html" class="btn btn-outline-gray me-2"><i
-                                        class="feather-grid"></i></a> --}}
-                                <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i>
-                                    Download</a>
-                                <a href="{{ url('/pemasukan-admin/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
+                            <!--end::Header-->
+                            <!--begin::Separator-->
+                            <div class="separator border-gray-200"></div>
+                            <!--end::Separator-->
+                            <!--begin::Content-->
+                            <div class="px-7 py-5" data-kt-user-table-filter="form">
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <label class="form-label fs-6 fw-semibold">Role:</label>
+                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                        data-placeholder="Select option" data-allow-clear="true"
+                                        data-kt-user-table-filter="role" data-hide-search="true">
+                                        <option></option>
+                                        <option value="Administrator">Administrator</option>
+                                        <option value="Analyst">Analyst</option>
+                                        <option value="Developer">Developer</option>
+                                        <option value="Support">Support</option>
+                                        <option value="Trial">Trial</option>
+                                    </select>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <label class="form-label fs-6 fw-semibold">Two Step Verification:</label>
+                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                        data-placeholder="Select option" data-allow-clear="true"
+                                        data-kt-user-table-filter="two-step" data-hide-search="true">
+                                        <option></option>
+                                        <option value="Enabled">Enabled</option>
+                                    </select>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Actions-->
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset"
+                                        class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
+                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                    <button type="submit" class="btn btn-primary fw-semibold px-6"
+                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                </div>
+                                <!--end::Actions-->
                             </div>
+                            <!--end::Content-->
                         </div>
+                        <!--end::Menu 1-->
+                        <!--end::Filter-->
+                        <!--begin::Export-->
+                        <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_export_users">
+                            <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
+                        <!--end::Export-->
+                        <!--begin::Add user-->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_add_user">
+                            <i class="ki-outline ki-plus fs-2"></i>Add User</button>
+                        <!--end::Add user-->
                     </div>
-                    <div class="table-responsive">
-                        <table class="datatable table table-stripped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td>$86,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                </tr>
-                                <tr>
-                                    <td>Airi Satou</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>33</td>
-                                    <td>2008/11/28</td>
-                                    <td>$162,700</td>
-                                </tr>
-                                <tr>
-                                    <td>Brielle Williamson</td>
-                                    <td>Integration Specialist</td>
-                                    <td>New York</td>
-                                    <td>61</td>
-                                    <td>2012/12/02</td>
-                                    <td>$372,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Herrod Chandler</td>
-                                    <td>Sales Assistant</td>
-                                    <td>San Francisco</td>
-                                    <td>59</td>
-                                    <td>2012/08/06</td>
-                                    <td>$137,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Rhona Davidson</td>
-                                    <td>Integration Specialist</td>
-                                    <td>Tokyo</td>
-                                    <td>55</td>
-                                    <td>2010/10/14</td>
-                                    <td>$327,900</td>
-                                </tr>
-                                <tr>
-                                    <td>Colleen Hurst</td>
-                                    <td>Javascript Developer</td>
-                                    <td>San Francisco</td>
-                                    <td>39</td>
-                                    <td>2009/09/15</td>
-                                    <td>$205,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Sonya Frost</td>
-                                    <td>Software Engineer</td>
-                                    <td>Edinburgh</td>
-                                    <td>23</td>
-                                    <td>2008/12/13</td>
-                                    <td>$103,600</td>
-                                </tr>
-                                <tr>
-                                    <td>Jena Gaines</td>
-                                    <td>Office Manager</td>
-                                    <td>London</td>
-                                    <td>30</td>
-                                    <td>2008/12/19</td>
-                                    <td>$90,560</td>
-                                </tr>
-                                <tr>
-                                    <td>Quinn Flynn</td>
-                                    <td>Support Lead</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2013/03/03</td>
-                                    <td>$342,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Charde Marshall</td>
-                                    <td>Regional Director</td>
-                                    <td>San Francisco</td>
-                                    <td>36</td>
-                                    <td>2008/10/16</td>
-                                    <td>$470,600</td>
-                                </tr>
-                                <tr>
-                                    <td>Haley Kennedy</td>
-                                    <td>Senior Marketing Designer</td>
-                                    <td>London</td>
-                                    <td>43</td>
-                                    <td>2012/12/18</td>
-                                    <td>$313,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Tatyana Fitzpatrick</td>
-                                    <td>Regional Director</td>
-                                    <td>London</td>
-                                    <td>19</td>
-                                    <td>2010/03/17</td>
-                                    <td>$385,750</td>
-                                </tr>
-                                <tr>
-                                    <td>Michael Silva</td>
-                                    <td>Marketing Designer</td>
-                                    <td>London</td>
-                                    <td>66</td>
-                                    <td>2012/11/27</td>
-                                    <td>$198,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Paul Byrd</td>
-                                    <td>Chief Financial Officer (CFO)</td>
-                                    <td>New York</td>
-                                    <td>64</td>
-                                    <td>2010/06/09</td>
-                                    <td>$725,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Gloria Little</td>
-                                    <td>Systems Administrator</td>
-                                    <td>New York</td>
-                                    <td>59</td>
-                                    <td>2009/04/10</td>
-                                    <td>$237,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Bradley Greer</td>
-                                    <td>Software Engineer</td>
-                                    <td>London</td>
-                                    <td>41</td>
-                                    <td>2012/10/13</td>
-                                    <td>$132,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Dai Rios</td>
-                                    <td>Personnel Lead</td>
-                                    <td>Edinburgh</td>
-                                    <td>35</td>
-                                    <td>2012/09/26</td>
-                                    <td>$217,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Jenette Caldwell</td>
-                                    <td>Development Lead</td>
-                                    <td>New York</td>
-                                    <td>30</td>
-                                    <td>2011/09/03</td>
-                                    <td>$345,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Yuri Berry</td>
-                                    <td>Chief Marketing Officer (CMO)</td>
-                                    <td>New York</td>
-                                    <td>40</td>
-                                    <td>2009/06/25</td>
-                                    <td>$675,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Caesar Vance</td>
-                                    <td>Pre-Sales Support</td>
-                                    <td>New York</td>
-                                    <td>21</td>
-                                    <td>2011/12/12</td>
-                                    <td>$106,450</td>
-                                </tr>
-                                <tr>
-                                    <td>Doris Wilder</td>
-                                    <td>Sales Assistant</td>
-                                    <td>Sidney</td>
-                                    <td>23</td>
-                                    <td>2010/09/20</td>
-                                    <td>$85,600</td>
-                                </tr>
-                                <tr>
-                                    <td>Angelica Ramos</td>
-                                    <td>Chief Executive Officer (CEO)</td>
-                                    <td>London</td>
-                                    <td>47</td>
-                                    <td>2009/10/09</td>
-                                    <td>$1,200,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Gavin Joyce</td>
-                                    <td>Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>42</td>
-                                    <td>2010/12/22</td>
-                                    <td>$92,575</td>
-                                </tr>
-                                <tr>
-                                    <td>Jennifer Chang</td>
-                                    <td>Regional Director</td>
-                                    <td>Singapore</td>
-                                    <td>28</td>
-                                    <td>2010/11/14</td>
-                                    <td>$357,650</td>
-                                </tr>
-                                <tr>
-                                    <td>Brenden Wagner</td>
-                                    <td>Software Engineer</td>
-                                    <td>San Francisco</td>
-                                    <td>28</td>
-                                    <td>2011/06/07</td>
-                                    <td>$206,850</td>
-                                </tr>
-                                <tr>
-                                    <td>Fiona Green</td>
-                                    <td>Chief Operating Officer (COO)</td>
-                                    <td>San Francisco</td>
-                                    <td>48</td>
-                                    <td>2010/03/11</td>
-                                    <td>$850,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Shou Itou</td>
-                                    <td>Regional Marketing</td>
-                                    <td>Tokyo</td>
-                                    <td>20</td>
-                                    <td>2011/08/14</td>
-                                    <td>$163,000</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!--end::Toolbar-->
+                    <!--begin::Group actions-->
+                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+                        <div class="fw-bold me-5">
+                            <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+                        </div>
+                        <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
+                            Selected</button>
                     </div>
+                    <!--end::Group actions-->
+                    <!--begin::Modal - Adjust Balance-->
+                    <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog modal-dialog-centered mw-650px">
+                            <!--begin::Modal content-->
+                            <div class="modal-content">
+                                <!--begin::Modal header-->
+                                <div class="modal-header">
+                                    <!--begin::Modal title-->
+                                    <h2 class="fw-bold">Export Users</h2>
+                                    <!--end::Modal title-->
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                        data-kt-users-modal-action="close">
+                                        <i class="ki-outline ki-cross fs-1"></i>
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--end::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                                    <!--begin::Form-->
+                                    <form id="kt_modal_export_users_form" class="form" action="#">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-10">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mb-2">Select Roles:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <select name="role" data-control="select2" data-placeholder="Select a role"
+                                                data-hide-search="true" class="form-select form-select-solid fw-bold">
+                                                <option></option>
+                                                <option value="Administrator">Administrator</option>
+                                                <option value="Analyst">Analyst</option>
+                                                <option value="Developer">Developer</option>
+                                                <option value="Support">Support</option>
+                                                <option value="Trial">Trial</option>
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-10">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-semibold form-label mb-2">Select Export
+                                                Format:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <select name="format" data-control="select2"
+                                                data-placeholder="Select a format" data-hide-search="true"
+                                                class="form-select form-select-solid fw-bold">
+                                                <option></option>
+                                                <option value="excel">Excel</option>
+                                                <option value="pdf">PDF</option>
+                                                <option value="cvs">CVS</option>
+                                                <option value="zip">ZIP</option>
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Actions-->
+                                        <div class="text-center">
+                                            <button type="reset" class="btn btn-light me-3"
+                                                data-kt-users-modal-action="cancel">Discard</button>
+                                            <button type="submit" class="btn btn-primary"
+                                                data-kt-users-modal-action="submit">
+                                                <span class="indicator-label">Submit</span>
+                                                <span class="indicator-progress">Please wait...
+                                                    <span
+                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                            </button>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Modal body-->
+                            </div>
+                            <!--end::Modal content-->
+                        </div>
+                        <!--end::Modal dialog-->
+                    </div>
+                    <!--end::Modal - New Card-->
+                    <!--begin::Modal - Add task-->
+                    <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog modal-dialog-centered mw-650px">
+                            <!--begin::Modal content-->
+                            <div class="modal-content">
+                                <!--begin::Modal header-->
+                                <div class="modal-header" id="kt_modal_add_user_header">
+                                    <!--begin::Modal title-->
+                                    <h2 class="fw-bold">Add User</h2>
+                                    <!--end::Modal title-->
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                        data-kt-users-modal-action="close">
+                                        <i class="ki-outline ki-cross fs-1"></i>
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--end::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                                    <!--begin::Form-->
+                                    <form id="kt_modal_add_user_form" class="form" action="#">
+                                        <!--begin::Scroll-->
+                                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll"
+                                            data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                            data-kt-scroll-max-height="auto"
+                                            data-kt-scroll-dependencies="#kt_modal_add_user_header"
+                                            data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
+                                            data-kt-scroll-offset="300px">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="d-block fw-semibold fs-6 mb-5">Avatar</label>
+                                                <!--end::Label-->
+                                                <!--begin::Image placeholder-->
+                                                <style>
+                                                    .image-input-placeholder {
+                                                        background-image: url('assets/media/svg/files/blank-image.svg');
+                                                    }
+
+                                                    [data-bs-theme="dark"] .image-input-placeholder {
+                                                        background-image: url('assets/media/svg/files/blank-image-dark.svg');
+                                                    }
+                                                </style>
+                                                <!--end::Image placeholder-->
+                                                <!--begin::Image input-->
+                                                <div class="image-input image-input-outline image-input-placeholder"
+                                                    data-kt-image-input="true">
+                                                    <!--begin::Preview existing avatar-->
+                                                    <div class="image-input-wrapper w-125px h-125px"
+                                                        style="background-image: url(assets/media/avatars/300-6.jpg);">
+                                                    </div>
+                                                    <!--end::Preview existing avatar-->
+                                                    <!--begin::Label-->
+                                                    <label
+                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                        data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                                                        title="Change avatar">
+                                                        <i class="ki-outline ki-pencil fs-7"></i>
+                                                        <!--begin::Inputs-->
+                                                        <input type="file" name="avatar"
+                                                            accept=".png, .jpg, .jpeg" />
+                                                        <input type="hidden" name="avatar_remove" />
+                                                        <!--end::Inputs-->
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Cancel-->
+                                                    <span
+                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                                        title="Cancel avatar">
+                                                        <i class="ki-outline ki-cross fs-2"></i>
+                                                    </span>
+                                                    <!--end::Cancel-->
+                                                    <!--begin::Remove-->
+                                                    <span
+                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                                        title="Remove avatar">
+                                                        <i class="ki-outline ki-cross fs-2"></i>
+                                                    </span>
+                                                    <!--end::Remove-->
+                                                </div>
+                                                <!--end::Image input-->
+                                                <!--begin::Hint-->
+                                                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                                <!--end::Hint-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-semibold fs-6 mb-2">Full Name</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="user_name"
+                                                    class="form-control form-control-solid mb-3 mb-lg-0"
+                                                    placeholder="Full name" value="Emma Smith" />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="email" name="user_email"
+                                                    class="form-control form-control-solid mb-3 mb-lg-0"
+                                                    placeholder="example@domain.com" value="smith@kpmg.com" />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-semibold fs-6 mb-5">Role</label>
+                                                <!--end::Label-->
+                                                <!--begin::Roles-->
+                                                <!--begin::Input row-->
+                                                <div class="d-flex fv-row">
+                                                    <!--begin::Radio-->
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="user_role"
+                                                            type="radio" value="0"
+                                                            id="kt_modal_update_role_option_0" checked='checked' />
+                                                        <!--end::Input-->
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label"
+                                                            for="kt_modal_update_role_option_0">
+                                                            <div class="fw-bold text-gray-800">Administrator</div>
+                                                            <div class="text-gray-600">Best for business owners and company
+                                                                administrators</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Radio-->
+                                                </div>
+                                                <!--end::Input row-->
+                                                <div class='separator separator-dashed my-5'></div>
+                                                <!--begin::Input row-->
+                                                <div class="d-flex fv-row">
+                                                    <!--begin::Radio-->
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="user_role"
+                                                            type="radio" value="1"
+                                                            id="kt_modal_update_role_option_1" />
+                                                        <!--end::Input-->
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label"
+                                                            for="kt_modal_update_role_option_1">
+                                                            <div class="fw-bold text-gray-800">Developer</div>
+                                                            <div class="text-gray-600">Best for developers or people
+                                                                primarily using the API</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Radio-->
+                                                </div>
+                                                <!--end::Input row-->
+                                                <div class='separator separator-dashed my-5'></div>
+                                                <!--begin::Input row-->
+                                                <div class="d-flex fv-row">
+                                                    <!--begin::Radio-->
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="user_role"
+                                                            type="radio" value="2"
+                                                            id="kt_modal_update_role_option_2" />
+                                                        <!--end::Input-->
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label"
+                                                            for="kt_modal_update_role_option_2">
+                                                            <div class="fw-bold text-gray-800">Analyst</div>
+                                                            <div class="text-gray-600">Best for people who need full access
+                                                                to analytics data, but don't need to update business
+                                                                settings</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Radio-->
+                                                </div>
+                                                <!--end::Input row-->
+                                                <div class='separator separator-dashed my-5'></div>
+                                                <!--begin::Input row-->
+                                                <div class="d-flex fv-row">
+                                                    <!--begin::Radio-->
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="user_role"
+                                                            type="radio" value="3"
+                                                            id="kt_modal_update_role_option_3" />
+                                                        <!--end::Input-->
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label"
+                                                            for="kt_modal_update_role_option_3">
+                                                            <div class="fw-bold text-gray-800">Support</div>
+                                                            <div class="text-gray-600">Best for employees who regularly
+                                                                refund payments and respond to disputes</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Radio-->
+                                                </div>
+                                                <!--end::Input row-->
+                                                <div class='separator separator-dashed my-5'></div>
+                                                <!--begin::Input row-->
+                                                <div class="d-flex fv-row">
+                                                    <!--begin::Radio-->
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="user_role"
+                                                            type="radio" value="4"
+                                                            id="kt_modal_update_role_option_4" />
+                                                        <!--end::Input-->
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label"
+                                                            for="kt_modal_update_role_option_4">
+                                                            <div class="fw-bold text-gray-800">Trial</div>
+                                                            <div class="text-gray-600">Best for people who need to preview
+                                                                content data, but don't need to make any updates</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Radio-->
+                                                </div>
+                                                <!--end::Input row-->
+                                                <!--end::Roles-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Scroll-->
+                                        <!--begin::Actions-->
+                                        <div class="text-center pt-15">
+                                            <button type="reset" class="btn btn-light me-3"
+                                                data-kt-users-modal-action="cancel">Discard</button>
+                                            <button type="submit" class="btn btn-primary"
+                                                data-kt-users-modal-action="submit">
+                                                <span class="indicator-label">Submit</span>
+                                                <span class="indicator-progress">Please wait...
+                                                    <span
+                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                            </button>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Modal body-->
+                            </div>
+                            <!--end::Modal content-->
+                        </div>
+                        <!--end::Modal dialog-->
+                    </div>
+                    <!--end::Modal - Add task-->
                 </div>
+                <!--end::Card toolbar-->
             </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body py-4">
+                <!--begin::Table-->
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="w-10px pe-2">
+                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                    <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                        data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+                                </div>
+                            </th>
+                            <th class="min-w-125px">No</th>
+                            <th class="min-w-125px">Tanggal</th>
+                            <th class="min-w-125px">Jenis Barang</th>
+                            <th class="min-w-125px">QTY</th>
+                            <th class="min-w-125px">Harga Satuan</th>
+                            <th class="min-w-125px">Subtotal</th>
+                            <th class="text-end min-w-100px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold">
+                        @foreach ($pengeluaran as $index => $item)
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->tgl_pengeluaran }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->nama_barang_keluar }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->jumlah_barang_keluar }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->harga_satuan }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->subtotal }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-outline ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo39/dist/apps/user-management/users/view.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-users-table-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                                {{-- <td>
+                                    <a href="{{ url('/pengeluaran-admin/' . $item->id . 'edit/{id}') }}"
+                                        class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ url('/pengeluaran-admin' . $item->id) }}" method="post"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                    </form>Hapus</button>
+                                </td> --}}
+                            </tr>
+                        @endforeach
+                        
+                    </tbody>
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Card body-->
         </div>
+        <!--end::Card-->
     </div>
+    <!--end::Content container-->
 @endsection

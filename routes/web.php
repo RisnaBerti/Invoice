@@ -25,6 +25,11 @@ use App\Http\Controllers\Admin\PengeluaranAdminController;
 
 $controller_path = 'App\Http\Controllers';
 
+// Route::get('/', function () { return view('content', 
+//     ['title' => 'Dashboard']
+
+// ); });
+
 Route::get('/', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -95,7 +100,7 @@ Route::controller(PengeluaranAdminController::class)->group(function () {
     Route::get('/pengeluaran-admin/create', 'create')->name('create-pengeluaran-admin');
     Route::post('/pengeluaran-admin/store', 'store')->name('store-pengeluaran-admin');
     Route::get('/pengeluaran-admin/edit/{id}', 'edit')->name('edit-pengeluaran-admin');
-    Route::put('/pengeluaran-admin/update/{id}', 'update')->name('update-pengeluaran-admin');
+    Route::post('/pengeluaran-admin/update', 'update')->name('update-pengeluaran-admin');
     Route::delete('/pengeluaran-admin/delete/{id}', 'delete')->name('delete-pengeluaran-admin');
 });
 

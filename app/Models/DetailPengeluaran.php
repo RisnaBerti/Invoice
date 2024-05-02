@@ -12,7 +12,6 @@ class DetailPengeluaran extends Model
     protected $table = 'detail_pengeluaran';
     protected $primaryKey = 'id_detail_pengeluaran';
     protected $fillable = [
-        'id_detail_pengeluaran',
         'id_pengeluaran',
         'nama_barang_keluar',
         'jumlah_barang_keluar',

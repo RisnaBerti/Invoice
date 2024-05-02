@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PemasukanOwnerController extends Controller
 {
     //fungsi view pemasukan owner
-    public function pemasukan_owner()
+    public function index()
     {
         return view(
             'owner.pemasukan-owner',

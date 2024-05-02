@@ -12,7 +12,6 @@ class Pengeluaran extends Model
     protected $table = 'pengeluaran';
     protected $primaryKey = 'id_pengeluaran';
     protected $fillable = [
-        'id_pengeluaran',
         'id_user',
         'tgl_pengeluaran'
     ];
@@ -21,9 +20,14 @@ class Pengeluaran extends Model
     //     return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
     // }
 
-    public function detailPengeluaran() {
+    public function detail()
+    {
         return $this->hasMany(DetailPengeluaran::class, 'id_pengeluaran', 'id_pengeluaran');
     }
+
+    // public function detailPengeluaran() {
+    //     return $this->hasMany(DetailPengeluaran::class, 'id_pengeluaran', 'id_pengeluaran');
+    // }
 
     public function user() {
         return $this->belongsTo(User::class, 'id_user', 'id_user');

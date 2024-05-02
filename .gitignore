@@ -17,3 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 public/template
+public/demo39
+resources/views/admin2
+resources/views/owner2
+resources/views/layouts2 

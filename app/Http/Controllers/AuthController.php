@@ -35,7 +35,7 @@ class AuthController extends Controller
             if(Auth::user()->is_aktif == 1){
 
                //cek role
-                if(Auth::user()->role == 'admin'){
+                if(Auth::user()->id_role == 2){
                     return redirect()->route('dashboard-admin');     
                 }else{                   
                     return redirect()->route('dashboard-owner');                    
@@ -48,7 +48,6 @@ class AuthController extends Controller
         }else{
             return redirect('/login')->with('error', 'Email atau Password Salah!');
         }
-
     }
 
     //fungsi logout
