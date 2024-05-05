@@ -16,7 +16,8 @@ class DetailPengeluaran extends Model
         'nama_barang_keluar',
         'jumlah_barang_keluar',
         'harga_satuan',
-        'subtotal'
+        'subtotal',
+        'total'
     ];
 
 

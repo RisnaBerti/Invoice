@@ -82,7 +82,7 @@
                         <!--begin::Form-->
                         <form method="post" action="{{ route('login') }}" class="form w-100" novalidate="novalidate">
                             {{-- <form method="post" action="{{ route('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url=""  > --}}
-                            {{ csrf_field() }}
+                            {{-- {{ csrf_field() }} --}}
                             @csrf
                             <!--begin::Body-->
                             <div class="card-body">

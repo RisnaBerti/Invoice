@@ -15,12 +15,15 @@ class DetailPemasukan extends Model
         'id_detail_pemasukan',
         'id_pemasukan',
         'id_mitra',
-        'janis_pemasukan',
+        'jenis_pemasukan',
         'nama_barang_masuk',
         'harga_barang_masuk',
+        'jumlah_barang_masuk',
+        'subtotal',
+        'total_harga',
         'saldo',
-        'keterangan',
-        'subtotal'
+        'bayar',
+        'keterangan'
     ];
 
     public function pemasukan()

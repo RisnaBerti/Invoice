@@ -14,14 +14,15 @@ class Pemasukan extends Model
     protected $fillable = [
         'id_pemasukan',
         'tgl_pemasukan',
-        'id_user'
+        'id_user',
+        'total_harga'
     ];
 
     // public function mitra() {
     //     return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
     // }
 
-    public function detailPemasukan() {
+    public function detail() {
         return $this->hasMany(DetailPemasukan::class, 'id_pemasukan', 'id_pemasukan');
     }
 

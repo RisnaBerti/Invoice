@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.index-owner')
 @section('content')
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-fluid">
@@ -84,7 +84,7 @@
                         <!--end::Export-->
                         <!--begin::Add Data-->
                         <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_new_target"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a>
+                            data-bs-target="#kt_modal_add_pemasukan"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a>
                         <!--end::Add Data-->
                         <!--begin::Add user-->
                         {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -186,9 +186,10 @@
 
 
                     <!--begin::Modal - Tambah Data -->
-                    <div class="modal fade" id="kt_modal_new_target" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                    <div class="modal fade" id="kt_modal_add_pemasukan" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" aria-hidden="true">
                         <!--begin::Modal dialog-->
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
                             <!--begin::Modal content-->
                             <div class="modal-content rounded">
                                 <!--begin::Modal header-->
@@ -203,17 +204,16 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
-                                    <form id="kt_modal_new_target_form" class="form"
-                                        action="{{ route('store-pengeluaran-admin') }}" method="POST"
-                                        id="pengeluaranForm">
+                                    <form id="kt_modal_add_pemasukan_form" class="form"
+                                        action="{{ route('store-pemasukan-owner') }}" method="POST" id="pemasukanForm">
                                         @csrf
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
                                             <!--begin::Title-->
-                                            <h1 class="mb-3">FORM PENGELUARAN</h1>
+                                            <h1 class="mb-3">FORM PEMASUKAN</h1>
                                             <!--end::Title-->
                                             <!--begin::Description-->
-                                            <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
+                                            <div class="text-muted fw-semibold fs-5">Detail Pemasukan
                                                 <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
                                             </div>
                                             <!--end::Description-->
@@ -222,14 +222,14 @@
 
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-8 fv-row">
-                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pengeluaran</label>
+                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center">
                                                 <!--begin::Icon-->
                                                 <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
                                                 <!--end::Icon-->
                                                 <!--begin::Datepicker-->
-                                                <input type="date" name="tgl_pengeluaran" id="tgl_pengeluaran"
+                                                <input type="date" name="tgl_pemasukan" id="tgl_pemasukan"
                                                     value="{{ now()->format('Y-m-d') }}"
                                                     class="form-control form-control-solid ps-12"
                                                     placeholder="Select a date" name="due_date" />
@@ -240,62 +240,99 @@
                                         <!--end::Input group-->
 
                                         <div class="form-group">
-                                            <label>Detail Pengeluaran:</label>
+                                            <label>Detail Pemasukan:</label>
                                             <table id="detailTable" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th>Jenis Barang</th>
+                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
-                                                        <th>Jumlah Barang</th>
+                                                        <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
+                                                        <th>Pembayaran</th>
+                                                        <th>Saldo</th>
+                                                        <th>Keterangan</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total" class="form-control"
-                                                                readonly></th>
+                                                        <th colspan="8" class="text-end">Total:</th>
+                                                        <th><input type="text" id="total_harga" name="total_harga"
+                                                                class="form-control" required readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
                                                     <tr>
-                                                        <td><input type="text" name="detail[0][nama_barang_keluar]"
-                                                                class="form-control" required></td>
-                                                        <td><input type="number" name="detail[0][jumlah_barang_keluar]"
-                                                                class="form-control jumlah_barang_keluar" required></td>
-                                                        <td><input type="text" name="detail[0][harga_satuan]"
-                                                                class="form-control harga_satuan" required>
+                                                        <td>
+                                                            <input type="text" name="detail[0][jenis_pemasukan]"
+                                                                id="detail[0][jenis_pemasukan]"
+                                                                class="form-control jenis_pemasukan" required>
                                                         </td>
-                                                        {{-- <td>
-                                                            <select name="detail[0][tipe_saldo]" class="form-control tipe-saldo">
+                                                        <td>
+                                                            <select name="detail[0][id_mitra]"
+                                                                class="form-control id_mitra" id="id_mitra">
+                                                                @foreach ($mitra as $data)
+                                                                    <option value="{{ $data->id_mitra }}">
+                                                                        {{ $data->nama_mitra }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][nama_barang_masuk]"
+                                                                id="detail[0][nama_barang_masuk]"
+                                                                class="form-control nama_barang_masuk" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" name="detail[0][jumlah_barang_masuk]"
+                                                                id="detail[0][jumlah_barang_masuk]"
+                                                                class="form-control jumlah_barang_masuk" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][harga_barang_masuk]"
+                                                                id="detail[0][harga_barang_masuk]"
+                                                                class="form-control harga_barang_masuk" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][subtotal]"
+                                                                id="detail[0][subtotal]" class="form-control subtotal"
+                                                                required readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][bayar]"
+                                                                id="detail[0][bayar]" class="form-control bayar" required>
+                                                        </td>
+                                                        <td>
+                                                            <select name="detail[0][saldo]" class="form-control saldo"
+                                                                id="saldo">
                                                                 <option value="debet">Debet</option>
                                                                 <option value="kredit">Kredit</option>
                                                             </select>
-                                                        </td> --}}
-
-                                                        {{-- <td><input type="text" name="detail[0][saldo]" class="form-control saldo" required></td> --}}
-                                                        <td><input type="text" name="detail[0][subtotal]"
-                                                                class="form-control subtotal" required readonly></td>
+                                                        </td>
+                                                        <td><input type="text" name="detail[0][keterangan]"
+                                                                id="detail[0][keterangan]" class="form-control keterangan"
+                                                                required>
+                                                        </td>
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn me-2">
                                                                 <i class="fas fa-plus-circle text-success"></i>
                                                             </a>
                                                             <a href="javascript:void(0);" class="remove-btn">
-                                                                <i class="bi bi-trash text-danger"></i>
+                                                                <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
-
-
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
 
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="reset" id="kt_modal_new_target_cancel"
+                                            <button type="reset" id="kt_modal_add_pemasukan_cancel"
                                                 class="btn btn-light me-3">Cancel</button>
-                                            <button type="submit" id="kt_modal_new_target_submit"
+                                            <button type="submit" id="kt_modal_add_pemasukan_submit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
                                                 {{-- <span class="indicator-progress">Please wait...
@@ -319,7 +356,7 @@
                     <div class="modal fade" id="kt_modal_edit_data" tabindex="-1" data-bs-backdrop="static"
                         data-bs-keyboard="false" aria-hidden="true">
                         <!--begin::Modal dialog-->
-                        <div class="modal-dialog modal-dialog-centered mw-650px">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
                             <!--begin::Modal content-->
                             <div class="modal-content rounded">
                                 <!--begin::Modal header-->
@@ -334,34 +371,35 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
-                                    <form id="kt_modal_edit_data_form" class="form" action="{{ route('update-pengeluaran-admin') }}" method="POST" id="editPengeluaranForm">
+                                    <form id="kt_modal_edit_data_form" class="form"
+                                        action="{{ route('update-pemasukan-owner') }}" method="POST"
+                                        id="editPemasukanForm">
                                         @csrf
                                         {{-- @method('PUT') --}}
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
                                             <!--begin::Title-->
-                                            <h1 class="mb-3">FORM PENGELUARAN</h1>
+                                            <h1 class="mb-3">FORM PEMASUKAN</h1>
                                             <!--end::Title-->
                                             <!--begin::Description-->
-                                            <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
+                                            <div class="text-muted fw-semibold fs-5">Detail Pemasukan
                                                 <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
-                                        <input type="text" name="id_pengeluaran_edit" id="id_pengeluaran_edit">
+                                        <input type="text" name="id_pemasukan_edit" id="id_pemasukan_edit">
                                         {{-- <input type="hidden" name="id_user" id="id_user"  value="{{ Auth::user()->id }}"> --}}
                                         <div class="d-flex flex-column mb-8 fv-row">
-                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pengeluaran</label>
+                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center">
                                                 <!--begin::Icon-->
                                                 <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
                                                 <!--end::Icon-->
                                                 <!--begin::Datepicker-->
-                                                <input type="date" name="tgl_pengeluaran_edit"
-                                                    id="tgl_pengeluaran_edit"
+                                                <input type="date" name="tgl_pemasukan_edit" id="tgl_pemasukan_edit"
                                                     class="form-control form-control-solid ps-12"
                                                     placeholder="Select a date" required />
                                                 <!--end::Datepicker-->
@@ -371,72 +409,87 @@
                                         <!--end::Input group-->
                                         <!--begin::Detail Pemasukan-->
                                         <div class="form-group">
-                                            <label>Detail Pengeluaran:</label>
+                                            <label>Detail Pemasukan:</label>
                                             <table id="detailTableEdit" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th>Jenis Barang</th>
+                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
-                                                        <th>Jumlah Barang</th>
+                                                        <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
+                                                        <th>Pembayaran</th>
+                                                        <th>Saldo</th>
+                                                        <th>Keterangan</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_edit" class="form-control"
-                                                                readonly></th>
+                                                        <th colspan="8" class="text-end">Total:</th>
+                                                        <th><input type="text" id="total_harga_edit" name="total_harga_edit" class="form-control total_harga_edit" readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
                                                     <tr>
-                                                        <td><input type="text"
-                                                                name="detail[0][nama_barang_keluar_edit]"
-                                                                id="detail[0][nama_barang_keluar_edit]"
-                                                                class="form-control nama_barang_keluar_edit" required></td>
+                                                        <td><input type="text" name="detail[0][jenis_pemasukan_edit]"
+                                                                id="detail[0][jenis_pemasukan_edit]"
+                                                                class="form-control jenis_pemasukan_edit" required></td>
+                                                        <td><input type="text" name="detail[0][id_mitra_edit]"
+                                                                id="detail[0][id_mitra_edit]"
+                                                                class="form-control id_mitra_edit" required></td>
+                                                        <td><input type="text" name="detail[0][nama_barang_masuk_edit]"
+                                                                id="detail[0][nama_barang_masuk_edit]"
+                                                                class="form-control nama_barang_masuk_edit" required></td>
                                                         <td><input type="number"
-                                                                name="detail[0][jumlah_barang_keluar_edit]"
-                                                                id="detail[0][jumlah_barang_keluar_edit]"
-                                                                class="form-control jumlah_barang_keluar_edit" required>
+                                                                name="detail[0][jumlah_barang_masuk_edit]"
+                                                                id="detail[0][jumlah_barang_masuk_edit]"
+                                                                class="form-control jumlah_barang_masuk_edit" required>
                                                         </td>
-                                                        <td><input type="text" name="detail[0][harga_satuan_edit]"
-                                                                id="detail[0][harga_satuan_edit]"
-                                                                class="form-control harga_satuan_edit" required>
+                                                        <td><input type="text"
+                                                                name="detail[0][harga_barang_masuk_edit]"
+                                                                id="detail[0][harga_barang_masuk_edit]"
+                                                                class="form-control harga_barang_masuk_edit" required>
                                                         </td>
-                                                        {{-- <td>
-                                                         <select name="detail[0][tipe_saldo]" class="form-control tipe-saldo">
-                                                             <option value="debet">Debet</option>
-                                                             <option value="kredit">Kredit</option>
-                                                         </select>
-                                                     </td> --}}
-
-
-
-                                                        {{-- <td><input type="text" name="detail[0][saldo]" class="form-control saldo" required></td> --}}
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
                                                                 class="form-control subtotal_edit" required readonly></td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][bayar_edit]"
+                                                                id="detail[0][bayar_edit]" class="form-control bayar_edit"
+                                                                required>
+                                                        </td>
+                                                        <td>
+                                                            <select name="detail[0][saldo]" class="form-control saldo"
+                                                                id="saldo">
+                                                                {{-- <option value="debet"></option> --}}
+                                                                {{-- <option value="kredit">Kredit</option> --}}
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" name="detail[0][keterangan_edit]"
+                                                                id="detail[0][keterangan_edit]"
+                                                                class="form-control keterangan_edit" required>
+                                                        </td>
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn-edit me-2">
                                                                 <i class="fas fa-plus-circle text-success"></i>
                                                             </a>
                                                             <a href="javascript:void(0);" class="remove-btn-edit">
-                                                                <i class="bi bi-trash text-danger"></i>
+                                                                <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
                                         <!--end::Detail Pemasukan-->
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="reset" id="kt_modal_new_target_cancel"
+                                            <button type="reset" id="kt_modal_add_pemasukan_cancel"
                                                 class="btn btn-light me-3">Cancel</button>
-                                            <button type="submit" id="kt_modal_new_target_submit_edit"
+                                            <button type="submit" id="kt_modal_add_pemasukan_submit_edit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
                                             </button>
@@ -475,14 +528,18 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Jenis Barang</th>
+                            <th>Mitra</th>
+                            <th>Nama Barang</th>
                             <th>QTY</th>
                             <th>Harga Satuan</th>
                             <th>Subtotal</th>
+                            <th>Saldo</th>
+                            <th>Keterangan</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
-                        @foreach ($pengeluaran as $index => $item)
+                        @foreach ($pemasukan as $index => $item)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -490,25 +547,39 @@
                                     </div>
                                 </td>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->tgl_pengeluaran }}</td>
+                                <td>{{ $item->tgl_pemasukan }}</td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->nama_barang_keluar }}</li>
+                                            <li>{{ $detail->jenis_pemasukan }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->jumlah_barang_keluar }}</li>
+                                            <li>{{ $detail->id_mitra }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->harga_satuan }}</li>
+                                            <li>{{ $detail->nama_barang_masuk }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->jumlah_barang_masuk }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->harga_barang_masuk }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -520,6 +591,20 @@
                                     </ul>
                                 </td>
                                 <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->saldo }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->keterangan }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td class="text-end">
                                     <a href="#"
                                         class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                         data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -529,29 +614,34 @@
                                         data-kt-menu="true">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_pengeluaran }}">Edit</a>
+                                            <a href="#" class="menu-link px-3 edit-row" data-bs-toggle="modal"
+                                                data-bs-target="#kt_modal_edit_data"
+                                                data-id="{{ $item->id_pemasukan }}">Edit</a>
                                         </div>
-                                        
+
                                         {{-- <div class="menu-item px-3">
-                                            <a href="{{ url('edit-pengeluaran-admin/' . $item->id_pengeluaran) }}" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data">Edit</a>
+                                            <a href="{{ url('edit-pemasukan-owner/' . $item->id_pemasukan) }}" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data">Edit</a>
                                         </div> --}}
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
-                                        <form action="{{ route('delete-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}" method="POST">
+                                        <form
+                                            action="{{ route('delete-pemasukan-owner', ['id' => $item->id_pemasukan]) }}"
+                                            method="POST">
                                             @csrf
-                                            <button type="submit" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</button>
+                                            <button type="submit" class="menu-link px-3"
+                                                data-kt-users-table-filter="delete_row">Delete</button>
                                         </form>
                                         {{-- <div class="menu-item px-3">
-                                            <a href="{{ route('delete-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}" @method(POST) class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                            <a href="{{ route('delete-pemasukan-owner', ['id' => $item->id_pemasukan]) }}" @method(POST) class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
                                         </div> --}}
                                         <!--end::Menu item-->
                                     </div>
                                     <!--end::Menu-->
                                 </td>
                                 {{-- <td>
-                                    <a href="{{ url('/pengeluaran-admin/' . $item->id . 'edit/{id}') }}"
+                                    <a href="{{ url('/pemasukan-owner/' . $item->id . 'edit/{id}') }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ url('/pengeluaran-admin' . $item->id) }}" method="post"
+                                    <form action="{{ url('/pemasukan-owner' . $item->id) }}" method="post"
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
@@ -577,17 +667,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        //Modal Untuk Tambah Data Pengeluaran
+        //Modal Untuk Tambah Data Pemasukan
         $(document).ready(function() {
-            // Hitung total keseluruhan
+            // Hitung total_harga keseluruhan
             function calculateGrandTotal() {
                 var grandTotal = 0;
                 $('.subtotal').each(function() {
                     var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
                     grandTotal += subtotal;
                 });
-                $('#total').val(formatRupiah(grandTotal));
+                // Periksa apakah elemen dengan id 'total_harga' ada
+                // row.find('.total_harga').val(formatRupiah(grandTotal));
+                if ( $('#total_harga').length > 0) {
+                    $('#total_harga').val(formatRupiah(grandTotal));
+                }
             }
+
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
             $(document).on('change', '.subtotal', function() {
@@ -601,51 +696,57 @@
 
             $(document).on('click', '.add-btn', function() {
                 var rowCount = $('#detailTable tbody tr').length;
-                var row = '<tr>' +
+                var row = '<tr>' + '<td><input type="text" name="detail[' + rowCount +
+                    '][jenis_pemasukan]" class="form-control jenis_pemasukan" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][nama_barang_keluar]" class="form-control" required></td>' +
+                    '][id_mitra]" class="form-control id_mitra" required></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][nama_barang_masuk]" class="form-control nama_barang_masuk" required></td>' +
                     '<td><input type="number" name="detail[' + rowCount +
-                    '][jumlah_barang_keluar]" class="form-control jumlah_barang_keluar" required></td>' +
+                    '][jumlah_barang_masuk]" class="form-control jumlah_barang_masuk" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][harga_satuan]" class="form-control harga_satuan" required></td>' +
+                    '][harga_barang_masuk]" class="form-control harga_barang_masuk" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal]" class="form-control subtotal" required readonly></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][bayar]" class="form-control bayar" required></td>' +
+                    '<td><select name="detail[' + rowCount +
+                    '][saldo]" class="form-control saldo" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][keterangan]" class="form-control keterangan" required></td>' +
                     '<td class="add-remove text-end">' +
                     '<a href="javascript:void(0);" class="add-btn me-2">' +
                     '<i class="fas fa-plus-circle text-success"></i>' +
                     '</a>' +
                     '<a href="javascript:void(0);" class="remove-btn">' +
-                    '<i class="bi bi-trash text-danger"></i>' +
+                    '<i class="fas fa-trash text-danger"></i>' +
                     '</a>' +
-                    '</td>' +
-                    '</tr>';
+                    '</td>';
                 $('#detailTable tbody').append(row);
             });
-
-
 
             // Hapus baris pada tabel
             $(document).on('click', '.remove-btn', function() {
                 $(this).closest('tr').remove();
             });
 
-
-            // Hitung total saat jumlah_barang_keluar atau harga_satuan berubah
-            $(document).on('change', '.jumlah_barang_keluar, .harga_satuan', function() {
+            // Hitung total_harga saat jumlah_barang_masuk atau harga_barang_masuk berubah
+            $(document).on('change', '.jumlah_barang_masuk, .harga_barang_masuk', function() {
                 calculateTotal($(this).closest('tr'));
             });
 
-            // Fungsi untuk menghitung total
+            // Fungsi untuk menghitung total_harga
             function calculateTotal(row) {
-                var jumlah_barang_keluar = parseInt(row.find('.jumlah_barang_keluar').val()) || 0;
-                var harga_satuan = parseInt(row.find('.harga_satuan').val().replace(/\./g, '').replace('Rp ',
-                    '')) || 0; // Menghapus titik dan 'Rp' dari harga_satuan
-                var total = jumlah_barang_keluar * harga_satuan;
-                row.find('.subtotal').val(formatRupiah(total));
+                var jumlah_barang_masuk = parseInt(row.find('.jumlah_barang_masuk').val()) || 0;
+                var harga_barang_masuk = parseInt(row.find('.harga_barang_masuk').val().replace(/\./g, '').replace(
+                    'Rp ',
+                    '')) || 0; // Menghapus titik dan 'Rp' dari harga_barang_masuk
+                var total_harga = jumlah_barang_masuk * harga_barang_masuk;
+                row.find('.subtotal').val(formatRupiah(total_harga));
             }
 
             // Format Rupiah saat mengetikkan angka
-            $(document).on('keyup', '.harga_satuan', function() {
+            $(document).on('keyup', '.harga_barang_masuk', function() {
                 $(this).val(formatRupiah($(this).val().replace(/\./g, '')));
             });
 
@@ -668,7 +769,7 @@
             }
 
             // Submit form
-            $('#pengeluaranForm').submit(function() {
+            $('#pemasukanForm').submit(function() {
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
 
@@ -676,44 +777,55 @@
     </script>
 
     <script>
-        //Modal Untuk Edit Data Pengeluaran
+        //Modal Untuk Edit Data Pemasukan
         $(document).ready(function() {
-            //Modal Untuk Edit Data Pengeluaran
+            //Modal Untuk Edit Data Pemasukan
             // Menampilkan data dalam modal saat tombol "Edit" pada baris tabel diklik
             $('#kt_table_users').on('click', '.edit-row', function() {
                 var id = $(this).data('id');
-                var url = "{{ route('edit-pengeluaran-admin', ':id') }}";
+                var url = "{{ route('edit-pemasukan-owner', ':id') }}";
                 url = url.replace(':id', id);
                 $.get(url, function(data) {
-                    $('#id_pengeluaran_edit').val(data.id_pengeluaran);
-                    $('#tgl_pengeluaran_edit').val(data.tgl_pengeluaran);
-                    $('#total_edit').val(data.total);
+                    $('#id_pemasukan_edit').val(data.id_pemasukan);
+                    $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
+                    $('#total_harga_edit').val(data.total_harga);
                     $('#detailTableEdit tbody').empty();
                     data.detail.forEach(function(detail, index) {
-                        var row = '<tr>' +
+                        var row = '<tr>' + '<td><input type="text" name="detail[' + index +
+                            '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" value="' +
+                            detail.jenis_pemasukan + '" required></td>' +
                             '<td><input type="text" name="detail[' + index +
-                            '][nama_barang_keluar_edit]" class="form-control" value="' +
-                            detail.nama_barang_keluar +
+                            '][id_mitra_edit]" class="form-control id_mitra_edit" value="' +
+                            detail.id_mitra +
                             '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" value="' +
+                            detail.nama_barang_masuk + '" required></td>' +
                             '<td><input type="number" name="detail[' + index +
-                            '][jumlah_barang_keluar_edit]" class="form-control jumlah_barang_keluar_edit" value="' +
-                            detail.jumlah_barang_keluar + '" required></td>' +
+                            '][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" value="' +
+                            detail.jumlah_barang_masuk + '" required></td>' +
                             '<td><input type="text" name="detail[' + index +
-                            '][harga_satuan_edit]" class="form-control harga_satuan_edit" value="' +
-                            detail.harga_satuan +
-                            '" required></td>' +
+                            '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" value="' +
+                            detail.harga_barang_masuk + '" required></td>' +
                             '<td><input type="text" name="detail[' + index +
                             '][subtotal_edit]" class="form-control subtotal_edit" value="' +
                             detail.subtotal +
                             '" required readonly></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][bayar_edit]" class="form-control bayar_edit" value="' +
+                            detail.bayar +
+                            '" required></td>' +
+                            '" required readonly></td>' +
+                            '<td><select name="detail[' + index +
+                            '][saldo_edit]" class="form-control saldo_edit" required ><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][keterangan_edit]" class="form-control keterangan_edit" value="' +
+                            detail.keterangan +
+                            '" required></td>' +
                             '<td class="add-remove text-end">' +
-                            '<a href="javascript:void(0);" class="add-btn-edit me-2">' +
-                            '<i class="fas fa-plus-circle text-success"></i>' +
-                            '</a>' +
-                            '<a href="javascript:void(0);" class="remove-btn-edit">' +
-                            '<i class="fas fa-trash text-danger"></i>' +
-                            '</a>' +
-                            '</td>';
+                            '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
+                            '<a href="javascript:void(0);" class="remove-btn-edit"><i class="bi bi-trash text-danger"></i></a>' +
+                            '</td>' + '</tr>';
                         $('#detailTableEdit').append(row);
                     });
 
@@ -725,30 +837,33 @@
             });
 
             //save data edit post controller update
-            $('#kt_modal_new_target_submit_edit').click(function() {
-                // var id_pengeluaran = $('#id_pengeluaran').val();
-                var tgl_pengeluaran = $('#tgl_pengeluaran_edit').val();
-                // var total = $('#total_edit').val();
+            $('#kt_modal_add_pemasukan_submit_edit').click(function() {
+                // var id_pemasukan = $('#id_pemasukan').val();
+                var tgl_pemasukan = $('#tgl_pemasukan_edit').val();
+                // var total_harga = $('#total_harga_edit').val();
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
-                    var nama_barang_keluar_edit = $(this).find('.nama_barang_keluar_edit').val();
-                    var jumlah_barang_keluar_edit = $(this).find('.jumlah_barang_keluar_edit').val();
-                    var harga_satuan_edit = $(this).find('.harga_satuan_edit').val();
-                    var subtotal_edit = $(this).find('.subtotal_edit').val();
                     detail.push({
-                        nama_barang_keluar_edit: nama_barang_keluar_edit,
-                        jumlah_barang_keluar_edit: jumlah_barang_keluar_edit,
-                        harga_satuan_edit: harga_satuan_edit,
-                        subtotal_edit: subtotal_edit
+                        jenis_pemasukan: $(this).find('.jenis_pemasukan_edit').val(),
+                        id_mitra: $(this).find('.id_mitra_edit').val(),
+                        nama_barang_masuk: $(this).find('.nama_barang_masuk_edit').val(),
+                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit')
+                            .val(),
+                        harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
+                        subtotal: $(this).find('.subtotal_edit').val(),
+                        bayar: $(this).find('.bayar_edit').val(),
+                        total_harga: $(this).find('.total_harga_edit').val(),
+                        saldo: $(this).find('.saldo_edit').val(),
+                        keterangan: $(this).find('.keterangan_edit').val()
                     });
                 });
                 $.ajax({
-                    url: "{{ route('update-pengeluaran-admin') }}",
+                    url: "{{ route('update-pemasukan-owner') }}",
                     type: "POST",
                     data: {
-                        // id_pengeluaran: id_pengeluaran,
-                        tgl_pengeluaran: tgl_pengeluaran_edit,
-                        // total: total,
+                        // id_pemasukan: id_pemasukan,
+                        tgl_pemasukan: tgl_pemasukan_edit,
+                        // total_harga: total_harga,
                         detail: detail
                     },
                     success: function(response) {
@@ -757,35 +872,44 @@
                         location.reload();
                     }
                 });
-            });          
+            });
 
-            // Hapus baris pada tabel Detail Barang Keluar
+
+
+            // Hapus baris pada tabel Detail Barang Masuk
             $("#detailTableEdit").on('click', '.remove-btn-edit', function() {
                 $(this).closest('tr').remove();
                 calculateGrandTotal();
             });
+
+
 
             //klik add button pada tabel
             $(document).on('click', '.add-btn-edit', function() {
                 var rowCount = $('#detailTableEdit tbody tr').length;
                 var row = '<tr>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][nama_barang_keluar_edit]" class="form-control" required></td>' +
-                    '<td><input type="number" name="detail[' + rowCount +
-                    '][jumlah_barang_keluar_edit]" class="form-control jumlah_barang_keluar_edit" required></td>' +
+                    '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][harga_satuan_edit]" class="form-control harga_satuan_edit" required></td>' +
+                    '][id_mitra_edit]" class="form-control id_mitra_edit" required></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" required></td>' +
+                    '<td><input type="number" name="detail[' + rowCount +
+                    '][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" required></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal_edit]" class="form-control subtotal_edit" required readonly></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][bayar_edit]" class="form-control bayar_edit" required></td>' +
+                    '<td><select name="detail[' + rowCount +
+                    '][saldo_edit]" class="form-control saldo_edit" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][keterangan_edit]" class="form-control keterangan_edit" required></td>' +
                     '<td class="add-remove text-end">' +
-                    '<a href="javascript:void(0);" class="add-btn-edit me-2">' +
-                    '<i class="fas fa-plus-circle text-success"></i>' +
-                    '</a>' +
-                    '<a href="javascript:void(0);" class="remove-btn-edit">' +
-                    '<i class="fas fa-trash text-danger"></i>' +
-                    '</a>' +
-                    '</td>' +
-                    '</tr>';
+                    '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
+                    '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
+                    '</td>' + '</tr>';
                 $('#detailTableEdit tbody').append(row);
             });
 
@@ -794,7 +918,7 @@
                 $(this).closest('tr').remove();
             });
 
-            // Hitung total keseluruhan
+            // Hitung total_harga keseluruhan
             function calculateGrandTotal() {
                 var grandTotal = 0;
                 $('.subtotal_edit').each(function() {
@@ -802,7 +926,7 @@
                         0;
                     grandTotal += subtotal_edit;
                 });
-                $('#total_edit').val(formatRupiah(grandTotal));
+                $('#total_harga_edit').val(formatRupiah(grandTotal));
             }
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal_edit
@@ -816,23 +940,24 @@
             });
 
 
-            // Hitung total saat jumlah_barang_keluar atau harga_satuan_edit berubah
-            $(document).on('change', '.jumlah_barang_keluar_edit, .harga_satuan_edit', function() {
+            // Hitung total_harga saat jumlah_barang_masuk atau harga_barang_masuk_edit berubah
+            $(document).on('change', '.jumlah_barang_masuk_edit, .harga_barang_masuk_edit', function() {
                 calculateTotal($(this).closest('tr'));
             });
 
-            // Fungsi untuk menghitung total
+            // Fungsi untuk menghitung total_harga
             function calculateTotal(row) {
-                var jumlah_barang_keluar_edit = parseInt(row.find('.jumlah_barang_keluar_edit').val()) || 0;
-                var harga_satuan_edit = parseInt(row.find('.harga_satuan_edit').val().replace(/\./g, '').replace(
-                    'Rp ',
-                    '')) || 0; // Menghapus titik dan 'Rp' dari harga_satuan_edit
-                var total = jumlah_barang_keluar_edit * harga_satuan_edit;
-                row.find('.subtotal_edit').val(formatRupiah(total));
+                var jumlah_barang_masuk_edit = parseInt(row.find('.jumlah_barang_masuk_edit').val()) || 0;
+                var harga_barang_masuk_edit = parseInt(row.find('.harga_barang_masuk_edit').val().replace(/\./g, '')
+                    .replace(
+                        'Rp ',
+                        '')) || 0; // Menghapus titik dan 'Rp' dari harga_barang_masuk_edit
+                var total_harga = jumlah_barang_masuk_edit * harga_barang_masuk_edit;
+                row.find('.subtotal_edit').val(formatRupiah(total_harga));
             }
 
             // Format Rupiah saat mengetikkan angka
-            $(document).on('keyup', '.harga_satuan_edit', function() {
+            $(document).on('keyup', '.harga_barang_masuk_edit', function() {
                 $(this).val(formatRupiah($(this).val().replace(/\./g, '')));
             });
 
@@ -855,7 +980,7 @@
             }
 
             // Submit form
-            $('#editPengeluaranForm').submit(function() {
+            $('#editPemasukanForm').submit(function() {
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
 
