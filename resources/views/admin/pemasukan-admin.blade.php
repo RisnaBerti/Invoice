@@ -186,7 +186,6 @@
 
 
                     <!--begin::Modal - Tambah Data -->
-
                     <div class="modal fade" id="kt_modal_add_pemasukan" tabindex="-1" data-bs-backdrop="static"
                         data-bs-keyboard="false" aria-hidden="true">
                         <!--begin::Modal dialog-->
@@ -246,19 +245,20 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Jenis Barang</th>
-                                                        <th>Mitra</th>
+                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
                                                         <th>Pembayaran</th>
+                                                        <th>Saldo</th>
                                                         <th>Keterangan</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="7" class="text-end">Total:</th>
+                                                        <th colspan="8" class="text-end">Total:</th>
                                                         <th><input type="text" id="total_harga" name="total_harga"
                                                                 class="form-control" required readonly></th>
                                                         <th></th>
@@ -272,9 +272,13 @@
                                                                 class="form-control jenis_pemasukan" required>
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="detail[0][id_mitra]"
-                                                                id="detail[0][id_mitra]" class="form-control id_mitra"
-                                                                required>
+                                                            <select name="detail[0][id_mitra]"
+                                                                class="form-control id_mitra" id="id_mitra">
+                                                                @foreach ($mitra as $data)
+                                                                    <option value="{{ $data->id_mitra }}">
+                                                                        {{ $data->nama_mitra }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="detail[0][nama_barang_masuk]"
@@ -295,6 +299,10 @@
                                                             <input type="text" name="detail[0][subtotal]"
                                                                 id="detail[0][subtotal]" class="form-control subtotal"
                                                                 required readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][bayar]"
+                                                                id="detail[0][bayar]" class="form-control bayar" required>
                                                         </td>
                                                         <td>
                                                             <select name="detail[0][saldo]" class="form-control saldo"
@@ -406,11 +414,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Jenis Barang</th>
-                                                        <th>Mitra</th>
+                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
+                                                        <th>Pembayaran</th>
                                                         <th>Saldo</th>
                                                         <th>Keterangan</th>
                                                         <th class="text-end">Action</th>
@@ -418,9 +427,8 @@
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="7" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_harga_edit"
-                                                                class="form-control" readonly></th>
+                                                        <th colspan="8" class="text-end">Total:</th>
+                                                        <th><input type="text" id="total_harga_edit" name="total_harga_edit" class="form-control total_harga_edit" readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -448,6 +456,11 @@
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
                                                                 class="form-control subtotal_edit" required readonly></td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][bayar_edit]"
+                                                                id="detail[0][bayar_edit]" class="form-control bayar_edit"
+                                                                required>
+                                                        </td>
                                                         <td>
                                                             <select name="detail[0][saldo]" class="form-control saldo"
                                                                 id="saldo">
@@ -663,8 +676,13 @@
                     var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
                     grandTotal += subtotal;
                 });
-                $('#total_harga').val(formatRupiah(grandTotal));
+                // Periksa apakah elemen dengan id 'total_harga' ada
+                // row.find('.total_harga').val(formatRupiah(grandTotal));
+                if ( $('#total_harga').length > 0) {
+                    $('#total_harga').val(formatRupiah(grandTotal));
+                }
             }
+
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
             $(document).on('change', '.subtotal', function() {
@@ -691,7 +709,7 @@
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal]" class="form-control subtotal" required readonly></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][total_harga]" class="form-control total_harga" required readonly></td>' +
+                    '][bayar]" class="form-control bayar" required></td>' +
                     '<td><select name="detail[' + rowCount +
                     '][saldo]" class="form-control saldo" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
@@ -707,13 +725,10 @@
                 $('#detailTable tbody').append(row);
             });
 
-
-
             // Hapus baris pada tabel
             $(document).on('click', '.remove-btn', function() {
                 $(this).closest('tr').remove();
             });
-
 
             // Hitung total_harga saat jumlah_barang_masuk atau harga_barang_masuk berubah
             $(document).on('change', '.jumlah_barang_masuk, .harga_barang_masuk', function() {
@@ -797,8 +812,9 @@
                             detail.subtotal +
                             '" required readonly></td>' +
                             '<td><input type="text" name="detail[' + index +
-                            '][total_harga_edit]" class="form-control total_harga_edit" value="' +
-                            detail.total_harga +
+                            '][bayar_edit]" class="form-control bayar_edit" value="' +
+                            detail.bayar +
+                            '" required></td>' +
                             '" required readonly></td>' +
                             '<td><select name="detail[' + index +
                             '][saldo_edit]" class="form-control saldo_edit" required ><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
@@ -831,9 +847,11 @@
                         jenis_pemasukan: $(this).find('.jenis_pemasukan_edit').val(),
                         id_mitra: $(this).find('.id_mitra_edit').val(),
                         nama_barang_masuk: $(this).find('.nama_barang_masuk_edit').val(),
-                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit').val(),
+                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit')
+                            .val(),
                         harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
                         subtotal: $(this).find('.subtotal_edit').val(),
+                        bayar: $(this).find('.bayar_edit').val(),
                         total_harga: $(this).find('.total_harga_edit').val(),
                         saldo: $(this).find('.saldo_edit').val(),
                         keterangan: $(this).find('.keterangan_edit').val()
@@ -882,15 +900,15 @@
                     '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal_edit]" class="form-control subtotal_edit" required readonly></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +
+                    '][bayar_edit]" class="form-control bayar_edit" required></td>' +
                     '<td><select name="detail[' + rowCount +
-                    '][saldo]" class="form-control saldo" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
+                    '][saldo_edit]" class="form-control saldo_edit" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][keterangan_edit]" class="form-control keterangan_edit" required></td>' +
                     '<td class="add-remove text-end">' +
-                    '<button type="button" class="btn btn-danger remove-btn-edit"><i class="bi bi-trash"></i></button>' +
-                    '<button type="button" class="btn btn-success add-btn-edit"><i class="bi bi-plus"></i></button>' +
-                    '<a href="#" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
-                    '<a href="#" class="remove-btn-edit"><i class="bi bi-trash text-danger"></i></a>' +
+                    '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
+                    '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
                     '</td>' + '</tr>';
                 $('#detailTableEdit tbody').append(row);
             });

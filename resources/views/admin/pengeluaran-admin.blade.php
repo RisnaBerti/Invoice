@@ -254,7 +254,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total" class="form-control"
+                                                        <th><input type="text" id="total" name="total" class="form-control"
                                                                 readonly></th>
                                                         <th></th>
                                                     </tr>
@@ -283,7 +283,7 @@
                                                                 <i class="fas fa-plus-circle text-success"></i>
                                                             </a>
                                                             <a href="javascript:void(0);" class="remove-btn">
-                                                                <i class="bi bi-trash text-danger"></i>
+                                                                <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
 
@@ -385,7 +385,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_edit" class="form-control"
+                                                        <th><input type="text" id="total_edit" name="total_edit" class="form-control"
                                                                 readonly></th>
                                                         <th></th>
                                                     </tr>
@@ -478,6 +478,7 @@
                             <th>QTY</th>
                             <th>Harga Satuan</th>
                             <th>Subtotal</th>
+                            <th>Total Harga</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -516,6 +517,13 @@
                                     <ul>
                                         @foreach ($item->detail as $detail)
                                             <li>{{ $detail->subtotal }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>{{ $detail->total }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -615,7 +623,7 @@
                     '<i class="fas fa-plus-circle text-success"></i>' +
                     '</a>' +
                     '<a href="javascript:void(0);" class="remove-btn">' +
-                    '<i class="bi bi-trash text-danger"></i>' +
+                    '<i class="fas fa-trash text-danger"></i>' +
                     '</a>' +
                     '</td>' +
                     '</tr>';
