@@ -18,7 +18,7 @@
                         <!--begin::Section-->
                         <div class="d-flex flex-column my-7">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">2</span>
+                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">{{ $user }}</span>
                             <!--end::Number-->
                             <!--begin::Follower-->
                             <div class="m-0">
@@ -52,7 +52,7 @@
                         <!--begin::Section-->
                         <div class="d-flex flex-column my-7">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">14 JT</span>
+                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">{{ $pengeluaran_formatted }}</span>
                             <!--end::Number-->
                             <!--begin::Follower-->
                             <div class="m-0">
@@ -118,7 +118,7 @@
                         <!--begin::Section-->
                         <div class="d-flex flex-column my-7">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">72.4 JT</span>
+                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">{{ $pemasukan_formatted  }}</span>
                             <!--end::Number-->
                             <!--begin::Follower-->
                             <div class="m-0">

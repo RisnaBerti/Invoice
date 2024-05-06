@@ -14,6 +14,7 @@ class Pemasukan extends Model
     protected $fillable = [
         'id_pemasukan',
         'tgl_pemasukan',
+        'nama_perusahaan',
         'id_user',
         'total_harga'
     ];

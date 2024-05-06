@@ -38,6 +38,7 @@
     <script src="{{ url('') }}/assets/plugins/moment/moment.min.js"></script>
     <script src="{{ url('') }}/assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="{{ url('') }}/assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </body>
 
 </html>

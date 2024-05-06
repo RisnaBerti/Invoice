@@ -52,13 +52,14 @@ class PemasukanAdminController extends Controller
         $pemasukan = Pemasukan::create([
             'tgl_pemasukan' => $request->tgl_pemasukan,
             'id_user' => $user_id,
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'total_harga' => $total_harga
 
         ]);
 
         // Tambahkan detail pemasukan
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'id_mitra' => $detail['id_mitra'],
                 'jenis_pemasukan' => $detail['jenis_pemasukan'],
                 'nama_barang_masuk' => $detail['nama_barang_masuk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
@@ -67,7 +68,7 @@ class PemasukanAdminController extends Controller
                 'bayar' => $detail['bayar'],
                 'keterangan' => $detail['keterangan'],
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal'])),
-                'total_harga' => $total_harga
+                
                 // 'total_harga' => floatval(str_replace(['.', 'Rp '], '', $detail['total_harga']))
             ]);
         }
@@ -98,7 +99,7 @@ class PemasukanAdminController extends Controller
         // Perbarui tanggal pemasukan
         $pemasukan->tgl_pemasukan = $request->tgl_pemasukan_edit;
         $pemasukan->id_user = auth()->user()->id_user;  // Untuk menyimpan id user yang sedang login
-        // $pemasukan->total_harga = $total_harga;
+        $pemasukan->total_harga = $total_harga;
         $pemasukan->save();
 
         // Hapus detail pemasukan terkait
@@ -107,7 +108,6 @@ class PemasukanAdminController extends Controller
         // Tambahkan detail pemasukan baru dari input form
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'id_mitra' => $detail['id_mitra_edit'],
                 'jenis_pemasukan' => $detail['jenis_pemasukan_edit'],
                 'nama_barang_masuk' => $detail['nama_barang_masuk_edit'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk_edit'],
@@ -116,7 +116,7 @@ class PemasukanAdminController extends Controller
                 'bayar' => $detail['bayar_edit'],
                 'keterangan' => $detail['keterangan_edit'],
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit'])),
-                'total_harga' => $total_harga
+                
                 //  'total_harga' => floatval(str_replace(['.', 'Rp '], '', $detail['total_harga_edit']))
             ]);
         }

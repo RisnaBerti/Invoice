@@ -106,6 +106,10 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 
+    {{-- <script src="{{ $chart->cdn() }}"></script>
+
+    {{ $chart->script() }} --}}
+
 </body>
 
 </html>

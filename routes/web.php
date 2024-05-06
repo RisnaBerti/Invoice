@@ -11,6 +11,7 @@ use App\Http\Controllers\Owner\SettingOwnerController;
 use App\Http\Controllers\Admin\PemasukanAdminController;
 use App\Http\Controllers\Owner\PemasukanOwnerController;
 use App\Http\Controllers\Admin\PengeluaranAdminController;
+use App\Http\Controllers\Owner\PengeluaranOwnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,16 @@ Route::controller(PemasukanOwnerController::class)->group(function () {
     Route::get('/pemasukan-owner/edit/{id}', 'edit')->name('edit-pemasukan-owner');
     Route::post('/pemasukan-owner/update', 'update')->name('update-pemasukan-owner');    
     Route::post('/pemasukan-owner/delete/{id}', 'delete')->name('delete-pemasukan-owner');
+});
+
+//Route Pengeluaran Owner
+Route::controller(PengeluaranOwnerController::class)->group(function () {
+    Route::get('/pengeluaran-owner', 'index')->name('pengeluaran-owner');
+    Route::get('/pengeluaran-owner/create', 'create')->name('create-pengeluaran-owner');
+    Route::post('/pengeluaran-owner/store', 'store')->name('store-pengeluaran-owner');
+    Route::get('/pengeluaran-owner/edit/{id}', 'edit')->name('edit-pengeluaran-owner');
+    Route::post('/pengeluaran-owner/update', 'update')->name('update-pengeluaran-owner');
+    Route::post('/pengeluaran-owner/delete/{id}', 'delete')->name('delete-pengeluaran-owner');
 });
 
 //Route Mitra 

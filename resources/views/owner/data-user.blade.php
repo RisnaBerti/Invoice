@@ -186,7 +186,6 @@
 
 
                     <!--begin::Modal - Tambah Data -->
-
                     <div class="modal fade" id="kt_modal_add_user" tabindex="-1" data-bs-backdrop="static"
                         data-bs-keyboard="false" aria-hidden="true">
                         <!--begin::Modal dialog-->
@@ -393,7 +392,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="password" class="form-control form-control-solid"
-                                                placeholder="Password" name="password_edit" id="password_edit"/>
+                                                placeholder="Password" name="password_edit" id="password_edit" />
                                         </div>
                                         <!--end::Input group-->
 

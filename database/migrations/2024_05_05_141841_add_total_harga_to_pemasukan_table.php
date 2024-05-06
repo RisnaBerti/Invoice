@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pemasukan', function (Blueprint $table) {            
-            // $table->integer('total_harga')->after('tgl_pemasukan');
+            $table->integer('total_harga')->after('tgl_pemasukan');
             // $table->unsignedBigInteger('id_mitra');
             // $table->foreign('id_mitra')->references('id_mitra')->on('mitra')->after('id_pemasukan');
         });
@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pemasukan', function (Blueprint $table) {
-            // $table->dropColumn('total_harga');
+            $table->dropColumn('total_harga');
             // $table->dropForeign(['id_mitra']);
             // $table->dropColumn('id_mitra');
         });

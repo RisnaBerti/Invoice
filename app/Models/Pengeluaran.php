@@ -13,7 +13,8 @@ class Pengeluaran extends Model
     protected $primaryKey = 'id_pengeluaran';
     protected $fillable = [
         'id_user',
-        'tgl_pengeluaran'
+        'tgl_pengeluaran',
+        'total_harga'
     ];
 
     // public function mitra() {

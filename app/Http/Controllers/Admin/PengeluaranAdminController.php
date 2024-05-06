@@ -41,17 +41,20 @@ class PengeluaranAdminController extends Controller
         // Ambil id user yang sedang login
         $user_id = auth()->user()->id_user;
 
+        $total_harga = 0;
+        foreach ($request->detail as $detail) {
+            $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']));
+        }
+
         // Buat objek pengeluaran baru
         $pengeluaran = Pengeluaran::create([
             'tgl_pengeluaran' => $request->tgl_pengeluaran,
-            'id_user' => $user_id
+            'id_user' => $user_id,
+            'total_harga' => $total_harga
         ]);
 
          // Hitung total harga dari semua detail pemasukan
-         $total_harga = 0;
-         foreach ($request->detail as $detail) {
-             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']));
-         }
+        
 
         // Tambahkan detail pengeluaran
         foreach ($request->detail as $detail) {
@@ -60,7 +63,6 @@ class PengeluaranAdminController extends Controller
                 'jumlah_barang_keluar' => $detail['jumlah_barang_keluar'],
                 'harga_satuan' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_satuan'])),
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal'])),
-                'total' => $total_harga
             ]);
         }
 
@@ -81,18 +83,21 @@ class PengeluaranAdminController extends Controller
         // Temukan pengeluaran berdasarkan ID
         $pengeluaran = Pengeluaran::with('detail')->find($id);
 
+        $total_harga = 0;
+         foreach ($request->detail as $detail) {
+             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']));
+         }
+
         // Perbarui tanggal pengeluaran
         $pengeluaran->tgl_pengeluaran = $request->tgl_pengeluaran_edit;
         $pengeluaran->id_user = auth()->user()->id_user;  // Untuk menyimpan id user yang sedang login
+        $pengeluaran->total_harga = $total_harga;
         $pengeluaran->save();
 
         // Hapus detail pengeluaran terkait
         $pengeluaran->detail()->delete();
 
-        $total_harga = 0;
-         foreach ($request->detail as $detail) {
-             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']));
-         }
+        
 
         // Tambahkan detail pengeluaran baru dari input form
         foreach ($request->detail as $detail) {
@@ -101,7 +106,6 @@ class PengeluaranAdminController extends Controller
                 'jumlah_barang_keluar' => $detail['jumlah_barang_keluar_edit'],
                 'harga_satuan' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_satuan_edit'])),
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit'])),
-                'total' => $total_harga
             ]);
         }
 

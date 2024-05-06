@@ -67,15 +67,20 @@ class UserController extends Controller
     // fungsi update data user owner
     public function update(Request $request)
     {
-        $id = $request->id_mitra_edit;
-        $user = User::where('id_mitra', $id)->first();
+        $id = $request->id_user_edit;
+        $user = User::where('id_user', $id)->first();
+
+        $user->nama = $request->nama_edit;
+        $user->email = $request->email_edit;
+        $user->password = $request->password_edit;
+        $user->save();
 
         // $validated = $request->validate([
-        //     'nama_mitra' => 'required',
-        //     'alamat_mitra' => 'required',
-        //     'no_telp_mitra' => 'required|number',
-        //     'email_mitra' => 'required|email',
-        //     'jenis_mitra' => 'required'
+        //     'nama_user' => 'required',
+        //     'alamat_user' => 'required',
+        //     'no_telp_user' => 'required|number',
+        //     'email_user' => 'required|email',
+        //     'jenis_user' => 'required'
         // ]);
 
         // if ($request->file('gambar')) {
@@ -87,12 +92,12 @@ class UserController extends Controller
         //     $data->gambar = $data->gambar;
         // }
 
-        $user->nama_mitra = $request->nama_mitra_edit;
-        $user->alamat_mitra = $request->alamat_mitra_edit;
-        $user->no_telp_mitra = $request->no_telp_mitra_edit;
-        $user->email_mitra = $request->email_mitra_edit;
-        $user->jenis_mitra = $request->jenis_mitra_edit;
-        $user->save();
+        // $user->nama_user = $request->nama_user_edit;
+        // $user->alamat_user = $request->alamat_user_edit;
+        // $user->no_telp_user = $request->no_telp_user_edit;
+        // $user->email_user = $request->email_user_edit;
+        // $user->jenis_user = $request->jenis_user_edit;
+        
 
         return redirect()->route('data-user')->with('success', 'Data Berhasil di edit!');
     }

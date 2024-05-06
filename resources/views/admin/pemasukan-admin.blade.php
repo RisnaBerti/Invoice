@@ -221,7 +221,44 @@
                                         <!--end::Heading-->
 
                                         <!--begin::Input group-->
-                                        <div class="d-flex flex-column mb-8 fv-row">
+                                        <div class="row g-9 mb-8">
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Icon-->
+                                                    <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
+                                                    <!--end::Icon-->
+                                                    <!--begin::Datepicker-->
+                                                    <input type="date" name="tgl_pemasukan" id="tgl_pemasukan"
+                                                        value="{{ now()->format('Y-m-d') }}"
+                                                        class="form-control form-control-solid ps-12"
+                                                        placeholder="Select a date" name="due_date" />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Nama Perusahaan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Datepicker-->
+                                                    <input class="form-control form-control-solid ps-12"
+                                                        id="nama_perusahaan" name="nama_perusahaan"
+                                                        placeholder="Nama perusahaan" required />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        {{-- <div class="d-flex flex-column mb-8 fv-row">
                                             <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center">
@@ -236,7 +273,7 @@
                                                 <!--end::Datepicker-->
                                             </div>
                                             <!--end::Input-->
-                                        </div>
+                                        </div> --}}
                                         <!--end::Input group-->
 
                                         <div class="form-group">
@@ -245,7 +282,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Jenis Barang</th>
-                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
@@ -270,15 +306,6 @@
                                                             <input type="text" name="detail[0][jenis_pemasukan]"
                                                                 id="detail[0][jenis_pemasukan]"
                                                                 class="form-control jenis_pemasukan" required>
-                                                        </td>
-                                                        <td>
-                                                            <select name="detail[0][id_mitra]"
-                                                                class="form-control id_mitra" id="id_mitra">
-                                                                @foreach ($mitra as $data)
-                                                                    <option value="{{ $data->id_mitra }}">
-                                                                        {{ $data->nama_mitra }}</option>
-                                                                @endforeach
-                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="detail[0][nama_barang_masuk]"
@@ -391,7 +418,7 @@
                                         <!--begin::Input group-->
                                         <input type="text" name="id_pemasukan_edit" id="id_pemasukan_edit">
                                         {{-- <input type="hidden" name="id_user" id="id_user"  value="{{ Auth::user()->id }}"> --}}
-                                        <div class="d-flex flex-column mb-8 fv-row">
+                                        {{-- <div class="d-flex flex-column mb-8 fv-row">
                                             <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center">
@@ -405,8 +432,48 @@
                                                 <!--end::Datepicker-->
                                             </div>
                                             <!--end::Input-->
+                                        </div> --}}
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="row g-9 mb-8">
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Icon-->
+                                                    <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
+                                                    <!--end::Icon-->
+                                                    <!--begin::Datepicker-->
+                                                    <input type="date" name="tgl_pemasukan_edit"
+                                                        id="tgl_pemasukan_edit"
+                                                        class="form-control form-control-solid ps-12"
+                                                        placeholder="Select a date" required />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Nama Perusahaan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Datepicker-->
+                                                    <input class="form-control form-control-solid ps-12"
+                                                        id="nama_perusahaan_edit" name="nama_perusahaan_edit"
+                                                        placeholder="Nama perusahaan" required />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
                                         </div>
                                         <!--end::Input group-->
+
+
+
                                         <!--begin::Detail Pemasukan-->
                                         <div class="form-group">
                                             <label>Detail Pemasukan:</label>
@@ -414,7 +481,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Jenis Barang</th>
-                                                        <th>Nama Perusahaan</th>
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
@@ -428,18 +494,19 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="8" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_harga_edit" name="total_harga_edit" class="form-control total_harga_edit" readonly></th>
+                                                        <th><input type="text" id="total_harga_edit"
+                                                                name="total_harga_edit"
+                                                                class="form-control total_harga_edit" readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
                                                     <tr>
-                                                        <td><input type="text" name="detail[0][jenis_pemasukan_edit]"
+                                                        <td>
+                                                            <input type="text" name="detail[0][jenis_pemasukan_edit]"
                                                                 id="detail[0][jenis_pemasukan_edit]"
-                                                                class="form-control jenis_pemasukan_edit" required></td>
-                                                        <td><input type="text" name="detail[0][id_mitra_edit]"
-                                                                id="detail[0][id_mitra_edit]"
-                                                                class="form-control id_mitra_edit" required></td>
+                                                                class="form-control jenis_pemasukan_edit" required>
+                                                        </td>
                                                         <td><input type="text" name="detail[0][nama_barang_masuk_edit]"
                                                                 id="detail[0][nama_barang_masuk_edit]"
                                                                 class="form-control nama_barang_masuk_edit" required></td>
@@ -527,12 +594,13 @@
                             </th>
                             <th>No</th>
                             <th>Tanggal</th>
+                            <th>Nama Perusahaan</th>
                             <th>Jenis Barang</th>
-                            <th>Mitra</th>
                             <th>Nama Barang</th>
                             <th>QTY</th>
                             <th>Harga Satuan</th>
                             <th>Subtotal</th>
+                            <th>Total</th>
                             <th>Saldo</th>
                             <th>Keterangan</th>
                             <th>Actions</th>
@@ -547,18 +615,12 @@
                                     </div>
                                 </td>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->tgl_pemasukan }}</td>
+                                <td>{{ $item->tgl_pemasukan }}</td>                                
+                                <td>{{ $item->nama_perusahaan }}</td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
                                             <li>{{ $detail->jenis_pemasukan }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->id_mitra }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -588,6 +650,11 @@
                                         @foreach ($item->detail as $detail)
                                             <li>{{ $detail->subtotal }}</li>
                                         @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>{{ $item->total_harga }}</li>
                                     </ul>
                                 </td>
                                 <td>
@@ -678,7 +745,7 @@
                 });
                 // Periksa apakah elemen dengan id 'total_harga' ada
                 // row.find('.total_harga').val(formatRupiah(grandTotal));
-                if ( $('#total_harga').length > 0) {
+                if ($('#total_harga').length > 0) {
                     $('#total_harga').val(formatRupiah(grandTotal));
                 }
             }
@@ -698,8 +765,6 @@
                 var rowCount = $('#detailTable tbody tr').length;
                 var row = '<tr>' + '<td><input type="text" name="detail[' + rowCount +
                     '][jenis_pemasukan]" class="form-control jenis_pemasukan" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][id_mitra]" class="form-control id_mitra" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][nama_barang_masuk]" class="form-control nama_barang_masuk" required></td>' +
                     '<td><input type="number" name="detail[' + rowCount +
@@ -795,10 +860,6 @@
                             '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" value="' +
                             detail.jenis_pemasukan + '" required></td>' +
                             '<td><input type="text" name="detail[' + index +
-                            '][id_mitra_edit]" class="form-control id_mitra_edit" value="' +
-                            detail.id_mitra +
-                            '" required></td>' +
-                            '<td><input type="text" name="detail[' + index +
                             '][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" value="' +
                             detail.nama_barang_masuk + '" required></td>' +
                             '<td><input type="number" name="detail[' + index +
@@ -840,15 +901,13 @@
             $('#kt_modal_add_pemasukan_submit_edit').click(function() {
                 // var id_pemasukan = $('#id_pemasukan').val();
                 var tgl_pemasukan = $('#tgl_pemasukan_edit').val();
-                // var total_harga = $('#total_harga_edit').val();
+                var nama_perusahaan = $('#nama_perusahaan_edit').val();
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
                     detail.push({
                         jenis_pemasukan: $(this).find('.jenis_pemasukan_edit').val(),
-                        id_mitra: $(this).find('.id_mitra_edit').val(),
                         nama_barang_masuk: $(this).find('.nama_barang_masuk_edit').val(),
-                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit')
-                            .val(),
+                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit').val(),
                         harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
                         subtotal: $(this).find('.subtotal_edit').val(),
                         bayar: $(this).find('.bayar_edit').val(),
@@ -863,7 +922,7 @@
                     data: {
                         // id_pemasukan: id_pemasukan,
                         tgl_pemasukan: tgl_pemasukan_edit,
-                        // total_harga: total_harga,
+                        nama_perusahaan: nama_perusahaan,
                         detail: detail
                     },
                     success: function(response) {
@@ -890,8 +949,6 @@
                 var row = '<tr>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][id_mitra_edit]" class="form-control id_mitra_edit" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" required></td>' +
                     '<td><input type="number" name="detail[' + rowCount +
