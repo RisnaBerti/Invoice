@@ -8,9 +8,22 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::all();
+        $searchQuery = $request->query('q');
+
+        // Mulai dengan membangun kueri menggunakan model User
+        $query = User::query();
+
+        // Jika terdapat query pencarian, tambahkan kondisi pencarian
+        if ($searchQuery) {
+            $query->where('nama', 'like', '%' . $searchQuery . '%')
+                ->orWhere('email', 'like', '%' . $searchQuery . '%')
+                ->orWhere('jabatan', 'like', '%' . $searchQuery . '%');
+        }
+
+        // Ambil data pengeluaran sesuai dengan kondisi yang telah ditambahkan
+        $user = $query->get();
 
         return view(
             'owner.data-user',
@@ -20,6 +33,7 @@ class UserController extends Controller
             ]
         );
     }
+
 
     //fung create user owner
     public function create()
@@ -42,7 +56,7 @@ class UserController extends Controller
         //     'email' => 'required|email',
         //     'password' => 'required'
         // ]);
-       
+
         $user = new User();
         $user->id_role = '2';
         $user->nama = $request->nama;
@@ -97,7 +111,7 @@ class UserController extends Controller
         // $user->no_telp_user = $request->no_telp_user_edit;
         // $user->email_user = $request->email_user_edit;
         // $user->jenis_user = $request->jenis_user_edit;
-        
+
 
         return redirect()->route('data-user')->with('success', 'Data Berhasil di edit!');
     }

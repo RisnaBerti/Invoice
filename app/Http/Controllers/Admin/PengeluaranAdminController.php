@@ -14,23 +14,6 @@ class PengeluaranAdminController extends Controller
     // Fungsi index
     public function index(Request $request)
     {
-        // $data['q'] = $request->query('q');
-        // // $pengeluaran = Pengeluaran::select('pengeluaran.*', 'detail_pengeluaran.*')
-        // // ->join('detail_pengeluaran', 'detail_pengeluaran.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
-        // // ->where(function ($pengeluaran) use ($data) {
-        // //     $pengeluaran->where('nama_barang_keluar', 'like', '%' . $data['q'] . '%');
-        // //     // $query->orWhere('customer_name', 'like', '%' . $data['q'] . '%');
-        // // });
-
-        // $pengeluaran = Pengeluaran::with('detail')
-        // ->whereHas('detail', function ($query) use ($data) {
-        //     $query->where('nama_barang_keluar', 'like', '%' . $data['q'] . '%');
-        // })
-        // ->get();
-
-        // var_dump($pengeluaran);
-        // die();
-
         $searchQuery = $request->query('q');
 
         $pengeluaran = Pengeluaran::with('detail');

@@ -9,9 +9,24 @@ use App\Http\Controllers\Controller;
 class PengeluaranOwnerController extends Controller
 {
     // Fungsi index
-    public function index()
+    public function index(Request $request)
     {
-        $pengeluaran = Pengeluaran::with('detail')->get();
+        $searchQuery = $request->query('q');
+
+        $pengeluaran = Pengeluaran::with('detail');
+
+        // Jika terdapat query pencarian, tambahkan kondisi pencarian
+        if ($searchQuery) {
+            $pengeluaran->whereHas('detail', function ($query) use ($searchQuery) {
+                $query->where('nama_barang_keluar', 'like', '%' . $searchQuery . '%');
+                // $query->orWhere('tgl_pemasukan', 'like', '%' . $searchQuery . '%');
+                $query->orWhere('jumlah_barang_keluar', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        // Ambil data pengeluaran sesuai dengan kondisi yang telah ditambahkan
+        $pengeluaran = $pengeluaran->get();
+
 
         return view(
             'owner.pengeluaran-owner',

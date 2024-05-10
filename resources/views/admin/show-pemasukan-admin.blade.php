@@ -34,9 +34,10 @@
                         <div class="d-flex flex-column gap-7 gap-md-10">
                             <!--begin::Message-->
                             <div class="fw-bold fs-2">{{ $pemasukan->nama_perusahaan }}
-                                <span class="fs-2">({{ date('d-M-Y', strtotime($pemasukan->tgl_pemasukan)) }} )</span>
                                 <br />
-                                <span class="text-muted fs-5">Berikut adalah detail pesanan Anda. Kami berterima kasih atas pembelian Anda.</span>
+                                <span class="text-muted fs-3">{{ date('d-M-Y', strtotime($pemasukan->tgl_pemasukan)) }} </span>
+                                <br />
+                                {{-- <span class="text-muted fs-5">Berikut adalah detail pesanan Anda. Kami berterima kasih atas pembelian Anda.</span> --}}
                             </div>
                             <!--begin::Message-->
                             <!--begin::Separator-->
@@ -49,7 +50,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr class="border-bottom fs-6 fw-bold text-muted">
-                                                <th class="text-dark">Jenis Barang</th>
+                                                {{-- <th class="text-dark">Jenis Barang</th> --}}
                                                 <th class="text-dark">Nama Barang</th>
                                                 <th class="text-dark">Harga Barang</th>
                                                 <th class="text-dark">QTY</th>
@@ -62,9 +63,9 @@
                                         <tbody class="fw-semibold text-gray-600">
                                             @foreach ($pemasukan->detail as $detail)
                                             <tr>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $detail->jenis_pemasukan }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <ul>
                                                         {{ $detail->nama_barang_masuk }}
@@ -90,7 +91,7 @@
                                             </tr>
                                             @endforeach                                           
                                             <tr>
-                                                <td colspan="7" class="fs-5 text-dark fw-bold">Total</td>
+                                                <td colspan="6" class="fs-5 text-dark fw-bold">Total</td>
                                                 <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->total_harga }}</td>
                                             </tr>
                                         </tbody>

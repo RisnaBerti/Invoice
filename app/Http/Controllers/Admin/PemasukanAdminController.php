@@ -209,7 +209,7 @@ class PemasukanAdminController extends Controller
         // Tambahkan detail pemasukan
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => $detail['jenis_pemasukan'],
+                'jenis_pemasukan' => '-',
                 'nama_barang_masuk' => $detail['nama_barang_masuk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
@@ -258,7 +258,7 @@ class PemasukanAdminController extends Controller
         // Tambahkan detail pemasukan baru dari input form
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => $detail['jenis_pemasukan_edit'],
+                'jenis_pemasukan' => '-',
                 'nama_barang_masuk' => $detail['nama_barang_masuk_edit'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk_edit'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk_edit'])),

@@ -24,8 +24,8 @@ class PemasukanOwnerController extends Controller
                 ->addColumn('action', function ($data) {
                     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
                     // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-eye text-success"></i></a>';
-                    $button .= '<a href="' . URL::route('show-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
-                    $button .= '<form action="' . URL::route('delete-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
+                    $button .= '<a href="' . URL::route('show-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
+                    $button .= '<form action="' . URL::route('delete-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
                     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
                     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
                     $button .= '</form>';
@@ -103,7 +103,7 @@ class PemasukanOwnerController extends Controller
         // Tambahkan detail pemasukan
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => $detail['jenis_pemasukan'],
+                'jenis_pemasukan' => '-',
                 'nama_barang_masuk' => $detail['nama_barang_masuk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
@@ -150,7 +150,7 @@ class PemasukanOwnerController extends Controller
         // Tambahkan detail pemasukan baru dari input form
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => $detail['jenis_pemasukan_edit'],
+                'jenis_pemasukan' => '-',
                 'nama_barang_masuk' => $detail['nama_barang_masuk_edit'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk_edit'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk_edit'])),
