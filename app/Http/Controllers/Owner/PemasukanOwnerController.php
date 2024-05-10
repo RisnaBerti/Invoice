@@ -2,13 +2,44 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\Models\Mitra;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
-use App\Models\Mitra;
 
 class PemasukanOwnerController extends Controller
 {
+    public function dataTables(Request $request)
+    {
+        if ($request->ajax()) {
+
+            // Mengambil semua data pemasukan dari database
+            $pemasukan = Pemasukan::all();
+
+            // var_dump($pemasukan);
+            // die();
+
+            return datatables()->of($pemasukan)
+                ->addColumn('action', function ($data) {
+                    $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
+                    // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-eye text-success"></i></a>';
+                    $button .= '<a href="' . URL::route('show-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
+                    $button .= '<form action="' . URL::route('delete-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
+                    $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+                    $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
+                    $button .= '</form>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('owner.pemasukan-owner', [
+            'title' => 'Pemasukan Owner'
+        ]);
+    }
+
+    
     //fungsi view pemasukan owner
     public function index()
     {
@@ -36,6 +67,18 @@ class PemasukanOwnerController extends Controller
                 'title' => 'Pemasukan Owner'
             ]
         );
+    }
+
+    //fungsi show pemasukan dan detail pemasukannya
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $pemasukan = Pemasukan::with('detail')->find($id);
+    
+        return view('owner.show-pemasukan-owner', [
+            'title' => 'Pemasukan Owner',
+            'pemasukan' => $pemasukan
+        ], compact('pemasukan'));
     }
 
     public function store(Request $request)

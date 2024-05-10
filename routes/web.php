@@ -51,6 +51,7 @@ Route::controller(OwnerController::class)->group(function () {
 //Route Pemasukan Owner
 Route::controller(PemasukanOwnerController::class)->group(function () {
     Route::get('/pemasukan-owner', 'index')->name('pemasukan-owner');
+    Route::get('/pemasukan-owner/show', 'show')->name('show-pemasukan-owner');
     Route::get('/pemasukan-owner/create', 'create')->name('create-pemasukan-owner');
     Route::post('/pemasukan-owner/store', 'store')->name('store-pemasukan-owner');
     Route::get('/pemasukan-owner/edit/{id}', 'edit')->name('edit-pemasukan-owner');

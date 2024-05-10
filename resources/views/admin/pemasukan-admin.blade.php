@@ -22,12 +22,18 @@
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end gap-2 gap-lg-3" data-kt-user-table-toolbar="base">
-
-                        <button type="button" class="btn btn-light-primary font-weight-bolder" id="daterange"
+                        {{-- <button type="button" class="btn btn-light-primary font-weight-bolder" id="daterange"
                             class="float-end" style="text-align:center">
                             <i class="ki-outline ki-calendar fs-1"></i></i>&nbsp;
                             <span></span>
-                        </button>
+                        </button> --}}
+
+                        {{-- <div class=" col">
+                            <div class="input-group">
+                                <input class="form-control" type="date" name="start" value="" />
+                                <input class="form-control" type="date" name="end" value="" />
+                            </div>
+                        </div> --}}
 
                         <!--begin::Export button -->
                         <div class="btn-group">
@@ -422,6 +428,167 @@
                         <!--end::Modal dialog-->
                     </div>
                     <!--end::Modal - Edit Data -->
+
+                    <!--begin::Modal - Show Data -->
+                    <div class="modal fade" id="kt_modal_show_data" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <!--begin::Modal content-->
+                            <div class="modal-content rounded">
+                                <!--begin::Modal header-->
+                                <div class="modal-header pb-0 border-0 justify-content-end">
+                                    <!--begin::Close-->
+                                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                        <i class="ki-outline ki-cross fs-1"></i>
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--begin::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                                    <!--begin:Form-->
+                                    <form id="kt_modal_show_data_form" class="form" action="" method="" id="showPemasukanForm">
+                                        @csrf
+                                        {{-- @method('PUT') --}}
+                                        <!--begin::Heading-->
+                                        <div class="mb-13 text-center">
+                                            <!--begin::Title-->
+                                            <h1 class="mb-3">FORM PEMASUKAN</h1>
+                                            <!--end::Title-->
+                                            <!--begin::Description-->
+                                            <div class="text-muted fw-semibold fs-5">Detail Pemasukan
+                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                            </div>
+                                            <!--end::Description-->
+                                        </div>
+                                        <!--end::Heading-->
+                                        <!--begin::Input group-->
+                                        <input type="hidden" name="id_pemasukan_show" id="id_pemasukan_show">
+                                        <!--begin::Input group-->
+                                        <div class="row g-9 mb-8">
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Icon-->
+                                                    <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
+                                                    <!--end::Icon-->
+                                                    <!--begin::Datepicker-->
+                                                    <input type="date" name="tgl_pemasukan_show"
+                                                        id="tgl_pemasukan_show"
+                                                        class="form-control form-control-solid ps-12"
+                                                        placeholder="Select a date" readonly />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-md-6 fv-row">
+                                                <label class="required fs-6 fw-semibold mb-2">Nama Perusahaan</label>
+                                                <!--begin::Input-->
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <!--begin::Datepicker-->
+                                                    <input class="form-control form-control-solid"
+                                                        id="nama_perusahaan_show" name="nama_perusahaan_show"
+                                                        placeholder="Nama perusahaan" readonly />
+                                                    <!--end::Datepicker-->
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Detail Pemasukan-->
+                                        <div class="form-group">
+                                            <label>Detail Pemasukan:</label>
+                                            <table id="detailTableShow" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Jenis Barang</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>QTY</th>
+                                                        <th>Harga Satuan</th>
+                                                        <th>Sub Total</th>
+                                                        <th>Pembayaran</th>
+                                                        <th>Saldo</th>
+                                                        <th>Keterangan</th>
+                                                        <th class="text-end">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="7" class="text-end">Total:</th>
+                                                        <th><input type="text" id="total_harga_show"
+                                                                name="total_harga_show"
+                                                                class="form-control total_harga_show" readonly></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" name="detail[0][jenis_pemasukan_show]"
+                                                                id="detail[0][jenis_pemasukan_show]"
+                                                                class="form-control jenis_pemasukan_show" readonly>
+                                                        </td>
+                                                        <td><input type="text" name="detail[0][nama_barang_masuk_show]"
+                                                                id="detail[0][nama_barang_masuk_show]"
+                                                                class="form-control nama_barang_masuk_show" readonly></td>
+                                                        <td><input type="number"
+                                                                name="detail[0][jumlah_barang_masuk_show]"
+                                                                id="detail[0][jumlah_barang_masuk_show]"
+                                                                class="form-control jumlah_barang_masuk_show" readonly>
+                                                        </td>
+                                                        <td><input type="text"
+                                                                name="detail[0][harga_barang_masuk_show]"
+                                                                id="detail[0][harga_barang_masuk_show]"
+                                                                class="form-control harga_barang_masuk_show" readonly>
+                                                        </td>
+                                                        <td><input type="text" name="detail[0][subtotal_show]"
+                                                                id="detail[0][subtotal_show]"
+                                                                class="form-control subtotal_show" readonly></td>
+                                                        <td>
+                                                            <input type="text" name="detail[0][bayar_show]"
+                                                                id="detail[0][bayar_show]" class="form-control bayar_show"
+                                                                readonly>
+                                                        </td>
+                                                        <td>
+                                                            <select name="detail[0][saldo]" class="form-control saldo"
+                                                                id="saldo" readonly>
+                                                                {{-- <option value="debet"></option> --}}
+                                                                {{-- <option value="krshow">Krshow</option> --}}
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" name="detail[0][keterangan_show]"
+                                                                id="detail[0][keterangan_show]"
+                                                                class="form-control keterangan_show" readonly>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--end::Detail Pemasukan-->
+                                        <!--begin::Actions-->
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--end:Form-->
+                                </div>
+                                <!--end::Modal body-->
+                            </div>
+                            <!--end::Modal content-->
+                        </div>
+                        <!--end::Modal dialog-->
+                    </div>
+                    <!--end::Modal - Show Data -->
+
                 </div>
                 <!--end::Card toolbar-->
             </div>
@@ -432,6 +599,7 @@
                 <!--begin::Table-->
                 <table class="table table-bordered table-hover align-middle table-row-dashed fs-6 gy-5"
                     id="kt_table_users" name="kt_table_users">
+
                     <thead>
                         <tr class="table-light text-muted fw-bold fs-7 text-uppercase gs-0">
                             <th>No</th>
@@ -459,37 +627,16 @@
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    {{-- // Memuat DataTable --}}
     <script>
-        // Memuat DataTable
         $(document).ready(function() {
-            var start_date = moment().subtract(1, 'M');
-
-            var end_date = moment();
-
-            $('#daterange span').html(start_date.format('MMMM D, YYYY') + ' - ' + end_date.format('MMMM D, YYYY'));
-
-            $('#daterange').daterangepicker({
-                startDate: start_date,
-                endDate: end_date
-            }, function(start_date, end_date) {
-                $('#daterange span').html(start_date.format('MMMM D, YYYY') + ' - ' + end_date.format(
-                    'MMMM D, YYYY'));
-
-                table.draw();
-            });
 
             $('#kt_table_users').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('pemasukan-admin') }}",
-                    data: function(data) {
-                        data.from_date = $('#daterange').data('daterangepicker').startDate.format(
-                            'YYYY-MM-DD');
-                        data.to_date = $('#daterange').data('daterangepicker').endDate.format(
-                            'YYYY-MM-DD');
-                    }
+                    url: "{{ route('pemasukan-admin') }}"
                 },
                 columns: [{
                         data: null,
@@ -512,7 +659,11 @@
                     },
                     {
                         data: 'total_harga',
-                        name: 'total_harga'
+                        name: 'total_harga',
+                        render: function(data) {
+                            // Memformat harga menggunakan Number.prototype.toLocaleString()
+                            return 'Rp ' + parseInt(data).toLocaleString();
+                        }
                     },
                     {
                         data: 'action',
@@ -523,8 +674,8 @@
         });
     </script>
 
+    {{-- //Modal Untuk Tambah Data Pemasukan --}}
     <script>
-        //Modal Untuk Tambah Data Pemasukan
         $(document).ready(function() {
             // Hitung total_harga keseluruhan
             function calculateGrandTotal() {
@@ -630,8 +781,8 @@
         });
     </script>
 
+    {{-- //Modal Untuk Edit Data Pemasukan --}}
     <script>
-        //Modal Untuk Edit Data Pemasukan
         $(document).ready(function() {
             //Modal Untuk Edit Data Pemasukan
             // Menampilkan data dalam modal saat tombol "Edit" pada baris tabel diklik
@@ -832,6 +983,61 @@
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
 
+        });
+    </script>
+
+    {{-- //Modal Untuk Show Data Pemasukan --}}
+    <script>
+        $(document).ready(function() {
+            // Modal Untuk Tampilkan Data Pemasukan
+            // Menampilkan data dalam modal saat tombol "Lihat" pada baris tabel diklik
+            $('#kt_table_users').on('click', '.show-row', function(e) {
+                var id = $(this).data('id');
+                var url = "{{ route('show-pemasukan-admin', ':id') }}";
+                url = url.replace(':id', id);
+                $.get(url, function(data) {
+                    $('#id_pemasukan_show').val(data.id_pemasukan);
+                    $('#tgl_pemasukan_show').val(data.tgl_pemasukan);
+                    $('#nama_perusahaan_show').val(data.nama_perusahaan);
+                    $('#total_harga_show').val(data.total_harga);
+                    $('#detailTableShow tbody').empty();
+                    data.detail.forEach(function(detail, index) {
+                        var row = '<tr>' + '<td><input type="text" name="detail[' + index +
+                            '][jenis_pemasukan_show]" class="form-control jenis_pemasukan_show" value="' +
+                            detail.jenis_pemasukan + '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][nama_barang_masuk_show]" class="form-control nama_barang_masuk_show" value="' +
+                            detail.nama_barang_masuk + '" required></td>' +
+                            '<td><input type="number" name="detail[' + index +
+                            '][jumlah_barang_masuk_show]" class="form-control jumlah_barang_masuk_show" value="' +
+                            detail.jumlah_barang_masuk + '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][harga_barang_masuk_show]" class="form-control harga_barang_masuk_show" value="' +
+                            detail.harga_barang_masuk + '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][subtotal_show]" class="form-control subtotal_show" value="' +
+                            detail.subtotal +
+                            '" required readonly></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][bayar_show]" class="form-control bayar_show" value="' +
+                            detail.bayar +
+                            '" required></td>' +
+                            '" required readonly></td>' +
+                            '<td><select name="detail[' + index +
+                            '][saldo_show]" class="form-control saldo_show" required ><option value="debet">Debet</option><option value="krshow">Krshow</option></select></td>' +
+                            '<td><input type="text" name="detail[' + index +
+                            '][keterangan_show]" class="form-control keterangan_show" value="' +
+                            detail.keterangan +
+                            '" required></td>' +
+                            '</tr>';
+                        $('#detailTableShow').append(row);
+                    });
+
+                    console.log(data);
+                    die();
+                    $("#kt_modal_show_data").modal("show");
+                });
+            });
         });
     </script>
 @endsection

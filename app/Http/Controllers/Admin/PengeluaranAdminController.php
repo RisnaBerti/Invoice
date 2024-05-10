@@ -12,9 +12,41 @@ use App\Http\Controllers\Controller;
 class PengeluaranAdminController extends Controller
 {
     // Fungsi index
-    public function index()
+    public function index(Request $request)
     {
-        $pengeluaran = Pengeluaran::with('detail')->get();
+        // $data['q'] = $request->query('q');
+        // // $pengeluaran = Pengeluaran::select('pengeluaran.*', 'detail_pengeluaran.*')
+        // // ->join('detail_pengeluaran', 'detail_pengeluaran.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
+        // // ->where(function ($pengeluaran) use ($data) {
+        // //     $pengeluaran->where('nama_barang_keluar', 'like', '%' . $data['q'] . '%');
+        // //     // $query->orWhere('customer_name', 'like', '%' . $data['q'] . '%');
+        // // });
+
+        // $pengeluaran = Pengeluaran::with('detail')
+        // ->whereHas('detail', function ($query) use ($data) {
+        //     $query->where('nama_barang_keluar', 'like', '%' . $data['q'] . '%');
+        // })
+        // ->get();
+
+        // var_dump($pengeluaran);
+        // die();
+
+        $searchQuery = $request->query('q');
+
+        $pengeluaran = Pengeluaran::with('detail');
+
+        // Jika terdapat query pencarian, tambahkan kondisi pencarian
+        if ($searchQuery) {
+            $pengeluaran->whereHas('detail', function ($query) use ($searchQuery) {
+                $query->where('nama_barang_keluar', 'like', '%' . $searchQuery . '%');
+                // $query->orWhere('tgl_pemasukan', 'like', '%' . $searchQuery . '%');
+                $query->orWhere('jumlah_barang_keluar', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        // Ambil data pengeluaran sesuai dengan kondisi yang telah ditambahkan
+        $pengeluaran = $pengeluaran->get();
+
 
         return view(
             'admin.pengeluaran-admin',
@@ -53,8 +85,8 @@ class PengeluaranAdminController extends Controller
             'total_harga' => $total_harga
         ]);
 
-         // Hitung total harga dari semua detail pemasukan
-        
+        // Hitung total harga dari semua detail pemasukan
+
 
         // Tambahkan detail pengeluaran
         foreach ($request->detail as $detail) {
@@ -84,9 +116,9 @@ class PengeluaranAdminController extends Controller
         $pengeluaran = Pengeluaran::with('detail')->find($id);
 
         $total_harga = 0;
-         foreach ($request->detail as $detail) {
-             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']));
-         }
+        foreach ($request->detail as $detail) {
+            $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']));
+        }
 
         // Perbarui tanggal pengeluaran
         $pengeluaran->tgl_pengeluaran = $request->tgl_pengeluaran_edit;
@@ -97,7 +129,7 @@ class PengeluaranAdminController extends Controller
         // Hapus detail pengeluaran terkait
         $pengeluaran->detail()->delete();
 
-        
+
 
         // Tambahkan detail pengeluaran baru dari input form
         foreach ($request->detail as $detail) {

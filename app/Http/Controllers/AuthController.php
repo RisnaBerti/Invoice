@@ -51,11 +51,11 @@ class AuthController extends Controller
     }
 
     //fungsi logout
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        //session
-        Session::flush(); //flush itu session apa? 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken(); //flush itu session apa? 
         return redirect('/login');
     }
 

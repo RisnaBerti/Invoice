@@ -9,11 +9,21 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
+                    <form action="{{ route('pengeluaran-admin') }}" method="GET">
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
+                            <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
+                                id="q" placeholder="Mencari data" value="" />
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                        </div>
+                    </form>
+
+                    {{-- <div class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                         <input type="text" data-kt-user-table-filter="search"
-                            class="form-control form-control-solid w-250px ps-13" placeholder="Mencari data" />
-                    </div>
+                            class="form-control form-control-solid w-250px ps-13" name="q" id="q"
+                            placeholder="Mencari data" value="" />
+                    </div> --}}
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
@@ -22,11 +32,11 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                         <!--begin::Filter-->
-                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                        {{-- <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
-                            <i class="ki-outline ki-filter fs-2"></i>Filter</button>
+                            <i class="ki-outline ki-filter fs-2"></i>Filter</button> --}}
                         <!--begin::Menu 1-->
-                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                        {{-- <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                             <!--begin::Header-->
                             <div class="px-7 py-5">
                                 <div class="fs-5 text-dark fw-bold">Filter Options</div>
@@ -74,7 +84,7 @@
                                 <!--end::Actions-->
                             </div>
                             <!--end::Content-->
-                        </div>
+                        </div> --}}
                         <!--end::Menu 1-->
                         <!--end::Filter-->
                         <!--begin::Export-->
@@ -94,13 +104,13 @@
                     </div>
                     <!--end::Toolbar-->
                     <!--begin::Group actions-->
-                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+                    {{-- <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
                         <div class="fw-bold me-5">
                             <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
                         </div>
                         <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
                             Selected</button>
-                    </div>
+                    </div> --}}
                     <!--end::Group actions-->
                     <!--begin::Modal - Adjust Balance-->
                     <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
@@ -150,9 +160,8 @@
                                                 Format:</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <select name="format" data-control="select2"
-                                                data-placeholder="Select a format" data-hide-search="true"
-                                                class="form-select form-select-solid fw-bold">
+                                            <select name="format" data-control="select2" data-placeholder="Select a format"
+                                                data-hide-search="true" class="form-select form-select-solid fw-bold">
                                                 <option></option>
                                                 <option value="excel">Excel</option>
                                                 <option value="pdf">PDF</option>
@@ -186,7 +195,8 @@
 
 
                     <!--begin::Modal - Tambah Data -->
-                    <div class="modal fade" id="kt_modal_new_target" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                    <div class="modal fade" id="kt_modal_new_target" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" aria-hidden="true">
                         <!--begin::Modal dialog-->
                         <div class="modal-dialog modal-lg modal-dialog-centered">
                             <!--begin::Modal content-->
@@ -204,8 +214,7 @@
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
                                     <form id="kt_modal_new_target_form" class="form"
-                                        action="{{ route('store-pengeluaran-admin') }}" method="POST"
-                                        id="pengeluaranForm">
+                                        action="{{ route('store-pengeluaran-admin') }}" method="POST" id="pengeluaranForm">
                                         @csrf
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
@@ -254,8 +263,8 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total" name="total" class="form-control"
-                                                                readonly></th>
+                                                        <th><input type="text" id="total" name="total"
+                                                                class="form-control" readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -334,7 +343,9 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
-                                    <form id="kt_modal_edit_data_form" class="form" action="{{ route('update-pengeluaran-admin') }}" method="POST" id="editPengeluaranForm">
+                                    <form id="kt_modal_edit_data_form" class="form"
+                                        action="{{ route('update-pengeluaran-admin') }}" method="POST"
+                                        id="editPengeluaranForm">
                                         @csrf
                                         {{-- @method('PUT') --}}
                                         <!--begin::Heading-->
@@ -385,8 +396,8 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_edit" name="total_edit" class="form-control"
-                                                                readonly></th>
+                                                        <th><input type="text" id="total_edit" name="total_edit"
+                                                                class="form-control" readonly></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -466,12 +477,6 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                     <thead>
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">
-                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                    <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                        data-kt-check-target="#kt_table_users .form-check-input" value="1" />
-                                </div>
-                            </th>
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Jenis Barang</th>
@@ -485,13 +490,9 @@
                     <tbody class="text-gray-600 fw-semibold">
                         @foreach ($pengeluaran as $index => $item)
                             <tr>
-                                <td>
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="1" />
-                                    </div>
-                                </td>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->tgl_pengeluaran }}</td>
+                                <td>{{ date('d-M-Y', strtotime($item->tgl_pengeluaran)) }}</td>
+
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
@@ -521,48 +522,22 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    Rp.  {{ number_format($item->total_harga, 0, ',', '.') }}
+                                    Rp. {{ number_format($item->total_harga, 0, ',', '.') }}
                                 </td>
                                 <td>
-                                    <a href="#"
-                                        class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                        <i class="ki-outline ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                        data-kt-menu="true">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_pengeluaran }}">Edit</a>
-                                        </div>
-                                        
-                                        {{-- <div class="menu-item px-3">
-                                            <a href="{{ url('edit-pengeluaran-admin/' . $item->id_pengeluaran) }}" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data">Edit</a>
-                                        </div> --}}
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <form action="{{ route('delete-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</button>
-                                        </form>
-                                        {{-- <div class="menu-item px-3">
-                                            <a href="{{ route('delete-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}" @method(POST) class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                                        </div> --}}
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu-->
-                                </td>
-                                {{-- <td>
-                                    <a href="{{ url('/pengeluaran-admin/' . $item->id . 'edit/{id}') }}"
-                                        class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ url('/pengeluaran-admin' . $item->id) }}" method="post"
-                                        class="d-inline">
+                                    <a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_pengeluaran }}"><i
+                                            class="fas fa-edit text-warning"></i></a>
+                                    <form
+                                        action="{{ route('delete-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}"
+                                        method="POST" style="display:inline;">
                                         @csrf
-                                        @method('delete')
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
-                                    </form>Hapus</button>
-                                </td> --}}
+                                        <button type="submit" class="menu-link px-1"
+                                            data-kt-users-table-filter="delete_row"
+                                            style="border:none; background:none; padding:0; cursor:pointer;"><i
+                                                class="fas fa-trash-alt text-danger"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
 
@@ -736,7 +711,8 @@
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
                     var nama_barang_keluar_edit = $(this).find('.nama_barang_keluar_edit').val();
-                    var jumlah_barang_keluar_edit = $(this).find('.jumlah_barang_keluar_edit').val();
+                    var jumlah_barang_keluar_edit = $(this).find('.jumlah_barang_keluar_edit')
+                        .val();
                     var harga_satuan_edit = $(this).find('.harga_satuan_edit').val();
                     var subtotal_edit = $(this).find('.subtotal_edit').val();
                     detail.push({
@@ -761,7 +737,7 @@
                         location.reload();
                     }
                 });
-            });          
+            });
 
             // Hapus baris pada tabel Detail Barang Keluar
             $("#detailTableEdit").on('click', '.remove-btn-edit', function() {

@@ -6,6 +6,7 @@ use App\Models\Mitra;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use App\DataTables\PemasukanDataTable;
@@ -117,30 +118,25 @@ class PemasukanAdminController extends Controller
 
     public function dataTables(Request $request)
     {
-
         if ($request->ajax()) {
+
+            // Mengambil semua data pemasukan dari database
             $pemasukan = Pemasukan::all();
 
-            // Menyaring berdasarkan rentang tanggal jika from_date dan to_date disediakan
-            if ($request->filled('from_date') && $request->filled('to_date')) {
-                $pemasukan->whereBetween('tgl_pemasukan', [$request->from_date, $request->to_date]);
-            }
-
-    
-            // Ambil data yang telah disaring
-            // $filteredPemasukan = $pemasukan->get();
+            // var_dump($pemasukan);
+            // die();
 
             return datatables()->of($pemasukan)
                 ->addColumn('action', function ($data) {
                     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
-                    $button .= '<a href="' . URL::route('show-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1"><i class="fas fa-eye text-success"></i></a>';
+                    // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-eye text-success"></i></a>';
+                    $button .= '<a href="' . URL::route('show-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
                     $button .= '<form action="' . URL::route('delete-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
                     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
                     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
                     $button .= '</form>';
                     return $button;
                 })
-                // ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -153,9 +149,14 @@ class PemasukanAdminController extends Controller
     public function show(Request $request)
     {
         $id = $request->id;
-        $pemasukan = Pemasukan::with(['detail', 'detail.mitra'])->find($id);
-        return response()->json($pemasukan);
+        $pemasukan = Pemasukan::with('detail')->find($id);
+    
+        return view('admin.show-pemasukan-admin', [
+            'title' => 'Pemasukan Admin',
+            'pemasukan' => $pemasukan
+        ], compact('pemasukan'));
     }
+        // ]);
 
     //fungsi view pemasukan admin
     public function index2()
