@@ -379,8 +379,9 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_harga_edit" name="total_harga_edit"
-                                                                class="form-control" readonly></th>
+                                                        <th><input type="text" id="total_harga_edit"
+                                                                name="total_harga_edit" class="form-control" readonly>
+                                                        </th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -493,21 +494,33 @@
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->harga_satuan }}</li>
+                                            <li>{{ $detail->nama_barang_keluar }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->subtotal }}</li>
+                                            <li>{{ $detail->jumlah_barang_keluar }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        {{ $item->total_harga }}
+                                        @foreach ($item->detail as $detail)
+                                            <li>Rp. {{ number_format($detail->harga_satuan, 0, ',', '.') }}</li>
+                                        @endforeach
                                     </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->detail as $detail)
+                                            <li>Rp. {{ number_format($detail->subtotal, 0, ',', '.') }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    Rp. {{ number_format($item->total_harga, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     <a href="#"

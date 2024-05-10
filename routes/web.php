@@ -105,7 +105,9 @@ Route::controller(AdminController::class)->group(function () {
 
 //Route Pemasukan Admin
 Route::controller(PemasukanAdminController::class)->group(function () {
-    Route::get('/pemasukan-admin', 'index')->name('pemasukan-admin');
+    // Route::get('/pemasukan-admin', 'index')->name('pemasukan-admin');
+    Route::get('/pemasukan-admin', 'dataTables')->name('pemasukan-admin');
+    Route::get('/pemasukan-admin/show', 'show')->name('show-pemasukan-admin');
     Route::get('/pemasukan-admin/create', 'create')->name('create-pemasukan-admin');
     Route::post('/pemasukan-admin/store', 'store')->name('store-pemasukan-admin');
     Route::get('/pemasukan-admin/edit/{id}', 'edit')->name('edit-pemasukan-admin');

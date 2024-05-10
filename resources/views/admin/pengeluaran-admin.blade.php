@@ -509,23 +509,19 @@
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->harga_satuan }}</li>
+                                            <li>Rp. {{ number_format($detail->harga_satuan, 0, ',', '.') }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->subtotal }}</li>
+                                            <li>Rp. {{ number_format($detail->subtotal, 0, ',', '.') }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->total }}</li>
-                                        @endforeach
-                                    </ul>
+                                    Rp.  {{ number_format($item->total_harga, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     <a href="#"

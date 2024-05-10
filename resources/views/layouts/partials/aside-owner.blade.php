@@ -48,7 +48,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('/mitra-owner') }}">
                     <span class="menu-icon">
@@ -57,7 +57,7 @@
                     <span class="menu-title">Mitra</span>
                 </a>
                 <!--end:Menu link-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion">
@@ -145,7 +145,7 @@
                 <!--begin:Menu link-->
                 <a href="{{ url('/logout') }}" class="menu-link">
                     <span class="menu-icon">
-                        <i class="ki-outline ki-abstract-35 fs-2"></i>
+                        <i class="ki-outline ki-exit-right fs-1"></i>
                     </span>
                     <span class="menu-title">Keluar</span>
                 </a>

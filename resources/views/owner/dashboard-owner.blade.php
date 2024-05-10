@@ -232,17 +232,10 @@
                 name: 'Pengeluaran',
                 data: @json($dataNumeric2)
             }],
-            // series: [{
-            //     name: 'Pemasukan',
-            //     data: @json($dataNumeric)
-            // }, {
-            //     name: 'Pengeluaran',
-            //     data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-            // }],
             chart: {
                 type: 'bar',
-                height: 800,
-                width: 1400,
+                height: 600,
+                width: 1000,
             },
             plotOptions: {
                 bar: {
@@ -269,6 +262,9 @@
             },
             fill: {
                 opacity: 1,
+                // colors: ['#008FFB', '#FF4560', '#9C27B0']
+            },
+            markers: {
                 colors: ['#008FFB', '#FF4560', '#9C27B0']
             },
             tooltip: {

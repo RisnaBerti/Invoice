@@ -90,7 +90,7 @@ class PengeluaranAdminController extends Controller
 
         // Perbarui tanggal pengeluaran
         $pengeluaran->tgl_pengeluaran = $request->tgl_pengeluaran_edit;
-        $pengeluaran->id_user = auth()->user()->id_user;  // Untuk menyimpan id user yang sedang login
+        // $pengeluaran->id_user = auth()->user()->id_user;  // Untuk menyimpan id user yang sedang login
         $pengeluaran->total_harga = $total_harga;
         $pengeluaran->save();
 

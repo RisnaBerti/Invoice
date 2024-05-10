@@ -1,4 +1,5 @@
 @extends('layouts.index')
+
 @section('content')
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-fluid">
@@ -9,88 +10,57 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
+                    {{-- <div class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                         <input type="text" data-kt-user-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13" placeholder="Mencari data" />
-                    </div>
+                    </div> --}}
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
-                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                        <!--begin::Filter-->
-                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end">
-                            <i class="ki-outline ki-filter fs-2"></i>Filter</button>
-                        <!--begin::Menu 1-->
-                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                            <!--begin::Header-->
-                            <div class="px-7 py-5">
-                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Separator-->
-                            <div class="separator border-gray-200"></div>
-                            <!--end::Separator-->
-                            <!--begin::Content-->
-                            <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <label class="form-label fs-6 fw-semibold">Role:</label>
-                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                        data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="role" data-hide-search="true">
-                                        <option></option>
-                                        <option value="Administrator">Administrator</option>
-                                        <option value="Analyst">Analyst</option>
-                                        <option value="Developer">Developer</option>
-                                        <option value="Support">Support</option>
-                                        <option value="Trial">Trial</option>
-                                    </select>
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <label class="form-label fs-6 fw-semibold">Two Step Verification:</label>
-                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                        data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="two-step" data-hide-search="true">
-                                        <option></option>
-                                        <option value="Enabled">Enabled</option>
-                                    </select>
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset"
-                                        class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                    <button type="submit" class="btn btn-primary fw-semibold px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
-                                </div>
-                                <!--end::Actions-->
-                            </div>
-                            <!--end::Content-->
+                    <div class="d-flex justify-content-end gap-2 gap-lg-3" data-kt-user-table-toolbar="base">
+
+                        <button type="button" class="btn btn-light-primary font-weight-bolder" id="daterange"
+                            class="float-end" style="text-align:center">
+                            <i class="ki-outline ki-calendar fs-1"></i></i>&nbsp;
+                            <span></span>
+                        </button>
+
+                        <!--begin::Export button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <span class="svg-icon svg-icon-md">
+                                    <!-- Icon -->
+                                </span><i class="ki-outline ki-exit-up fs-2"></i> Export
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
+                                <!-- Navigation -->
+                                <li class="nav-item">
+                                    <a href="#" class="dropdown-item">
+                                        <span class="nav-icon"><i class="la la-file-pdf-o"></i></span>
+                                        <span class="nav-text">PDF</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="dropdown-item">
+                                        <span class="nav-icon"><i class="la la-file-excel-o"></i></span>
+                                        <span class="nav-text">Excel</span>
+                                    </a>
+                                </li>
+                                <!--end::Navigation-->
+                            </ul>
                         </div>
-                        <!--end::Menu 1-->
-                        <!--end::Filter-->
-                        <!--begin::Export-->
-                        <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_export_users">
-                            <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
-                        <!--end::Export-->
+                        <!--end::Export button-->
+
                         <!--begin::Add Data-->
                         <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_add_pemasukan"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a>
+                            data-bs-target="#kt_modal_add_pemasukan"><i class="ki-outline ki-plus fs-2"></i>Tambah
+                            Data</a>
                         <!--end::Add Data-->
-                        <!--begin::Add user-->
-                        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_add_user">
-                            <i class="ki-outline ki-plus fs-2"></i>Tambah Data</button> --}}
-                        <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
                     <!--begin::Group actions-->
@@ -102,88 +72,6 @@
                             Selected</button>
                     </div>
                     <!--end::Group actions-->
-                    <!--begin::Modal - Adjust Balance-->
-                    <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
-                        <!--begin::Modal dialog-->
-                        <div class="modal-dialog modal-dialog-centered mw-650px">
-                            <!--begin::Modal content-->
-                            <div class="modal-content">
-                                <!--begin::Modal header-->
-                                <div class="modal-header">
-                                    <!--begin::Modal title-->
-                                    <h2 class="fw-bold">Export</h2>
-                                    <!--end::Modal title-->
-                                    <!--begin::Close-->
-                                    <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                                        data-kt-users-modal-action="close">
-                                        <i class="ki-outline ki-cross fs-1"></i>
-                                    </div>
-                                    <!--end::Close-->
-                                </div>
-                                <!--end::Modal header-->
-                                <!--begin::Modal body-->
-                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                    <!--begin::Form-->
-                                    <form id="kt_modal_export_users_form" class="form" action="#">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">Select Roles:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="role" data-control="select2" data-placeholder="Select a role"
-                                                data-hide-search="true" class="form-select form-select-solid fw-bold">
-                                                <option></option>
-                                                <option value="Administrator">Administrator</option>
-                                                <option value="Analyst">Analyst</option>
-                                                <option value="Developer">Developer</option>
-                                                <option value="Support">Support</option>
-                                                <option value="Trial">Trial</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
-                                            <!--begin::Label-->
-                                            <label class="required fs-6 fw-semibold form-label mb-2">Select Export
-                                                Format:</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="format" data-control="select2"
-                                                data-placeholder="Select a format" data-hide-search="true"
-                                                class="form-select form-select-solid fw-bold">
-                                                <option></option>
-                                                <option value="excel">Excel</option>
-                                                <option value="pdf">PDF</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Actions-->
-                                        <div class="text-center">
-                                            <button type="reset" class="btn btn-light me-3"
-                                                data-kt-users-modal-action="cancel">Discard</button>
-                                            <button type="submit" class="btn btn-primary"
-                                                data-kt-users-modal-action="submit">
-                                                <span class="indicator-label">Submit</span>
-                                                {{-- <span class="indicator-progress">Please wait...
-                                                    <span
-                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span> --}}
-                                            </button>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </form>
-                                    <!--end::Form-->
-                                </div>
-                                <!--end::Modal body-->
-                            </div>
-                            <!--end::Modal content-->
-                        </div>
-                        <!--end::Modal dialog-->
-                    </div>
-                    <!--end::Modal - New Card-->
-
 
                     <!--begin::Modal - Tambah Data -->
                     <div class="modal fade" id="kt_modal_add_pemasukan" tabindex="-1" data-bs-backdrop="static"
@@ -246,34 +134,14 @@
                                                 <!--begin::Input-->
                                                 <div class="position-relative d-flex align-items-center">
                                                     <!--begin::Datepicker-->
-                                                    <input class="form-control form-control-solid ps-12"
-                                                        id="nama_perusahaan" name="nama_perusahaan"
-                                                        placeholder="Nama perusahaan" required />
+                                                    <input class="form-control form-control-solid" id="nama_perusahaan"
+                                                        name="nama_perusahaan" placeholder="Nama perusahaan" required />
                                                     <!--end::Datepicker-->
                                                 </div>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Col-->
                                         </div>
-                                        <!--end::Input group-->
-
-                                        <!--begin::Input group-->
-                                        {{-- <div class="d-flex flex-column mb-8 fv-row">
-                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
-                                            <!--begin::Input-->
-                                            <div class="position-relative d-flex align-items-center">
-                                                <!--begin::Icon-->
-                                                <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
-                                                <!--end::Icon-->
-                                                <!--begin::Datepicker-->
-                                                <input type="date" name="tgl_pemasukan" id="tgl_pemasukan"
-                                                    value="{{ now()->format('Y-m-d') }}"
-                                                    class="form-control form-control-solid ps-12"
-                                                    placeholder="Select a date" name="due_date" />
-                                                <!--end::Datepicker-->
-                                            </div>
-                                            <!--end::Input-->
-                                        </div> --}}
                                         <!--end::Input group-->
 
                                         <div class="form-group">
@@ -294,7 +162,7 @@
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="8" class="text-end">Total:</th>
+                                                        <th colspan="7" class="text-end">Total:</th>
                                                         <th><input type="text" id="total_harga" name="total_harga"
                                                                 class="form-control" required readonly></th>
                                                         <th></th>
@@ -357,8 +225,8 @@
 
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="reset" id="kt_modal_add_pemasukan_cancel"
-                                                class="btn btn-light me-3">Cancel</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
                                             <button type="submit" id="kt_modal_add_pemasukan_submit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
@@ -416,25 +284,7 @@
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
-                                        <input type="text" name="id_pemasukan_edit" id="id_pemasukan_edit">
-                                        {{-- <input type="hidden" name="id_user" id="id_user"  value="{{ Auth::user()->id }}"> --}}
-                                        {{-- <div class="d-flex flex-column mb-8 fv-row">
-                                            <label class="required fs-6 fw-semibold mb-2">Tanggal Pemasukan</label>
-                                            <!--begin::Input-->
-                                            <div class="position-relative d-flex align-items-center">
-                                                <!--begin::Icon-->
-                                                <i class="ki-outline ki-calendar-8 fs-2 position-absolute mx-4"></i>
-                                                <!--end::Icon-->
-                                                <!--begin::Datepicker-->
-                                                <input type="date" name="tgl_pemasukan_edit" id="tgl_pemasukan_edit"
-                                                    class="form-control form-control-solid ps-12"
-                                                    placeholder="Select a date" required />
-                                                <!--end::Datepicker-->
-                                            </div>
-                                            <!--end::Input-->
-                                        </div> --}}
-                                        <!--end::Input group-->
-
+                                        <input type="hidden" name="id_pemasukan_edit" id="id_pemasukan_edit">
                                         <!--begin::Input group-->
                                         <div class="row g-9 mb-8">
                                             <!--begin::Col-->
@@ -461,7 +311,7 @@
                                                 <!--begin::Input-->
                                                 <div class="position-relative d-flex align-items-center">
                                                     <!--begin::Datepicker-->
-                                                    <input class="form-control form-control-solid ps-12"
+                                                    <input class="form-control form-control-solid"
                                                         id="nama_perusahaan_edit" name="nama_perusahaan_edit"
                                                         placeholder="Nama perusahaan" required />
                                                     <!--end::Datepicker-->
@@ -493,7 +343,7 @@
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="8" class="text-end">Total:</th>
+                                                        <th colspan="7" class="text-end">Total:</th>
                                                         <th><input type="text" id="total_harga_edit"
                                                                 name="total_harga_edit"
                                                                 class="form-control total_harga_edit" readonly></th>
@@ -554,8 +404,8 @@
                                         <!--end::Detail Pemasukan-->
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="reset" id="kt_modal_add_pemasukan_cancel"
-                                                class="btn btn-light me-3">Cancel</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
                                             <button type="submit" id="kt_modal_add_pemasukan_submit_edit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
@@ -572,152 +422,26 @@
                         <!--end::Modal dialog-->
                     </div>
                     <!--end::Modal - Edit Data -->
-
-
-
                 </div>
                 <!--end::Card toolbar-->
             </div>
             <!--end::Card header-->
 
             <!--begin::Card body-->
-            <div class="card-body py-4">
+            <div class="card-body">
                 <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                <table class="table table-bordered table-hover align-middle table-row-dashed fs-6 gy-5"
+                    id="kt_table_users" name="kt_table_users">
                     <thead>
-                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">
-                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                    <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                        data-kt-check-target="#kt_table_users .form-check-input" value="1" />
-                                </div>
-                            </th>
+                        <tr class="table-light text-muted fw-bold fs-7 text-uppercase gs-0">
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Nama Perusahaan</th>
-                            <th>Jenis Barang</th>
-                            <th>Nama Barang</th>
-                            <th>QTY</th>
-                            <th>Harga Satuan</th>
-                            <th>Subtotal</th>
                             <th>Total</th>
-                            <th>Saldo</th>
-                            <th>Keterangan</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
-                        @foreach ($pemasukan as $index => $item)
-                            <tr>
-                                <td>
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="1" />
-                                    </div>
-                                </td>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->tgl_pemasukan }}</td>                                
-                                <td>{{ $item->nama_perusahaan }}</td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->jenis_pemasukan }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->nama_barang_masuk }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->jumlah_barang_masuk }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->harga_barang_masuk }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->subtotal }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>{{ $item->total_harga }}</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->saldo }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($item->detail as $detail)
-                                            <li>{{ $detail->keterangan }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td class="text-end">
-                                    <a href="#"
-                                        class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                        <i class="ki-outline ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                        data-kt-menu="true">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3 edit-row" data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_edit_data"
-                                                data-id="{{ $item->id_pemasukan }}">Edit</a>
-                                        </div>
-
-                                        {{-- <div class="menu-item px-3">
-                                            <a href="{{ url('edit-pemasukan-admin/' . $item->id_pemasukan) }}" class="menu-link px-3 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data">Edit</a>
-                                        </div> --}}
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <form
-                                            action="{{ route('delete-pemasukan-admin', ['id' => $item->id_pemasukan]) }}"
-                                            method="POST">
-                                            @csrf
-                                            <button type="submit" class="menu-link px-3"
-                                                data-kt-users-table-filter="delete_row">Delete</button>
-                                        </form>
-                                        {{-- <div class="menu-item px-3">
-                                            <a href="{{ route('delete-pemasukan-admin', ['id' => $item->id_pemasukan]) }}" @method(POST) class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                                        </div> --}}
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu-->
-                                </td>
-                                {{-- <td>
-                                    <a href="{{ url('/pemasukan-admin/' . $item->id . 'edit/{id}') }}"
-                                        class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ url('/pemasukan-admin' . $item->id) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
-                                    </form>Hapus</button>
-                                </td> --}}
-                            </tr>
-                        @endforeach
 
                     </tbody>
                 </table>
@@ -730,8 +454,74 @@
     </div>
     <!--end::Content container-->
 
+
+
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // Memuat DataTable
+        $(document).ready(function() {
+            var start_date = moment().subtract(1, 'M');
+
+            var end_date = moment();
+
+            $('#daterange span').html(start_date.format('MMMM D, YYYY') + ' - ' + end_date.format('MMMM D, YYYY'));
+
+            $('#daterange').daterangepicker({
+                startDate: start_date,
+                endDate: end_date
+            }, function(start_date, end_date) {
+                $('#daterange span').html(start_date.format('MMMM D, YYYY') + ' - ' + end_date.format(
+                    'MMMM D, YYYY'));
+
+                table.draw();
+            });
+
+            $('#kt_table_users').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('pemasukan-admin') }}",
+                    data: function(data) {
+                        data.from_date = $('#daterange').data('daterangepicker').startDate.format(
+                            'YYYY-MM-DD');
+                        data.to_date = $('#daterange').data('daterangepicker').endDate.format(
+                            'YYYY-MM-DD');
+                    }
+                },
+                columns: [{
+                        data: null,
+                        render: function(data, type, row, meta) {
+                            // Menggunakan meta.row untuk mendapatkan nomor urut
+                            return meta.row + 1;
+                        }
+                    },
+                    {
+                        data: 'tgl_pemasukan',
+                        name: 'tgl_pemasukan',
+                        render: function(data) {
+                            // Memformat tanggal menggunakan Moment.js
+                            return moment(data).format('DD-MM-YYYY');
+                        }
+                    },
+                    {
+                        data: 'nama_perusahaan',
+                        name: 'nama_perusahaan'
+                    },
+                    {
+                        data: 'total_harga',
+                        name: 'total_harga'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
+                ]
+            });
+        });
+    </script>
 
     <script>
         //Modal Untuk Tambah Data Pemasukan
@@ -749,7 +539,6 @@
                     $('#total_harga').val(formatRupiah(grandTotal));
                 }
             }
-
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
             $(document).on('change', '.subtotal', function() {
@@ -853,6 +642,7 @@
                 $.get(url, function(data) {
                     $('#id_pemasukan_edit').val(data.id_pemasukan);
                     $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
+                    $('#nama_perusahaan_edit').val(data.nama_perusahaan);
                     $('#total_harga_edit').val(data.total_harga);
                     $('#detailTableEdit tbody').empty();
                     data.detail.forEach(function(detail, index) {
@@ -907,7 +697,8 @@
                     detail.push({
                         jenis_pemasukan: $(this).find('.jenis_pemasukan_edit').val(),
                         nama_barang_masuk: $(this).find('.nama_barang_masuk_edit').val(),
-                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit').val(),
+                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit')
+                            .val(),
                         harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
                         subtotal: $(this).find('.subtotal_edit').val(),
                         bayar: $(this).find('.bayar_edit').val(),
