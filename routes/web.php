@@ -71,14 +71,14 @@ Route::controller(PengeluaranOwnerController::class)->group(function () {
 });
 
 //Route Mitra 
-Route::controller(MitraController::class)->group(function () {
-    Route::get('/mitra-owner', 'index')->name('mitra-owner');
-    Route::get('/mitra-owner/create', 'create')->name('create-mitra-owner');
-    Route::post('/mitra-owner/store', 'store')->name('store-mitra-owner');
-    Route::get('/mitra-owner/edit/{id}', 'edit')->name('edit-mitra-owner');    
-    Route::post('/mitra-owner/update', 'update')->name('update-mitra-owner');
-    Route::post('/mitra-owner/delete/{id}', 'delete')->name('delete-mitra-owner');
-});
+// Route::controller(MitraController::class)->group(function () {
+//     Route::get('/mitra-owner', 'index')->name('mitra-owner');
+//     Route::get('/mitra-owner/create', 'create')->name('create-mitra-owner');
+//     Route::post('/mitra-owner/store', 'store')->name('store-mitra-owner');
+//     Route::get('/mitra-owner/edit/{id}', 'edit')->name('edit-mitra-owner');    
+//     Route::post('/mitra-owner/update', 'update')->name('update-mitra-owner');
+//     Route::post('/mitra-owner/delete/{id}', 'delete')->name('delete-mitra-owner');
+// });
 
 //Route Data User
 Route::controller(UserController::class)->group(function () {
@@ -93,8 +93,8 @@ Route::controller(UserController::class)->group(function () {
 //Route Pengaturan Owner
 Route::controller(SettingOwnerController::class)->group(function () {
     Route::get('/setting-owner', 'index')->name('setting-owner');
-    Route::get('/setting-owner/create', 'create')->name('create-setting-owner');
-    Route::get('/setting-owner/edit/{id}', 'edit')->name('edit-setting-owner');
+    Route::post('/setting-owner/update', 'update')->name('update-setting-owner');
+    Route::post('/setting-owner/gantiPassword', 'gantiPassword')->name('update-password-owner');
 });
 
 
@@ -103,6 +103,11 @@ Route::controller(SettingOwnerController::class)->group(function () {
 //Route Admin
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admin', 'admin')->name('dashboard-admin');
+    Route::get('/laporan-admin-harian', 'laporanHarian')->name('laporan-admin-harian');
+    Route::get('/laporan-admin-bulanan', 'laporanBulanan')->name('laporan-admin-bulanan');
+    Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
+    Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
+
 });
 
 //Route Pemasukan Admin
@@ -130,13 +135,13 @@ Route::controller(PengeluaranAdminController::class)->group(function () {
 //Route Pengaturan admin
 Route::controller(SettingAdminController::class)->group(function () {
     Route::get('/setting-admin', 'index')->name('setting-admin');
-    Route::get('/setting-admin/create', 'create')->name('create-setting-admin');
-    Route::get('/setting-admin/edit/{id}', 'edit')->name('edit-setting-admin');
+    Route::post('/setting-admin/update', 'update')->name('update-setting-admin');
+    Route::post('/setting-admin/gantiPassword', 'gantiPassword')->name('update-password-admin');
 });
 
 //Route Mitra 
-Route::controller(MitraController::class)->group(function () {
-    Route::get('/mitra-admin', 'index')->name('mitra-admin');
-    Route::get('/mitra-admin/create', 'create')->name('create-mitra-admin');
-    Route::get('/mitra-admin/edit/{id}', 'edit')->name('edit-mitra-admin');
-});
+// Route::controller(MitraController::class)->group(function () {
+//     Route::get('/mitra-admin', 'index')->name('mitra-admin');
+//     Route::get('/mitra-admin/create', 'create')->name('create-mitra-admin');
+//     Route::get('/mitra-admin/edit/{id}', 'edit')->name('edit-mitra-admin');
+// });

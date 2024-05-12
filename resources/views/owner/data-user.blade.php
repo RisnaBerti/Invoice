@@ -8,8 +8,8 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                     <!--begin::Search-->
-                     <form action="{{ route('data-user') }}" method="GET">
+                    <!--begin::Search-->
+                    <form action="{{ route('data-user') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
@@ -35,8 +35,8 @@
                         <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
-                   
-                    
+
+
 
                     <!--begin::Modal - Tambah Data -->
                     <div class="modal fade" id="kt_modal_add_user" tabindex="-1" data-bs-backdrop="static"
@@ -57,8 +57,8 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
-                                    <form id="kt_modal_add_user_form" class="form"
-                                        action="{{ route('store-data-user') }}" method="POST" id="userForm">
+                                    <form id="kt_modal_add_user_form" class="form" action="{{ route('store-data-user') }}"
+                                        method="POST" id="userForm">
                                         @csrf
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
@@ -67,7 +67,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Pengguna
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -191,7 +192,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Pengguna
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -283,7 +285,7 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_user">
                     <thead>
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                           
+
                             <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
@@ -294,7 +296,7 @@
                     <tbody class="text-gray-600 fw-semibold">
                         @foreach ($user as $index => $item)
                             <tr>
-                               
+
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
@@ -302,10 +304,9 @@
 
                                 <td>
                                     <a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_edit_data" data-id="{{  $item->id_user }}"><i
+                                        data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_user }}"><i
                                             class="fas fa-edit text-warning"></i></a>
-                                    <form
-                                        action="{{ route('delete-pengeluaran-admin', ['id' =>  $item->id_user]) }}"
+                                    <form action="{{ route('delete-pengeluaran-admin', ['id' => $item->id_user]) }}"
                                         method="POST" style="display:inline;">
                                         @csrf
                                         <button type="submit" class="menu-link px-1"
@@ -315,7 +316,7 @@
                                     </form>
                                 </td>
 
-                                
+
                             </tr>
                         @endforeach
                     </tbody>

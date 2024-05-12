@@ -20,9 +20,9 @@
                             </a>
                             <!--end::Logo-->
                             <!--begin::Text-->
-                            <div class="text-sm-end fw-semibold fs-4 text-muted mt-7">
-                                <div>Cecilia Chapman, 711-2880 Nulla St, Mankato</div>
-                                <div>088189025612</div>
+                            <div class="text-sm-end fw-semibold fs-4  mt-7">
+                                <div>CV Toba Jaya Teknik Cilacap</div>
+                                <div>JL MT. Haryono, No. 75, Donan,Prenca, Cilacap Tengah</div>
                             </div>
                             <!--end::Text-->
                         </div>

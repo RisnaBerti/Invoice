@@ -88,7 +88,7 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pemasukan
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -270,7 +270,7 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pemasukan
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>

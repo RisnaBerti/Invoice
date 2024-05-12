@@ -215,7 +215,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Mitra
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -263,8 +264,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="No Telephone" name="no_telp_mitra"
-                                                id="no_telp_mitra" />
+                                                placeholder="No Telephone" name="no_telp_mitra" id="no_telp_mitra" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -353,14 +353,16 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Mitra
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
                                         <!--end::Heading-->
 
                                         {{-- id mitra hide --}}
-                                        <input type="text" class="form-control form-control-solid" name="id_mitra_edit" id="id_mitra_edit" />
+                                        <input type="text" class="form-control form-control-solid"
+                                            name="id_mitra_edit" id="id_mitra_edit" />
 
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-8 fv-row">
@@ -373,7 +375,8 @@
                                                 </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" name="nama_mitra_edit" id="nama_mitra_edit" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                name="nama_mitra_edit" id="nama_mitra_edit" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -387,7 +390,8 @@
                                                 </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" name="alamat_mitra_edit" id="alamat_mitra_edit" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                name="alamat_mitra_edit" id="alamat_mitra_edit" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -401,7 +405,8 @@
                                                 </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" name="no_telp_mitra_edit" id="no_telp_mitra_edit" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                name="no_telp_mitra_edit" id="no_telp_mitra_edit" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -415,7 +420,8 @@
                                                 </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="email" class="form-control form-control-solid" name="email_mitra_edit" id="email_mitra_edit" />
+                                            <input type="email" class="form-control form-control-solid"
+                                                name="email_mitra_edit" id="email_mitra_edit" />
                                         </div>
                                         <!--end::Input group-->
 
@@ -430,7 +436,8 @@
                                                 </span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" name="jenis_mitra_edit" id="jenis_mitra_edit" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                name="jenis_mitra_edit" id="jenis_mitra_edit" />
                                         </div>
                                         <!--end::Input group-->
 

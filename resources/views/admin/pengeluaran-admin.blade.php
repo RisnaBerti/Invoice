@@ -69,8 +69,8 @@
                         <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
-                   
-                   
+
+
 
 
                     <!--begin::Modal - Tambah Data -->
@@ -102,7 +102,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -234,7 +235,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>

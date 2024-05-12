@@ -215,7 +215,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Pengguna
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -393,7 +394,8 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="password" class="form-control form-control-solid"
-                                                placeholder="Password" name="password_edit" id="password_edit" value="{{ $user->password }}"/>
+                                                placeholder="Password" name="password_edit" id="password_edit"
+                                                value="{{ $user->password }}" />
                                         </div>
                                         <!--end::Input group-->
 

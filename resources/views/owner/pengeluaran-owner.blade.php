@@ -50,8 +50,8 @@
                             </ul>
                         </div>
                         <!--end::Export button-->
-                        
-                        
+
+
                         <!--begin::Add Data-->
                         <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_new_target"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a>
@@ -63,8 +63,8 @@
                         <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
-                   
-                   
+
+
 
 
                     <!--begin::Modal - Tambah Data -->
@@ -87,8 +87,7 @@
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
                                     <form id="kt_modal_new_target_form" class="form"
-                                        action="{{ route('store-pengeluaran-owner') }}" method="POST"
-                                        id="pengeluaranForm">
+                                        action="{{ route('store-pengeluaran-owner') }}" method="POST" id="pengeluaranForm">
                                         @csrf
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
@@ -97,7 +96,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -220,7 +220,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pengeluaran
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>

@@ -95,7 +95,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pemasukan
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -200,8 +201,8 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select name="detail[0][keterangan]" class="form-control keterangan"
-                                                                id="keterangan">
+                                                            <select name="detail[0][keterangan]"
+                                                                class="form-control keterangan" id="keterangan">
                                                                 <option value="debet">Bon</option>
                                                                 <option value="kredit">Lunas</option>
                                                             </select>
@@ -277,7 +278,8 @@
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Detail Pemasukan
-                                                <a href="" class="fw-bold link-primary">CV. Smart Thec</a>.
+                                                <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
+                                                    Cilacap</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
@@ -378,15 +380,15 @@
                                                                 required>
                                                         </td>
                                                         <td>
-                                                            <select name="detail[0][saldo_edit]" class="form-control saldo_edit"
-                                                                id="saldo_edit">
+                                                            <select name="detail[0][saldo_edit]"
+                                                                class="form-control saldo_edit" id="saldo_edit">
                                                                 {{-- <option value="debet"></option> --}}
                                                                 {{-- <option value="kredit">Kredit</option> --}}
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select name="detail[0][keterangan_edit]" class="form-control keterangan_edit"
-                                                                id="keterangan_edit">
+                                                            <select name="detail[0][keterangan_edit]"
+                                                                class="form-control keterangan_edit" id="keterangan_edit">
                                                                 {{-- <option value="debet"></option> --}}
                                                                 {{-- <option value="kredit">Kredit</option> --}}
                                                             </select>
@@ -633,7 +635,7 @@
                     $('#total_harga_edit').val(data.total_harga);
                     $('#detailTableEdit tbody').empty();
                     data.detail.forEach(function(detail, index) {
-                        var row = '<tr>' + 
+                        var row = '<tr>' +
                             // '<td><input type="hidden" name="detail[' + index +
                             // '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" value="' +
                             // detail.jenis_pemasukan + '" ></td>' +
@@ -818,5 +820,4 @@
 
         });
     </script>
-
 @endsection

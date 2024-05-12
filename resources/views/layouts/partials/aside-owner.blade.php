@@ -123,7 +123,7 @@
                             <span class="menu-icon">
                                 <i class="ki-outline ki-key fs-2"></i>
                             </span>
-                            <span class="menu-title">Ganti Password</span>
+                            <span class="menu-title">Profil</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
