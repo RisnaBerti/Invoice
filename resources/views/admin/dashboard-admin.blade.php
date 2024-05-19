@@ -204,9 +204,9 @@
                     <!--begin::Body-->
                     <div class="card-body d-flex align-items-end px-0 pt-3 pb-5">
                         <!--begin::Chart-->
-                        {{-- <div id="kt_charts_widget_38_chart" class="h-325px w-100 min-h-auto ps-4 pe-6"></div> --}}
-                        <div id="chart"></div>
-                        {{-- {!! $chart->container() !!} --}}
+                        <div id="chart">
+                            <div id="responsive-chart"></div>
+                        </div>
                         <!--end::Chart-->
                     </div>
                     <!--end: Card Body-->
@@ -273,12 +273,24 @@
                         return "Rp. " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); + " thousands"
                     }
                 }
-            }
+            },
+            responsive: [{
+                breakpoint: 1000,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            horizontal: false
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }]
         };
 
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
         chart.render();
     </script>
 @endsection
-
