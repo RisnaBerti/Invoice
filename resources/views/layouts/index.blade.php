@@ -21,7 +21,7 @@
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
     {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/favicon.ico" /> --}}
     {{-- <link rel="shortcut icon" href="{{ url('') }}/assets/src/media/logos/favicon.ico" /> --}}
-    <link rel="shortcut icon" href="{{ url('') }}/assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('') }}/assets/favicon.ico">
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->

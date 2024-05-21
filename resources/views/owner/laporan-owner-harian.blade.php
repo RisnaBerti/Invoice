@@ -109,7 +109,7 @@
                             <th>Kredit</th>
                             <th>Total Pendapatan</th>
                             <th>Total Piutang</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
@@ -126,15 +126,15 @@
                                     <span>Rp. {{ number_format($total->total_kredit, 0, ',', '.') }}</span>
                                 </td>
                                 <td>
-                                    <span>Rp. {{ number_format($total->total_semua - $total->total_piutang, 0, ',', '.') }}</span>
+                                    <span>Rp. {{ number_format($total->total_kredit - $total->total_debet, 0, ',', '.') }}</span>
                                 </td>
                                 <td>
                                     <span>Rp. {{ number_format($total->total_piutang, 0, ',', '.') }}</span>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <a href="{{ route('sendNotifWhatsApp', ['tgl_pemasukan' => $total->tgl_pemasukan, 'saldo' => $saldo]) }}"
                                         class="btn btn-primary"><i class="ki-outline ki-send fs-2"></i>Kirim</a>
-                                </td>
+                                </td> --}}
 
                             </tr>
                         @endforeach

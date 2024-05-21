@@ -22,13 +22,13 @@ class PemasukanOwnerController extends Controller
 
             return datatables()->of($pemasukan)
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
+                    // $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
                     // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-eye text-success"></i></a>';
-                    $button .= '<a href="' . URL::route('show-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
-                    $button .= '<form action="' . URL::route('delete-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
-                    $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-                    $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
-                    $button .= '</form>';
+                    $button = '<a href="' . URL::route('show-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
+                    // $button .= '<form action="' . URL::route('delete-pemasukan-owner', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
+                    // $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+                    // $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
+                    // $button .= '</form>';
                     return $button;
                 })
                 ->rawColumns(['action'])

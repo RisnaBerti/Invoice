@@ -133,20 +133,6 @@
                 <!--begin:Menu sub-->
                 <div class="menu-sub menu-sub-accordion">
                     <!--begin:Menu item-->
-                    {{-- <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities"
-                            target="_blank" title="Check out over 200 in-house components" data-bs-toggle="tooltip"
-                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-user-edit fs-2"></i>
-                            </span>
-                            <span class="menu-title">Edit Profile</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div> --}}
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
                         <a class="menu-link" href="{{ url('setting-admin') }}"

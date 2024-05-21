@@ -50,9 +50,9 @@
                         <!--end::Export button-->
 
                         <!--begin::Add Data-->
-                        <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
+                        {{-- <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_add_pemasukan"><i class="ki-outline ki-plus fs-2"></i>Tambah
-                            Data</a>
+                            Data</a> --}}
                         <!--end::Add Data-->
                     </div>
                     <!--end::Toolbar-->

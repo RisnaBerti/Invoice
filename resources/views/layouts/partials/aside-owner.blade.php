@@ -60,16 +60,54 @@
             </div> --}}
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            <!--begin:Menu item-->
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/laporan-owner') }}">
+                <span class="menu-link">
                     <span class="menu-icon">
                         <i class="ki-outline ki-financial-schedule fs-2"></i>
                     </span>
                     <span class="menu-title">Laporan</span>
-                </a>
+                    <span class="menu-arrow"></span>
+                </span>
                 <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-owner-harian') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-user-edit fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Harian</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-owner-bulanan') }}"
+                            title="Check out the complete documentation" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            {{-- <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span> --}}
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-key fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Bulanan</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end:Menu sub-->
             </div>
+            <!--end:Menu item-->
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion">
@@ -83,7 +121,7 @@
                 <!--end:Menu link-->
             </div>
             <!--end:Menu item-->
-            
+
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
@@ -96,38 +134,37 @@
                 </span>
                 <!--end:Menu link-->
                 <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    {{-- <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities"
-                            target="_blank" title="Check out over 200 in-house components" data-bs-toggle="tooltip"
-                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-user-edit fs-2"></i>
-                            </span>
-                            <span class="menu-title">Edit Profile</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div> --}}
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs" target="_blank"
-                            title="Check out the complete documentation" data-bs-toggle="tooltip"
-                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            {{-- <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span> --}}
-                            <span class="menu-icon">
-                                <i class="ki-outline ki-key fs-2"></i>
-                            </span>
-                            <span class="menu-title">Profil</span>
-                        </a>
-                        <!--end:Menu link-->
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <!--begin:Menu link-->
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-setting-2 fs-2"></i>
+                        </span>
+                        <span class="menu-title">Pengaturan</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <!--end:Menu link-->
+                    <!--begin:Menu sub-->
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ url('setting-owner') }}"
+                                title="Check out the complete documentation" data-bs-toggle="tooltip"
+                                data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                {{-- <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> --}}
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-key fs-2"></i>
+                                </span>
+                                <span class="menu-title">Profil</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
                     </div>
-                    <!--end:Menu item-->
+                    <!--end:Menu sub-->
                 </div>
                 <!--end:Menu sub-->
             </div>

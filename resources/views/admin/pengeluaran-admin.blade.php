@@ -418,6 +418,7 @@
                                             style="border:none; background:none; padding:0; cursor:pointer;"><i
                                                 class="fas fa-trash-alt text-danger"></i></button>
                                     </form>
+                                    <a href="{{ route('show-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}"  class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>
                                 </td>
                             </tr>
                         @endforeach

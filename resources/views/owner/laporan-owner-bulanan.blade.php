@@ -8,32 +8,16 @@
             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <form action="{{ route('laporan-admin-harian') }}" method="GET">
+                    {{-- <form action="{{ route('laporan-admin-harian') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
                                 id="q" placeholder="Mencari data" value="" />
                             <button type="submit" class="btn btn-primary">Cari</button>
                         </div>
-                    </form>
-                    
-                    <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
-                        {{-- <i class="ki-outline ki-magnifier fs-2 position-absolute ms-4"></i>
-                        <input type="text" data-kt-ecommerce-order-filter="search"
-                            class="form-control form-control-solid w-250px ps-12" placeholder="Search Report" /> --}}
-                    </div>
-                    <!--end::Search-->
-                    <!--begin::Export buttons-->
-                    <div id="kt_ecommerce_report_views_export" class="d-none"></div>
-                    <!--end::Export buttons-->
-                </div>
-                <!--end::Card title-->
-                <!--begin::Card toolbar-->
-                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                   
+                    </form> --}}
 
-                    <form class="d-flex justify-content-between" action="{{ route('laporan-admin-harian') }}" method="GET">
+                    <form class="d-flex justify-content-between" action="{{ route('laporan-admin-bulanan') }}" method="GET">
                         <div class="col">
                             <!--begin::Select2-->
                             <select id="bulan" name="bulan" class="form-select form-select-solid"
@@ -72,10 +56,25 @@
                         <button type="submit" class="btn btn-primary">Cari</button>
                     </form>
 
+
+                    <!--begin::Search-->
+                    <div class="d-flex align-items-center position-relative my-1">
+                        {{-- <i class="ki-outline ki-magnifier fs-2 position-absolute ms-4"></i>
+                        <input type="text" data-kt-ecommerce-order-filter="search"
+                            class="form-control form-control-solid w-250px ps-12" placeholder="Search Report" /> --}}
+                    </div>
+                    <!--end::Search-->
+                    <!--begin::Export buttons-->
+                    <div id="kt_ecommerce_report_views_export" class="d-none"></div>
+                    <!--end::Export buttons-->
+                </div>
+                <!--end::Card title-->
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                     <!--begin::Export dropdown-->
-                    {{-- <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
+                    <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-outline ki-exit-up fs-2"></i>Export Laporan</button> --}}
+                        <i class="ki-outline ki-exit-up fs-2"></i>Export Laporan</button>
                     <!--begin::Menu-->
                     <div id="kt_ecommerce_report_views_export_menu"
                         class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4"
@@ -126,7 +125,8 @@
                                     <span>Rp. {{ number_format($total->total_kredit, 0, ',', '.') }}</span>
                                 </td>
                                 <td>
-                                    <span>Rp. {{ number_format($total->total_semua - $total->total_piutang, 0, ',', '.') }}</span>
+                                    <span>Rp.
+                                        {{ number_format($total->total_kredit - $total->total_debet, 0, ',', '.') }}</span>
                                 </td>
                                 <td>
                                     <span>Rp. {{ number_format($total->total_piutang, 0, ',', '.') }}</span>

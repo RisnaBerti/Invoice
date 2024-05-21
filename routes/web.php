@@ -46,6 +46,10 @@ Route::controller(AuthController::class)->group(function () {
 //Route Owner
 Route::controller(OwnerController::class)->group(function () {
     Route::get('/owner', 'owner')->name('dashboard-owner');
+    Route::get('/laporan-owner-harian', 'laporanHarian')->name('laporan-owner-harian');
+    Route::get('/laporan-owner-bulanan', 'laporanBulanan')->name('laporan-owner-bulanan');
+    Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
+    Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
 });
 
 //Route Pemasukan Owner
@@ -63,7 +67,8 @@ Route::controller(PemasukanOwnerController::class)->group(function () {
 //Route Pengeluaran Owner
 Route::controller(PengeluaranOwnerController::class)->group(function () {
     Route::get('/pengeluaran-owner', 'index')->name('pengeluaran-owner');
-    Route::get('/pengeluaran-owner/create', 'create')->name('create-pengeluaran-owner');
+    Route::get('/pengeluaran-owner/create', 'create')->name('create-pengeluaran-owner'); 
+    Route::get('/pengeluaran-owner/show', 'show')->name('show-pengeluaran-owner');
     Route::post('/pengeluaran-owner/store', 'store')->name('store-pengeluaran-owner');
     Route::get('/pengeluaran-owner/edit/{id}', 'edit')->name('edit-pengeluaran-owner');
     Route::post('/pengeluaran-owner/update', 'update')->name('update-pengeluaran-owner');
@@ -125,7 +130,8 @@ Route::controller(PemasukanAdminController::class)->group(function () {
 //Route Pengeluaran Admin
 Route::controller(PengeluaranAdminController::class)->group(function () {
     Route::get('/pengeluaran-admin', 'index')->name('pengeluaran-admin');
-    Route::get('/pengeluaran-admin/create', 'create')->name('create-pengeluaran-admin');
+    Route::get('/pengeluaran-admin/create', 'create')->name('create-pengeluaran-admin');    
+    Route::get('/pengeluaran-admin/show', 'show')->name('show-pengeluaran-admin');
     Route::post('/pengeluaran-admin/store', 'store')->name('store-pengeluaran-admin');
     Route::get('/pengeluaran-admin/edit/{id}', 'edit')->name('edit-pengeluaran-admin');
     Route::post('/pengeluaran-admin/update', 'update')->name('update-pengeluaran-admin');

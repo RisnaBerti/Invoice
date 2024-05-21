@@ -102,9 +102,10 @@ class AdminController extends Controller
                 'tgl_pemasukan',
                 DB::raw('YEAR(tgl_pemasukan) AS tahun'),
                 DB::raw('MONTH(tgl_pemasukan) AS bulan'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.keterangan = "Kasbon" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
+                DB::raw('SUM(CASE WHEN pemasukan.keterangan = "Kasbon" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
                 DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Kredit" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_debet'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit')
+                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit'),
+                DB::raw('SUM(detail_pemasukan.subtotal) AS total_semua')
             )
             ->join('detail_pemasukan', 'pemasukan.id_pemasukan', '=', 'detail_pemasukan.id_pemasukan')
             ->when($tahun, function ($query, $tahun) {

@@ -40,6 +40,18 @@ class PengeluaranAdminController extends Controller
         );
     }
 
+    //fungsi show pengeluaran dan detail pengeluarannya
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $pengeluaran = Pengeluaran::with('detail')->find($id);
+    
+        return view('admin.show-pengeluaran-admin', [
+            'title' => 'Pengeluaran Admin',
+            'pengeluaran' => $pengeluaran
+        ], compact('pengeluaran'));
+    }
+
     // Fungsi create pengeluaran admin
     public function create()
     {

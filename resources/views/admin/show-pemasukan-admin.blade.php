@@ -14,9 +14,8 @@
                         <!--end::Logo-->
                         <div class="text-sm-end">
                             <!--begin::Logo-->
-                            <a href="#" class="d-block mw-150px ms-sm-auto">
-                                <img alt="Logo" src="assets/media/svg/brand-logos/lloyds-of-london-logo.svg"
-                                    class="w-100" />
+                            <a href="" class="d-block mw-150px ms-sm-auto">
+                                <img alt="Logo" src="{{ url('') }}/assets/logo.png" class="w-100" />
                             </a>
                             <!--end::Logo-->
                             <!--begin::Text-->
@@ -35,7 +34,8 @@
                             <!--begin::Message-->
                             <div class="fw-bold fs-2">{{ $pemasukan->nama_perusahaan }}
                                 <br />
-                                <span class="text-muted fs-3">{{ date('d-M-Y', strtotime($pemasukan->tgl_pemasukan)) }} </span>
+                                <span class="text-muted fs-3">{{ date('d-M-Y', strtotime($pemasukan->tgl_pemasukan)) }}
+                                </span>
                                 <br />
                                 {{-- <span class="text-muted fs-5">Berikut adalah detail pesanan Anda. Kami berterima kasih atas pembelian Anda.</span> --}}
                             </div>
@@ -62,34 +62,34 @@
                                         </thead>
                                         <tbody class="fw-semibold text-gray-600">
                                             @foreach ($pemasukan->detail as $detail)
-                                            <tr>
-                                                {{-- <td>
+                                                <tr>
+                                                    {{-- <td>
                                                     {{ $detail->jenis_pemasukan }}
                                                 </td> --}}
-                                                <td>
-                                                    <ul>
-                                                        {{ $detail->nama_barang_masuk }}
-                                                    </ul>
-                                                <td>
-                                                    {{ $detail->harga_barang_masuk }}
-                                                </td>
-                                                <td>
-                                                    {{ $detail->jumlah_barang_masuk }}
-                                                </td>
-                                                <td>
-                                                    {{ $detail->bayar }}
-                                                </td>
-                                                <td>
-                                                    {{ $detail->saldo }}
-                                                </td>
-                                                <td>
-                                                    {{ $detail->keterangan }}
-                                                </td>
-                                                <td>
-                                                    {{ $detail->subtotal }}
-                                                </td>
-                                            </tr>
-                                            @endforeach                                           
+                                                    <td>
+                                                        <ul>
+                                                            {{ $detail->nama_barang_masuk }}
+                                                        </ul>
+                                                    <td>
+                                                        {{ $detail->harga_barang_masuk }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $detail->jumlah_barang_masuk }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $detail->bayar }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $detail->saldo }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $detail->keterangan }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $detail->subtotal }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                             <tr>
                                                 <td colspan="6" class="fs-5 text-dark fw-bold">Total</td>
                                                 <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->total_harga }}</td>
@@ -105,8 +105,10 @@
                         <!-- begin::Actions-->
                         <div class="my-1 me-5">
                             <!-- begin::Pint-->
-                            <button type="button" class="btn btn-success my-1 me-12" onclick="window.print();">Print
+                            <button type="button" class="btn btn-success my-1 me-4" onclick="window.print();">Print
                                 Detail</button>
+                            <button type="button" class="btn btn-light-success my-1"
+                                onclick="window.location.href='{{ route('pemasukan-admin') }}'">Kembali</button>
                             <!-- end::Pint-->
                             <!-- begin::Download-->
                             {{-- <button type="button" class="btn btn-light-success my-1">Download</button> --}}
@@ -117,20 +119,20 @@
                     <!--end::Body-->
                     <!-- begin::Footer-->
                     {{-- <div class="d-flex flex-stack flex-wrap mt-lg-20 pt-13"> --}}
-                        <!-- begin::Actions-->
-                        {{-- <div class="my-1 me-5"> --}}
-                            <!-- begin::Pint-->
-                            {{-- <button type="button" class="btn btn-success my-1 me-12" onclick="window.print();">Print
+                    <!-- begin::Actions-->
+                    {{-- <div class="my-1 me-5"> --}}
+                    <!-- begin::Pint-->
+                    {{-- <button type="button" class="btn btn-success my-1 me-12" onclick="window.print();">Print
                                 Detail</button> --}}
-                            <!-- end::Pint-->
-                            <!-- begin::Download-->
-                            {{-- <button type="button" class="btn btn-light-success my-1">Download</button> --}}
-                            <!-- end::Download-->
-                        {{-- </div> --}}
-                        <!-- end::Actions-->
-                        <!-- begin::Action-->
-                        {{-- <a href="{{ route('pemasukan-admin') }}" class="btn btn-primary my-1">Tambah Pemasukan</a> --}}
-                        <!-- end::Action-->
+                    <!-- end::Pint-->
+                    <!-- begin::Download-->
+                    {{-- <button type="button" class="btn btn-light-success my-1">Download</button> --}}
+                    <!-- end::Download-->
+                    {{-- </div> --}}
+                    <!-- end::Actions-->
+                    <!-- begin::Action-->
+                    {{-- <a href="{{ route('pemasukan-admin') }}" class="btn btn-primary my-1">Tambah Pemasukan</a> --}}
+                    <!-- end::Action-->
                     {{-- </div> --}}
                     <!-- end::Footer-->
                 </div>
