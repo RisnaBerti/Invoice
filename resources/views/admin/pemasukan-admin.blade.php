@@ -150,25 +150,30 @@
                                                         <th>Sub Total</th>
                                                         <th>Bayar</th>
                                                         <th>Saldo (Debet/Kredit)</th>
-                                                        <th>Ket</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="6" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_harga" name="total_harga"
-                                                                class="form-control" required readonly></th>
-                                                        <th></th>
+                                                        <th colspan="5" class="text-end">Total:</th>
+                                                        <th class="flex justify-between">
+                                                            <input type="text" id="total_harga" name="total_harga"
+                                                                class="form-control" required readonly>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="5" class="text-end">Keterangan:</th>
+                                                        <td>
+                                                            <select name="keterangan" class="form-control keterangan"
+                                                                id="keterangan">
+                                                                <option value="Belum Lunas">Belum Lunas</option>
+                                                                <option value="Lunas">Lunas</option>
+                                                            </select>
+                                                        </td>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
                                                     <tr>
-                                                        {{-- <td>
-                                                            <input type="text" name="detail[0][jenis_pemasukan]"
-                                                                id="detail[0][jenis_pemasukan]"
-                                                                class="form-control jenis_pemasukan" required>
-                                                        </td> --}}
                                                         <td>
                                                             <input type="text" name="detail[0][nama_barang_masuk]"
                                                                 id="detail[0][nama_barang_masuk]"
@@ -196,19 +201,9 @@
                                                         <td>
                                                             <select name="detail[0][saldo]" class="form-control saldo"
                                                                 id="saldo">
-                                                                <option value="debet">Debet</option>
-                                                                <option value="kredit">Kredit</option>
+                                                                <option value="Debet">Debet</option>
+                                                                <option value="Kredit">Kredit</option>
                                                             </select>
-                                                        </td>
-                                                        <td>
-                                                            <select name="detail[0][keterangan]"
-                                                                class="form-control keterangan" id="keterangan">
-                                                                <option value="debet">Bon</option>
-                                                                <option value="kredit">Lunas</option>
-                                                            </select>
-                                                            {{-- <input type="text" name="detail[0][keterangan]"
-                                                                id="detail[0][keterangan]" class="form-control keterangan"
-                                                                required> --}}
                                                         </td>
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn me-2">
@@ -223,6 +218,8 @@
                                             </table>
                                         </div>
 
+
+
                                         <!--begin::Actions-->
                                         <div class="text-center">
                                             <button type="button" class="btn btn-secondary"
@@ -230,9 +227,6 @@
                                             <button type="submit" id="kt_modal_add_pemasukan_submit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
-                                                {{-- <span class="indicator-progress">Please wait...
-                                                    <span
-                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span> --}}
                                             </button>
                                         </div>
                                         <!--end::Actions-->
@@ -323,8 +317,6 @@
                                         </div>
                                         <!--end::Input group-->
 
-
-
                                         <!--begin::Detail Pemasukan-->
                                         <div class="form-group">
                                             <label>Detail Pemasukan:</label>
@@ -338,26 +330,29 @@
                                                         <th>Sub Total</th>
                                                         <th>Pembayaran</th>
                                                         <th>Saldo (Debet/Kredit)</th>
-                                                        <th>Ket</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="6" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_harga_edit"
-                                                                name="total_harga_edit"
-                                                                class="form-control total_harga_edit" readonly></th>
-                                                        <th></th>
+                                                        <th colspan="5" class="text-end">Total:</th>
+                                                        <th class="flex justify-between">
+                                                            <input type="text" id="total_harga_edit" name="total_harga_edit"
+                                                                class="form-control" required readonly>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="5" class="text-end">Keterangan:</th>
+                                                        <td>
+                                                            <select name="keterangan_edit" class="form-control keterangan_edit"
+                                                                id="keterangan_edit">
+                                                                     
+                                                            </select>
+                                                        </td>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
                                                     <tr>
-                                                        {{-- <td>
-                                                            <input type="text" name="detail[0][jenis_pemasukan_edit]"
-                                                                id="detail[0][jenis_pemasukan_edit]"
-                                                                class="form-control jenis_pemasukan_edit" required>
-                                                        </td> --}}
                                                         <td><input type="text" name="detail[0][nama_barang_masuk_edit]"
                                                                 id="detail[0][nama_barang_masuk_edit]"
                                                                 class="form-control nama_barang_masuk_edit" required></td>
@@ -382,20 +377,9 @@
                                                         <td>
                                                             <select name="detail[0][saldo_edit]"
                                                                 class="form-control saldo_edit" id="saldo_edit">
-                                                                {{-- <option value="debet"></option> --}}
-                                                                {{-- <option value="kredit">Kredit</option> --}}
+                                                                {{-- <option value="Debet"></option> --}}
+                                                                {{-- <option value="Kredit">Kredit</option> --}}
                                                             </select>
-                                                        </td>
-                                                        <td>
-                                                            <select name="detail[0][keterangan_edit]"
-                                                                class="form-control keterangan_edit" id="keterangan_edit">
-                                                                {{-- <option value="debet"></option> --}}
-                                                                {{-- <option value="kredit">Kredit</option> --}}
-                                                            </select>
-
-                                                            {{-- <input type="text" name="detail[0][keterangan_edit]"
-                                                                id="detail[0][keterangan_edit]"
-                                                                class="form-control keterangan_edit" required> --}}
                                                         </td>
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn-edit me-2">
@@ -410,6 +394,7 @@
                                             </table>
                                         </div>
                                         <!--end::Detail Pemasukan-->
+
                                         <!--begin::Actions-->
                                         <div class="text-center">
                                             <button type="button" class="btn btn-secondary"
@@ -448,6 +433,7 @@
                             <th>Tanggal</th>
                             <th>Nama Perusahaan</th>
                             <th>Total</th>
+                            <th>Keterangan</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -505,6 +491,10 @@
                         }
                     },
                     {
+                        data: 'keterangan',
+                        name: 'keterangan'
+                    },
+                    {
                         data: 'action',
                         name: 'action'
                     },
@@ -542,22 +532,12 @@
 
             $(document).on('click', '.add-btn', function() {
                 var rowCount = $('#detailTable tbody tr').length;
-                var row = '<tr>' + '<td><input type="hidden" name="detail[' + rowCount +
-                    '][jenis_pemasukan]" class="form-control jenis_pemasukan"></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][nama_barang_masuk]" class="form-control nama_barang_masuk" required></td>' +
-                    '<td><input type="number" name="detail[' + rowCount +
-                    '][jumlah_barang_masuk]" class="form-control jumlah_barang_masuk" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][harga_barang_masuk]" class="form-control harga_barang_masuk" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][subtotal]" class="form-control subtotal" required readonly></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][bayar]" class="form-control bayar" required></td>' +
-                    '<td><select name="detail[' + rowCount +
-                    '][saldo]" class="form-control saldo" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][keterangan]" class="form-control keterangan" required></td>' +
+                var row = '<tr>' +  '<td><input type="text" name="detail[' + rowCount +'][nama_barang_masuk]" class="form-control nama_barang_masuk" required></td>' +
+                    '<td><input type="number" name="detail[' + rowCount +'][jumlah_barang_masuk]" class="form-control jumlah_barang_masuk" required></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +'][harga_barang_masuk]" class="form-control harga_barang_masuk" required></td>' +
+                    '<td><input type="text" name="detail[' + rowCount +'][subtotal]" class="form-control subtotal" required readonly></td>' +
+                    '<td><input type="text" name="detail[' + rowCount + '][bayar]" class="form-control bayar" required></td>' +
+                    '<td><select name="detail[' + rowCount +'][saldo]" class="form-control saldo" required><option value="Debet">Debet</option><option value="Kredit">Kredit</option></select></td>' +
                     '<td class="add-remove text-end">' +
                     '<a href="javascript:void(0);" class="add-btn me-2">' +
                     '<i class="fas fa-plus-circle text-success"></i>' +
@@ -633,39 +613,36 @@
                     $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
                     $('#nama_perusahaan_edit').val(data.nama_perusahaan);
                     $('#total_harga_edit').val(data.total_harga);
+
+                    // Isi dropdown dengan data yang diterima dari server
+                    var keteranganDropdown = $("#keterangan_edit");
+                    keteranganDropdown.empty(); // Kosongkan opsi sebelum mengisi ulang
+
+                    // Tambahkan opsi dari data yang diterima
+                    keteranganDropdown.append('<option value="Belum Lunas"' + (data.keterangan === 'Belum Lunas' ? ' selected' : '') + '>Belum Lunas</option>');
+                    keteranganDropdown.append('<option value="Lunas"' + (data.keterangan === 'Lunas' ? ' selected' : '') + '>Lunas</option>');
+                    
+                   
+                    // $('#keterangan_edit').val(data.keterangan);
+                   
                     $('#detailTableEdit tbody').empty();
                     data.detail.forEach(function(detail, index) {
                         var row = '<tr>' +
-                            // '<td><input type="hidden" name="detail[' + index +
-                            // '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" value="' +
-                            // detail.jenis_pemasukan + '" ></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" value="' +
-                            detail.nama_barang_masuk + '" required></td>' +
-                            '<td><input type="number" name="detail[' + index +
-                            '][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" value="' +
-                            detail.jumlah_barang_masuk + '" required></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" value="' +
-                            detail.harga_barang_masuk + '" required></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][subtotal_edit]" class="form-control subtotal_edit" value="' +
-                            detail.subtotal +
-                            '" required readonly></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][bayar_edit]" class="form-control bayar_edit" value="' +
-                            detail.bayar +
-                            '" required></td>' +
-                            '" required readonly></td>' +
-                            '<td><select name="detail[' + index +
-                            '][saldo_edit]" class="form-control saldo_edit" required ><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][keterangan_edit]" class="form-control keterangan_edit" value="' +
-                            detail.keterangan +
-                            '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +'][nama_barang_masuk_edit]" class="form-control nama_barang_masuk_edit" value="' +detail.nama_barang_masuk + '" required></td>' +
+                            '<td><input type="number" name="detail[' + index +'][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" value="' +detail.jumlah_barang_masuk + '" required></td>' +
+                            '<td><input type="text" name="detail[' + index + '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" value="' + detail.harga_barang_masuk + '" required></td>' +
+                            '<td><input type="text" name="detail[' + index +'][subtotal_edit]" class="form-control subtotal_edit" value="' +detail.subtotal + '" required readonly></td>' +
+                            '<td><input type="text" name="detail[' + index +'][bayar_edit]" class="form-control bayar_edit" value="' +detail.bayar +'" required></td>' +
+                            '<td>' +
+                            '<select name="detail[' + index +'][saldo_edit]" class="form-control saldo_edit" required>' +
+                            '<option value="Debet"' + (detail.saldo === 'Debet' ? ' selected' : '') + '>Debet</option>' +
+                            '<option value="Kredit"' + (detail.saldo === 'Kredit' ? ' selected' : '') + '>Kredit</option>' +
+                            '</select>' +
+                            '</td>' +
+                            // '<td><select name="detail[' + index +'][saldo_edit]" class="form-control saldo_edit" required ><option value="Debet">Debet</option><option value="Kredit">Kredit</option></select></td>' +
                             '<td class="add-remove text-end">' +
                             '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
-                            '<a href="javascript:void(0);" class="remove-btn-edit"><i class="bi bi-trash text-danger"></i></a>' +
+                            '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
                             '</td>' + '</tr>';
                         $('#detailTableEdit').append(row);
                     });
@@ -682,6 +659,7 @@
                 // var id_pemasukan = $('#id_pemasukan').val();
                 var tgl_pemasukan = $('#tgl_pemasukan_edit').val();
                 var nama_perusahaan = $('#nama_perusahaan_edit').val();
+                var keterangan = $('#keterangan_edit').val();
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
                     detail.push({
@@ -694,7 +672,7 @@
                         bayar: $(this).find('.bayar_edit').val(),
                         total_harga: $(this).find('.total_harga_edit').val(),
                         saldo: $(this).find('.saldo_edit').val(),
-                        keterangan: $(this).find('.keterangan_edit').val()
+                        // keterangan: $(this).find('.keterangan_edit').val()
                     });
                 });
                 $.ajax({
@@ -704,6 +682,7 @@
                         // id_pemasukan: id_pemasukan,
                         tgl_pemasukan: tgl_pemasukan_edit,
                         nama_perusahaan: nama_perusahaan,
+                        keterangan: keterangan,
                         detail: detail
                     },
                     success: function(response) {
@@ -737,9 +716,9 @@
                     '<td><input type="text" name="detail[' + rowCount +
                     '][bayar_edit]" class="form-control bayar_edit" required></td>' +
                     '<td><select name="detail[' + rowCount +
-                    '][saldo_edit]" class="form-control saldo_edit" required><option value="debet">Debet</option><option value="kredit">Kredit</option></select></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][keterangan_edit]" class="form-control keterangan_edit" required></td>' +
+                    '][saldo_edit]" class="form-control saldo_edit" required><option value="Debet">Debet</option><option value="Kredit">Kredit</option></select></td>' +
+                    // '<td><input type="text" name="detail[' + rowCount +
+                    // '][keterangan_edit]" class="form-control keterangan_edit" required></td>' +
                     '<td class="add-remove text-end">' +
                     '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
                     '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +

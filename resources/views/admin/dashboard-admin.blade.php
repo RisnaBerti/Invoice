@@ -4,7 +4,7 @@
     <div id="kt_app_content_container" class="app-container container-fluid">
         <!--begin::Row-->
         <div class="row gy-5 g-xl-10">
-            {{-- <!--begin::Col-->
+            <!--begin::Col-->
             <div class="col-sm-6 col-xl-4 mb-xl-10">
                 <!--begin::Card widget 2-->
                 <div class="card h-lg-100">
@@ -29,14 +29,14 @@
                         <!--end::Section-->
                         <!--begin::Badge-->
                         <span class="badge badge-light-success fs-base">
-                            <i class="ki-outline ki-arrow-up fs-5 text-success ms-n1"></i>100%</span>
-                        <!--end::Badge-->
+                            {{-- <i class="ki-outline ki-arrow-up fs-5 text-success ms-n1"></i>100%</span> --}}
+                            <!--end::Badge-->
                     </div>
                     <!--end::Body-->
                 </div>
                 <!--end::Card widget 2-->
             </div>
-            <!--end::Col--> --}}
+            <!--end::Col-->
 
             <!--begin::Col-->
             <div class="col-sm-6 col-xl-4 mb-xl-10">
@@ -63,8 +63,8 @@
                         <!--end::Section-->
                         <!--begin::Badge-->
                         <span class="badge badge-light-danger fs-base">
-                            <i class="ki-outline ki-arrow-down fs-5 text-danger ms-n1"></i>0.47%</span>
-                        <!--end::Badge-->
+                            {{-- <i class="ki-outline ki-arrow-down fs-5 text-danger ms-n1"></i>0.47%</span> --}}
+                            <!--end::Badge-->
                     </div>
                     <!--end::Body-->
                 </div>
@@ -129,8 +129,8 @@
                         <!--end::Section-->
                         <!--begin::Badge-->
                         <span class="badge badge-light-danger fs-base">
-                            <i class="ki-outline ki-arrow-down fs-5 text-danger ms-n1"></i>0.647%</span>
-                        <!--end::Badge-->
+                            {{-- <i class="ki-outline ki-arrow-down fs-5 text-danger ms-n1"></i>0.647%</span> --}}
+                            <!--end::Badge-->
                     </div>
                     <!--end::Body-->
                 </div>
@@ -225,6 +225,64 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         var options = {
+            chart: {
+                type: 'bar',                
+                height: '500',
+                width: '800',
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '100%',
+                    endingShape: 'rounded',
+                    dataLabels: {
+                        position: 'top'
+                    }
+                },
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            series: [{
+                name: 'Pemasukan',
+                data: @json($dataNumeric)
+            }, {
+                name: 'Pengeluaran',
+                data: @json($dataNumeric2)
+            }],
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ] // Mengambil tahun
+            },
+            yaxis: {
+                title: {
+                    text: 'Tahun 2024'
+                }
+            },
+            responsive: [{
+                breakpoint: 1000,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            horizontal: false
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }]
+        }
+
+        var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
+
+        chart.render();
+    </script>
+    {{-- <script>
+        var options = {
             series: [{
                 name: 'Pemasukan',
                 data: @json($dataNumeric)
@@ -292,5 +350,5 @@
 
         var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
         chart.render();
-    </script>
+    </script> --}}
 @endsection

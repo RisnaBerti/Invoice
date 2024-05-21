@@ -140,6 +140,11 @@ class PemasukanAdminController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
+        $title = 'Hapus Data!';
+        $text = "Apakah Anda yakin ingin menghapus nya?";
+        confirmDelete($title, $text);
+        
         return view('admin.pemasukan-admin', [
             'title' => 'Pemasukan Admin'
         ]);
@@ -202,7 +207,8 @@ class PemasukanAdminController extends Controller
             'tgl_pemasukan' => $request->tgl_pemasukan,
             'id_user' => $user_id,
             'nama_perusahaan' => $request->nama_perusahaan,
-            'total_harga' => $total_harga
+            'total_harga' => $total_harga,            
+            'keterangan' => $request->keterangan
 
         ]);
 
@@ -215,8 +221,8 @@ class PemasukanAdminController extends Controller
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
                 'saldo' => $detail['saldo'],
                 'bayar' => $detail['bayar'],
-                'keterangan' => $detail['keterangan'],
-                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']))
+                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal'])),
+                'id_mitra' => '1'
             ]);
         }
 
@@ -250,6 +256,7 @@ class PemasukanAdminController extends Controller
         $pemasukan->nama_perusahaan = $request->nama_perusahaan_edit;
         // $pemasukan->id_user = $user_id;  // Untuk menyimpan id user yang sedang login
         $pemasukan->total_harga = $total_harga;
+        $pemasukan->keterangan = $request->keterangan_edit;
         $pemasukan->save();
 
         // Hapus detail pemasukan terkait
@@ -264,8 +271,8 @@ class PemasukanAdminController extends Controller
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk_edit'])),
                 'saldo' => $detail['saldo_edit'],
                 'bayar' => $detail['bayar_edit'],
-                'keterangan' => $detail['keterangan_edit'],
-                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']))
+                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit'])),
+                'id_mitra' => '1'
 
                 //  'total_harga' => floatval(str_replace(['.', 'Rp '], '', $detail['total_harga_edit']))
             ]);

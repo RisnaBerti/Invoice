@@ -16,7 +16,8 @@ class Pemasukan extends Model
         'tgl_pemasukan',
         'nama_perusahaan',
         'id_user',
-        'total_harga'
+        'total_harga',
+        'keterangan'
     ];
 
     // public function mitra() {
