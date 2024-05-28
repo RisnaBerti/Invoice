@@ -15,15 +15,11 @@ class DetailPemasukan extends Model
         'id_detail_pemasukan',
         'id_pemasukan',
         'id_mitra',
-        'jenis_pemasukan',
-        'nama_barang_masuk',
-        'harga_barang_masuk',
+        'id_produk',
         'jumlah_barang_masuk',
         'subtotal',
-        'total_harga',
         'saldo',
-        'bayar',
-        'keterangan'
+        'bayar'
     ];
 
     public function pemasukan()
@@ -34,6 +30,11 @@ class DetailPemasukan extends Model
     public function mitra()
     {
         return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
+    }
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk' , 'id_produk');
     }
 
 }

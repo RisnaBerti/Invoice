@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Owner\OwnerController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\Owner\SettingOwnerController;
 use App\Http\Controllers\Admin\PemasukanAdminController;
 use App\Http\Controllers\Owner\PemasukanOwnerController;
 use App\Http\Controllers\Admin\PengeluaranAdminController;
+use App\Http\Controllers\Admin\ProdukAdminController;
+use App\Http\Controllers\Admin\MitraAdminController;
 use App\Http\Controllers\Owner\PengeluaranOwnerController;
 
 /*
@@ -76,14 +79,24 @@ Route::controller(PengeluaranOwnerController::class)->group(function () {
 });
 
 //Route Mitra 
-// Route::controller(MitraController::class)->group(function () {
-//     Route::get('/mitra-owner', 'index')->name('mitra-owner');
-//     Route::get('/mitra-owner/create', 'create')->name('create-mitra-owner');
-//     Route::post('/mitra-owner/store', 'store')->name('store-mitra-owner');
-//     Route::get('/mitra-owner/edit/{id}', 'edit')->name('edit-mitra-owner');    
-//     Route::post('/mitra-owner/update', 'update')->name('update-mitra-owner');
-//     Route::post('/mitra-owner/delete/{id}', 'delete')->name('delete-mitra-owner');
-// });
+Route::controller(MitraController::class)->group(function () {
+    Route::get('/mitra-owner', 'index')->name('mitra-owner');
+    Route::get('/mitra-owner/create', 'create')->name('create-mitra-owner');
+    Route::post('/mitra-owner/store', 'store')->name('store-mitra-owner');
+    Route::get('/mitra-owner/edit/{id}', 'edit')->name('edit-mitra-owner');    
+    Route::post('/mitra-owner/update', 'update')->name('update-mitra-owner');
+    Route::post('/mitra-owner/delete/{id}', 'delete')->name('delete-mitra-owner');
+});
+
+//Route Produk
+Route::controller(ProdukController::class)->group(function () {
+    Route::get('/produk-owner', 'index')->name('produk-owner');
+    Route::get('/produk-owner/create', 'create')->name('create-produk-owner');
+    Route::post('/produk-owner/store', 'store')->name('store-produk-owner');
+    Route::get('/produk-owner/edit/{id}', 'edit')->name('edit-produk-owner');
+    Route::post('/produk-owner/update', 'update')->name('update-produk-owner');
+    Route::post('/produk-owner/delete/{id}', 'delete')->name('delete-produk-owner');
+});
 
 //Route Data User
 Route::controller(UserController::class)->group(function () {
@@ -145,9 +158,22 @@ Route::controller(SettingAdminController::class)->group(function () {
     Route::post('/setting-admin/gantiPassword', 'gantiPassword')->name('update-password-admin');
 });
 
+//Route Produk
+Route::controller(ProdukAdminController::class)->group(function () {
+    Route::get('/produk-admin', 'index')->name('produk-admin');
+    Route::get('/produk-admin/create', 'create')->name('create-produk-admin');
+    Route::post('/produk-admin/store', 'store')->name('store-produk-admin');
+    Route::get('/produk-admin/edit/{id}', 'edit')->name('edit-produk-admin');
+    Route::post('/produk-admin/update', 'update')->name('update-produk-admin');
+    Route::post('/produk-admin/delete/{id}', 'delete')->name('delete-produk-admin');
+});
+
 //Route Mitra 
-// Route::controller(MitraController::class)->group(function () {
-//     Route::get('/mitra-admin', 'index')->name('mitra-admin');
-//     Route::get('/mitra-admin/create', 'create')->name('create-mitra-admin');
-//     Route::get('/mitra-admin/edit/{id}', 'edit')->name('edit-mitra-admin');
-// });
+Route::controller(MitraAdminController::class)->group(function () {
+    Route::get('/mitra-admin', 'index')->name('mitra-admin');
+    Route::get('/mitra-admin/create', 'create')->name('create-mitra-admin');
+    Route::post('/mitra-admin/store', 'store')->name('store-mitra-admin');
+    Route::get('/mitra-admin/edit/{id}', 'edit')->name('edit-mitra-admin');    
+    Route::post('/mitra-admin/update', 'update')->name('update-mitra-admin');
+    Route::post('/mitra-admin/delete/{id}', 'delete')->name('delete-mitra-admin');
+});

@@ -61,6 +61,32 @@
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
+            <div class="menu-item menu-accordion">
+                <!--begin:Menu link-->
+                <a class="menu-link" href="{{ url('/mitra-admin') }}">
+                    <span class="menu-icon">
+                        <i class="ki-outline ki-profile-user fs-2"></i>
+                    </span>
+                    <span class="menu-title">Mitra</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+
+             <!--begin:Menu item-->
+             <div class="menu-item menu-accordion">
+                <!--begin:Menu link-->
+                <a class="menu-link" href="{{ url('/produk-admin') }}">
+                    <span class="menu-icon">
+                        <i class="ki-outline ki-profile-user fs-2"></i>
+                    </span>
+                    <span class="menu-title">Produk</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+
+            <!--begin:Menu item-->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <span class="menu-link">
@@ -76,7 +102,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ url('laporan-admin-harian') }}" title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                        <a class="menu-link" href="{{ url('laporan-admin-harian') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
                             data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-icon">
                                 <i class="ki-outline ki-user-edit fs-2"></i>

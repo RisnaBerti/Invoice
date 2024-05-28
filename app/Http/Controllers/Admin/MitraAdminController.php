@@ -1,14 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 
-class MitraController extends Controller
+class MitraAdminController extends Controller
 {
+    // public function index()
+    // {
+    //     $mitra = Mitra::all();
+
+    //     return view(
+    //         'admin.mitra-admin',
+    //         [
+    //             'title' => 'Mitra Admin',
+    //             'mitra' => $mitra
+    //         ]
+    //     );
+    // }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -23,8 +36,8 @@ class MitraController extends Controller
                 ->addColumn('action', function ($data) {
                     $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_mitra . '"><i class="fas fa-edit text-warning"></i></a>';
                     // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_mitra . '"><i class="fas fa-eye text-success"></i></a>';
-                    // $button .= '<a href="' . URL::route('show-mitra-owner', ['id' => $data->id_mitra]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
-                    $button .= '<form action="' . URL::route('delete-mitra-owner', ['id' => $data->id_mitra]) . '" method="POST" style="display:inline;">';
+                    // $button .= '<a href="' . URL::route('show-mitra-admin', ['id' => $data->id_mitra]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
+                    $button .= '<form action="' . URL::route('delete-mitra-admin', ['id' => $data->id_mitra]) . '" method="POST" style="display:inline;">';
                     $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
                     $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
                     $button .= '</form>';
@@ -38,24 +51,24 @@ class MitraController extends Controller
         $text = "Apakah Anda yakin ingin menghapus nya?";
         confirmDelete($title, $text);
 
-        return view('owner.mitra-owner', [
-            'title' => 'Mitra Owner'
+        return view('admin.mitra-admin', [
+            'title' => 'Mitra Admin'
         ]);
     }
 
-    //fung create mitra owner
+    //fung create mitra admin
     public function create()
     {
 
         return view(
-            'owner.create-mitra-owner',
+            'admin.create-mitra-admin',
             [
-                'title' => 'Mitra owner'
+                'title' => 'Mitra Admin'
             ]
         );
     }
 
-    //fungsi store owner
+    //fungsi store admin
     public function store(Request $request)
     {
         $mitra = new Mitra();
@@ -63,13 +76,12 @@ class MitraController extends Controller
         $mitra->alamat_mitra = $request->alamat_mitra;
         $mitra->no_telp_mitra = $request->no_telp_mitra;
         $mitra->email_mitra = $request->email_mitra;
-        $mitra->jenis_mitra = $request->jenis_mitra;
         $mitra->save();
 
-        return redirect()->route('mitra-owner')->with('success', 'Data Berhasil Ditambahkan!');
+        return redirect()->route('mitra-admin')->with('success', 'Data Berhasil Ditambahkan!');
     }
 
-    //fungsi edit mitra owner
+    //fungsi edit mitra admin
     public function edit($id)
     {
         $mitra = Mitra::find($id);
@@ -78,7 +90,7 @@ class MitraController extends Controller
         return response()->json($mitra);
     }
 
-    // fungsi update data mitra owner
+    // fungsi update data mitra admin
     public function update(Request $request)
     {
         $id = $request->id_mitra_edit;
@@ -88,26 +100,24 @@ class MitraController extends Controller
         //     'nama_mitra' => 'required',
         //     'alamat_mitra' => 'required',
         //     'no_telp_mitra' => 'required|number',
-        //     'email_mitra' => 'required|email',
-        //     'jenis_mitra' => 'required'
+        //     'email_mitra' => 'required|email'
         // ]);
 
         $mitra->nama_mitra = $request->nama_mitra_edit;
         $mitra->alamat_mitra = $request->alamat_mitra_edit;
         $mitra->no_telp_mitra = $request->no_telp_mitra_edit;
         $mitra->email_mitra = $request->email_mitra_edit;
-        $mitra->jenis_mitra = $request->jenis_mitra_edit;
         $mitra->save();
 
-        return redirect()->route('mitra-owner')->with('success', 'Data Berhasil di edit!');
+        return redirect()->route('mitra-admin')->with('success', 'Data Berhasil di edit!');
     }
 
-    //fungsi hapus data mitra owner
+    //fungsi hapus data mitra admin
     public function delete($id)
     {
         $mitra = Mitra::find($id);
         $mitra->delete();
 
-        return redirect()->route('mitra-owner');
+        return redirect()->route('mitra-admin');
     }
 }

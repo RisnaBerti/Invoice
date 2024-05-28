@@ -206,6 +206,7 @@ class PemasukanAdminController extends Controller
         $pemasukan = Pemasukan::create([
             'tgl_pemasukan' => $request->tgl_pemasukan,
             'id_user' => $user_id,
+            'id_mitra' => $request->id_mitra,
             'nama_perusahaan' => $request->nama_perusahaan,
             'total_harga' => $total_harga,            
             'keterangan' => $request->keterangan
@@ -215,14 +216,12 @@ class PemasukanAdminController extends Controller
         // Tambahkan detail pemasukan
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => '-',
-                'nama_barang_masuk' => $detail['nama_barang_masuk'],
+                'id_produk' => $detail['id_produk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
-                'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
+                // 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
                 'saldo' => $detail['saldo'],
                 'bayar' => $detail['bayar'],
-                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal'])),
-                'id_mitra' => '1'
+                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']))
             ]);
         }
 
@@ -253,6 +252,7 @@ class PemasukanAdminController extends Controller
 
         // Perbarui tanggal pemasukan
         $pemasukan->tgl_pemasukan = $request->tgl_pemasukan_edit;
+        $pemasukan->id_mitra = $request->id_mitra_edit;
         $pemasukan->nama_perusahaan = $request->nama_perusahaan_edit;
         // $pemasukan->id_user = $user_id;  // Untuk menyimpan id user yang sedang login
         $pemasukan->total_harga = $total_harga;
@@ -265,16 +265,13 @@ class PemasukanAdminController extends Controller
         // Tambahkan detail pemasukan baru dari input form
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
-                'jenis_pemasukan' => '-',
-                'nama_barang_masuk' => $detail['nama_barang_masuk_edit'],
+                'id_produk' => $detail['id_produk_edit'],
+                // 'nama_barang_masuk' => $detail['nama_barang_masuk_edit'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk_edit'],
-                'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk_edit'])),
+                // 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk_edit'])),
                 'saldo' => $detail['saldo_edit'],
                 'bayar' => $detail['bayar_edit'],
-                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit'])),
-                'id_mitra' => '1'
-
-                //  'total_harga' => floatval(str_replace(['.', 'Rp '], '', $detail['total_harga_edit']))
+                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal_edit']))
             ]);
         }
 
