@@ -130,8 +130,8 @@ Route::controller(AdminController::class)->group(function () {
 
 //Route Pemasukan Admin
 Route::controller(PemasukanAdminController::class)->group(function () {
-    // Route::get('/pemasukan-admin', 'index')->name('pemasukan-admin');
-    Route::get('/pemasukan-admin', 'dataTables')->name('pemasukan-admin');
+    Route::get('/pemasukan-admin', 'getDataTables')->name('pemasukan-admin');
+    // Route::get('/pemasukan-admin', 'dataTables')->name('pemasukan-admin');
     Route::get('/pemasukan-admin/show', 'show')->name('show-pemasukan-admin');
     Route::get('/pemasukan-admin/create', 'create')->name('create-pemasukan-admin');
     Route::post('/pemasukan-admin/store', 'store')->name('store-pemasukan-admin');
@@ -142,7 +142,7 @@ Route::controller(PemasukanAdminController::class)->group(function () {
 
 //Route Pengeluaran Admin
 Route::controller(PengeluaranAdminController::class)->group(function () {
-    Route::get('/pengeluaran-admin', 'index')->name('pengeluaran-admin');
+    Route::get('/pengeluaran-admin', 'getDataTables')->name('pengeluaran-admin');
     Route::get('/pengeluaran-admin/create', 'create')->name('create-pengeluaran-admin');    
     Route::get('/pengeluaran-admin/show', 'show')->name('show-pengeluaran-admin');
     Route::post('/pengeluaran-admin/store', 'store')->name('store-pengeluaran-admin');

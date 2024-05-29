@@ -15,15 +15,14 @@ class Pemasukan extends Model
         'id_pemasukan',
         'id_mitra',
         'tgl_pemasukan',
-        'nama_perusahaan',
         'id_user',
         'total_harga',
         'keterangan'
     ];
 
-    // public function mitra() {
-    //     return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
-    // }
+    public function mitra() {
+        return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
+    }
 
     public function detail() {
         return $this->hasMany(DetailPemasukan::class, 'id_pemasukan', 'id_pemasukan');
@@ -32,4 +31,5 @@ class Pemasukan extends Model
     public function user() {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
+
 }

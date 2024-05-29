@@ -17,6 +17,7 @@ class DetailPemasukan extends Model
         'id_mitra',
         'id_produk',
         'jumlah_barang_masuk',
+        'harga_barang_masuk',
         'subtotal',
         'saldo',
         'bayar'

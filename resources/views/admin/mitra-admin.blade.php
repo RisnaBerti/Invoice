@@ -298,9 +298,9 @@
             <!--begin::Card body-->
             <div class="card-body py-4">
                 <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_mitra">
+                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_table_mitra">
                     <thead>
-                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                             <th class="w-10px pe-2">
                                 <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                     <input class="form-check-input" type="checkbox" data-kt-check="true"

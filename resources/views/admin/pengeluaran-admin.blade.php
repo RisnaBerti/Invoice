@@ -9,14 +9,14 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-                    <form action="{{ route('pengeluaran-admin') }}" method="GET">
+                    {{-- <form action="{{ route('pengeluaran-admin') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
                                 id="q" placeholder="Mencari data" value="" />
                             <button type="submit" class="btn btn-primary">Cari</button>
                         </div>
-                    </form>
+                    </form> --}}
 
                     {{-- <div class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
@@ -261,7 +261,7 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
-                                        <!--begin::Detail Pemasukan-->
+                                        <!--begin::Detail Pengeluaran-->
                                         <div class="form-group">
                                             <label>Detail Pengeluaran:</label>
                                             <table id="detailTableEdit" class="table">
@@ -323,7 +323,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!--end::Detail Pemasukan-->
+                                        <!--end::Detail Pengeluaran-->
                                         <!--begin::Actions-->
                                         <div class="text-center">
                                             <button type="reset" id="kt_modal_new_target_cancel"
@@ -355,9 +355,9 @@
             <!--begin::Card body-->
             <div class="card-body py-4">
                 <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                     <thead>
-                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Nama Barang</th>
@@ -369,7 +369,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
-                        @foreach ($pengeluaran as $index => $item)
+                        {{-- @foreach ($pengeluaran as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ date('d-M-Y', strtotime($item->tgl_pengeluaran)) }}</td>
@@ -421,7 +421,7 @@
                                     <a href="{{ route('show-pengeluaran-admin', ['id' => $item->id_pengeluaran]) }}"  class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
 
                     </tbody>
                 </table>
@@ -436,6 +436,66 @@
 
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#kt_table_users').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: "{{ route('pengeluaran-admin') }}",
+                columns: [{
+                        data: 'id_pengeluaran',
+                        name: 'id_pengeluaran'
+                    },
+                    {
+                        data: 'tgl_pengeluaran',
+                        name: 'tgl_pengeluaran',
+                        render: function(data) {
+                            // Memformat tanggal menggunakan Moment.js
+                            return moment(data).format('DD-MM-YYYY');
+                        }
+                    },
+                    {
+                        data: 'nama_barang_keluar',
+                        name: 'nama_barang_keluar'
+                    },
+                    {
+                        data: 'jumlah_barang_keluar',
+                        name: 'jumlah_barang_keluar'
+                    },
+                    {
+                        data: 'harga_satuan',
+                        name: 'harga_satuan',
+                        // render: function(data) {
+                        //     // Memformat harga menggunakan Number.prototype.toLocaleString()
+                        //     return 'Rp ' + parseInt(data).toLocaleString();
+                        // }
+                    },
+                    {
+                        data: 'subtotal',
+                        name: 'subtotal',
+                        // render: function(data) {
+                        //     // Memformat harga menggunakan Number.prototype.toLocaleString()
+                        //     return 'Rp ' + parseInt(data).toLocaleString();
+                        // }
+                    },
+                    {
+                        data: 'total_harga',
+                        name: 'total_harga',
+                        render: function(data) {
+                            // Memformat harga menggunakan Number.prototype.toLocaleString()
+                            return 'Rp ' + parseInt(data).toLocaleString();
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
+                ]
+            });
+        });
+    </script>
 
     <script>
         //Modal Untuk Tambah Data Pengeluaran
