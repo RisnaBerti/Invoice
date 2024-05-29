@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.index-owner')
 @section('content')
 <!--begin::Content container-->
 <div id="kt_app_content_container" class="app-container container-fluid">

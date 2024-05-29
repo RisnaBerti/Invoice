@@ -10,6 +10,7 @@ use App\Models\DetailPengeluaran;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PengeluaranAdminController extends Controller
 {
@@ -68,41 +69,52 @@ class PengeluaranAdminController extends Controller
     }
 
     // Fungsi index
-    public function index(Request $request)
-    {
-        $searchQuery = $request->query('q');
+    // public function index(Request $request)
+    // {
+    //     $searchQuery = $request->query('q');
 
-        $pengeluaran = Pengeluaran::with('detail');
+    //     $pengeluaran = Pengeluaran::with('detail');
 
-        // Jika terdapat query pencarian, tambahkan kondisi pencarian
-        if ($searchQuery) {
-            $pengeluaran->whereHas('detail', function ($query) use ($searchQuery) {
-                $query->where('nama_barang_keluar', 'like', '%' . $searchQuery . '%');
-                // $query->orWhere('tgl_pengeluaran', 'like', '%' . $searchQuery . '%');
-                $query->orWhere('jumlah_barang_keluar', 'like', '%' . $searchQuery . '%');
-            });
-        }
+    //     // Jika terdapat query pencarian, tambahkan kondisi pencarian
+    //     if ($searchQuery) {
+    //         $pengeluaran->whereHas('detail', function ($query) use ($searchQuery) {
+    //             $query->where('nama_barang_keluar', 'like', '%' . $searchQuery . '%');
+    //             // $query->orWhere('tgl_pengeluaran', 'like', '%' . $searchQuery . '%');
+    //             $query->orWhere('jumlah_barang_keluar', 'like', '%' . $searchQuery . '%');
+    //         });
+    //     }
 
-        // Ambil data pengeluaran sesuai dengan kondisi yang telah ditambahkan
-        $pengeluaran = $pengeluaran->get();
+    //     // Ambil data pengeluaran sesuai dengan kondisi yang telah ditambahkan
+    //     $pengeluaran = $pengeluaran->get();
 
 
-        return view(
-            'admin.pengeluaran-admin',
-            [
-                'title' => 'Pengeluaran Admin',
-                'pengeluaran' => $pengeluaran
-            ]
-        );
-    }
+    //     return view(
+    //         'admin.pengeluaran-admin',
+    //         [
+    //             'title' => 'Pengeluaran Admin',
+    //             'pengeluaran' => $pengeluaran
+    //         ]
+    //     );
+    // }
 
     //fungsi show pengeluaran dan detail pengeluarannya
     public function show(Request $request)
     {
         $id = $request->id;
-        $pengeluaran = Pengeluaran::with('detail')->find($id);
+        $pengeluaran = Pengeluaran::with('detail', 'user')->find($id);
 
         return view('admin.show-pengeluaran-admin', [
+            'title' => 'Pengeluaran Admin',
+            'pengeluaran' => $pengeluaran
+        ], compact('pengeluaran'));
+    }
+
+    public function printShow(Request $request)
+    {
+        $id = $request->id;
+        $pengeluaran = Pengeluaran::with('detail', 'user')->find($id);
+
+        return view('admin.show-pengeluaran-admin-print', [
             'title' => 'Pengeluaran Admin',
             'pengeluaran' => $pengeluaran
         ], compact('pengeluaran'));
@@ -121,6 +133,19 @@ class PengeluaranAdminController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'tgl_pengeluaran' => 'required',
+            'detail.*.nama_barang_keluar' => 'required',
+            'detail.*.jumlah_barang_keluar' => 'required|numeric',
+            'detail.*.harga_satuan' => 'required|numeric',
+            'detail.*.subtotal' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
         // Ambil id user yang sedang login
         $user_id = auth()->user()->id_user;
 
@@ -204,4 +229,6 @@ class PengeluaranAdminController extends Controller
 
         return redirect()->route('pengeluaran-admin')->with('success', 'Data Berhasil Dihapus!');
     }
+
+    
 }

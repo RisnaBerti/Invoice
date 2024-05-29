@@ -23,8 +23,58 @@
                 <!--end:Menu link-->
             </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <!--begin:Menu link-->
+                <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="ki-outline ki-financial-schedule fs-2"></i>
+                    </span>
+                    <span class="menu-title">Pemasukan</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('/pemasukan-admin') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-dollar fs-2"></i>
+                            </span>
+                            <span class="menu-title">Data Pemasukan</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-harian-pemasukan-admin') }}"
+                            title="Check out the complete documentation" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            {{-- <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span> --}}
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-key fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Pemasukan</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end:Menu sub-->
+            </div>
+            <!--end:Menu item-->
+
+            <!--begin:Menu item-->
+            {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('/pemasukan-admin') }}">
                     <span class="menu-icon">
@@ -33,10 +83,60 @@
                     <span class="menu-title">Pemasukan</span>
                 </a>
                 <!--end:Menu link-->
+            </div> --}}
+            <!--end:Menu item-->
+
+            <!--begin:Menu item-->
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <!--begin:Menu link-->
+                <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="ki-outline ki-wallet dollar fs-2"></i>
+                    </span>
+                    <span class="menu-title">Pengeluaran</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('/pengeluaran-admin') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-wallet dollar fs-2"></i>
+                            </span>
+                            <span class="menu-title">Data Pengeluaran</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-harian-pengeluaran-admin') }}"
+                            title="Check out the complete documentation" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            {{-- <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span> --}}
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-key fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Pengeluaran</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('/pengeluaran-admin') }}">
                     <span class="menu-icon">
@@ -45,7 +145,7 @@
                     <span class="menu-title">Pengeluaran</span>
                 </a>
                 <!--end:Menu link-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
             <!--begin:Menu item-->
             {{-- <div class="menu-item menu-accordion">
@@ -73,8 +173,8 @@
             </div>
             <!--end:Menu item-->
 
-             <!--begin:Menu item-->
-             <div class="menu-item menu-accordion">
+            <!--begin:Menu item-->
+            <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('/produk-admin') }}">
                     <span class="menu-icon">
@@ -86,8 +186,21 @@
             </div>
             <!--end:Menu item-->
 
+             <!--begin:Menu item-->
+             <div class="menu-item menu-accordion">
+                <!--begin:Menu link-->
+                <a class="menu-link" href="{{ url('laporan-admin-harian') }}">
+                    <span class="menu-icon">
+                        <i class="ki-outline ki-profile-user fs-2"></i>
+                    </span>
+                    <span class="menu-title">Laporan Pendapatan Harian</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -119,9 +232,9 @@
                         <a class="menu-link" href="{{ url('laporan-admin-bulanan') }}"
                             title="Check out the complete documentation" data-bs-toggle="tooltip"
                             data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            {{-- <span class="menu-bullet">
+                            <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
-                            </span> --}}
+                            </span>
                             <span class="menu-icon">
                                 <i class="ki-outline ki-key fs-2"></i>
                             </span>
@@ -132,8 +245,9 @@
                     <!--end:Menu item-->
                 </div>
                 <!--end:Menu sub-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
             {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->

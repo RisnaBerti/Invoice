@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\DataTables\PemasukanDataTable;
 
@@ -91,161 +92,31 @@ class PemasukanAdminController extends Controller
             ]
         );
     }
-    // public function index(PemasukanDataTable $dataTable)
-    // {
-    //     //vardump data dari pemasukandatatabl
-    //     return $dataTable->render('admin.pemasukan-admin', [
-    //                 'title' => 'Pemasukan Admin'
-    //             ]);
-    // }
-
-    // public function dataTables(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $pemasukan = Pemasukan::with('detail')->get();
-    //         $data = [];
-    //         foreach ($pemasukan as $item) {
-    //             $detail = $item->detail; // Ambil detail terkait dengan entri Pemasukan
-    //             $data[] = [
-    //                 'id_pemasukan' => $item->id_pemasukan,
-    //                 'tgl_pemasukan' => $item->tgl_pemasukan,
-    //                 'id_mitra' => $item->id_mitra,
-    //                 // Anda dapat menambahkan kolom lain yang diperlukan di sini
-    //                 'jenis_pemasukan' => $detail->jenis_pemasukan, // Contoh untuk kolom jenis_pemasukan
-    //                 'nama_barang_masuk' => $detail->nama_barang_masuk, // Contoh untuk kolom nama_barang_masuk
-    //                 // Tambahkan kolom detail lain yang diperlukan di sini
-    //                 'action' => '<button type="button" name="edit" id="' . $item->id_pemasukan . '" class="edit btn btn-primary btn-sm">Edit</button>
-    //                          <button type="button" name="delete" id="' . $item->id_pemasukan . '" class="delete btn btn-danger btn-sm">Delete</button>'
-    //             ];
-    //         }
-    //         return response()->json(['data' => $data]);
-    //     }
-
-    //     return view('admin.pemasukan-admin', [
-    //         'title' => 'Pemasukan Admin'
-    //     ]);
-    // }
-
-    // public function dataTables(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $pemasukan = Pemasukan::with('detail')->get();
-    //         $data = [];
-    //         foreach ($pemasukan as $item) {
-    //             $detail = $item->detail; // Ambil detail terkait dengan entri Pemasukan
-    //             $data[] = [
-    //                 'id_pemasukan' => $item->id_pemasukan,
-    //                 'tgl_pemasukan' => $item->tgl_pemasukan,
-    //                 'id_mitra' => $item->id_mitra,
-    //                 // Anda dapat menambahkan kolom lain yang diperlukan di sini
-    //                 'jenis_pemasukan' => $detail->jenis_pemasukan, // Contoh untuk kolom jenis_pemasukan
-    //                 'nama_barang_masuk' => $detail->nama_barang_masuk, // Contoh untuk kolom nama_barang_masuk
-    //                 'total_harga' => $item->total_harga,
-    //                 // Tambahkan kolom detail lain yang diperlukan di sini
-    //                 'action' => '<button type="button" name="edit" id="' . $item->id_pemasukan . '" class="edit btn btn-primary btn-sm">Edit</button>
-    //                           <button type="button" name="delete" id="' . $item->id_pemasukan . '" class="delete btn btn-danger btn-sm">Delete</button>'
-    //             ];
-    //         }
-    //         return DataTables::of($data)->addIndexColumn()->make(true);
-    //     }
-
-    //     return view('admin.pemasukan-admin', [
-    //         'title' => 'Pemasukan Admin'
-    //     ]);
-    // }
-
-    // public function dataTables(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $pemasukan = Pemasukan::with('detail')->get();
-    //         return datatables()->of($pemasukan)
-    //             ->addColumn('jenis_pemasukan', function ($data) {
-    //                 // Ambil jenis_pemasukan dari detail_pemasukan terkait
-    //                 return $data->detail->jenis_pemasukan;
-    //             })
-    //             ->addColumn('nama_barang_masuk', function ($data) {
-    //                 // Ambil nama_barang_masuk dari detail_pemasukan terkait
-    //                 return $data->detail->nama_barang_masuk;
-    //             })
-    //             ->addColumn('jumlah_barang_masuk', function ($data) {
-    //                 // Ambil jumlah_barang_masuk dari detail_pemasukan terkait
-    //                 return $data->detail->jumlah_barang_masuk;
-    //             })
-    //             ->addColumn('harga_barang_masuk', function ($data) {
-    //                 // Ambil harga_barang_masuk dari detail_pemasukan terkait
-    //                 return $data->detail->harga_barang_masuk;
-    //             })
-    //             ->addColumn('subtotal', function ($data) {
-    //                 // Ambil subtotal dari detail_pemasukan terkait
-    //                 return $data->detail->subtotal;
-    //             })
-    //             ->addColumn('action', function ($data) {
-    //                 $button = '<button type="button" name="edit" id="' . $data->id_pemasukan . '" class="edit btn btn-primary btn-sm">Edit</button>';
-    //                 $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="delete" id="' . $data->id_pemasukan . '" class="delete btn btn-danger btn-sm">Delete</button>';
-    //                 return $button;
-    //             })
-    //             ->rawColumns(['action'])
-    //             ->make(true);
-    //     }
-
-    //     return view('admin.pemasukan-admin', [
-    //         'title' => 'Pemasukan Admin'
-    //     ]);
-    // }
-
-
-    // public function dataTables(Request $request)
-    // {
-    //     if ($request->ajax()) {
-
-    //         // Mengambil semua data pemasukan dari database
-    //         $pemasukan = Pemasukan::all();
-
-    //         return datatables()->of($pemasukan)
-    //             ->addColumn('action', function ($data) {
-    //                 $button = '<a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-edit text-warning"></i></a>';
-    //                 // $button .= '<a href="" class="menu-link px-1 show-row" data-bs-toggle="modal" data-bs-target="#kt_modal_show_data" data-id="' . $data->id_pemasukan . '"><i class="fas fa-eye text-success"></i></a>';
-    //                 $button .= '<a href="' . URL::route('show-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>';
-    //                 $button .= '<form action="' . URL::route('delete-pemasukan-admin', ['id' => $data->id_pemasukan]) . '" method="POST" style="display:inline;">';
-    //                 $button .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-    //                 $button .= '<button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row" style="border:none; background:none; padding:0; cursor:pointer;"><i class="fas fa-trash-alt text-danger"></i></button>';
-    //                 $button .= '</form>';
-    //                 return $button;
-    //             })
-    //             ->rawColumns(['action'])
-    //             ->make(true);
-    //     }
-
-    //     //get data mitra
-    //     $query = "SELECT id_mitra, nama_mitra FROM mitra";
-    //     $mitra = DB::select($query);
-
-    //     $query2 = "SELECT id_produk, nama_produk, harga_produk FROM produk";
-    //     $produk = DB::select($query2);
-
-
-    //     $title = 'Hapus Data!';
-    //     $text = "Apakah Anda yakin ingin menghapus nya?";
-    //     confirmDelete($title, $text);
-
-    //     return view('admin.pemasukan-admin', [
-    //         'title' => 'Pemasukan Admin',
-    //         'mitra' => $mitra,
-    //         'produk' => $produk
-    //     ]);
-    // }
 
     //fungsi show pemasukan dan detail pemasukannya
     public function show(Request $request)
     {
         $id = $request->id;
-        $pemasukan = Pemasukan::with('detail')->find($id);
+        $pemasukan = Pemasukan::with('mitra', 'detail', 'produk', 'user')->find($id);
+        
 
         return view('admin.show-pemasukan-admin', [
             'title' => 'Pemasukan Admin',
             'pemasukan' => $pemasukan
         ], compact('pemasukan'));
     }
+
+    public function printShow($id)
+    {
+        $pemasukan = Pemasukan::with('mitra', 'detail', 'produk', 'user')->find($id);
+        
+
+        return view('admin.show-pemasukan-admin-print', [
+            'title' => 'Pemasukan Admin',
+            'pemasukan' => $pemasukan
+        ], compact('pemasukan'));
+    }
+
     // ]);
 
     //fungsi view pemasukan admin
@@ -282,6 +153,23 @@ class PemasukanAdminController extends Controller
         // Ambil id user yang sedang login
         $user_id = auth()->user()->id_user;
 
+        //validasi
+        $validator = Validator::make($request->all(), [
+            'tgl_pemasukan' => 'required',
+            'id_mitra' => 'required',
+            'keterangan' => 'required',
+            'detail.*.id_produk' => 'required',
+            'detail.*.jumlah_barang_masuk' => 'required|numeric',
+            'detail.*.harga_barang_masuk' => 'required|numeric',
+            'detail.*.saldo' => 'required|numeric',
+            'detail.*.bayar' => 'required|numeric',
+            'detail.*.subtotal' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
         $total_harga = 0;
         foreach ($request->detail as $detail) {
             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']));
@@ -315,6 +203,21 @@ class PemasukanAdminController extends Controller
 
     public function edit($id)
     {
+        //validasi
+        // $validator = Validator::make($request->all(), [
+        //     'tgl_pemasukan' => 'required',
+        //     'id_mitra' => 'required',
+        //     'keterangan' => 'required',
+        //     'detail.*.id_produk' => 'required',
+        //     'detail.*.jumlah_barang_masuk' => 'required|numeric',
+        //     'detail.*.harga_barang_masuk' => 'required|numeric',
+        //     'detail.*.saldo' => 'required|numeric',
+        //     'detail.*.bayar' => 'required|numeric',
+        //     'detail.*.subtotal' => 'required|numeric'
+        // ]);
+        // if ($validator->fails()) {
+        //     return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        // }
         // Ambil data pemasukan dan detailnya
         $query = "SELECT pemasukan.*, detail_pemasukan.*, mitra.nama_mitra, mitra.id_mitra, produk.id_produk, produk.nama_produk, produk.harga_produk 
           FROM pemasukan 

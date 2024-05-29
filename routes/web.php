@@ -58,8 +58,9 @@ Route::controller(OwnerController::class)->group(function () {
 //Route Pemasukan Owner
 Route::controller(PemasukanOwnerController::class)->group(function () {
     // Route::get('/pemasukan-owner', 'index')->name('pemasukan-owner');
-    Route::get('/pemasukan-owner', 'dataTables')->name('pemasukan-owner');
+    Route::get('/pemasukan-owner', 'getDataTables')->name('pemasukan-owner');
     Route::get('/pemasukan-owner/show', 'show')->name('show-pemasukan-owner');
+    Route::get('/pemasukan-owner-print/show/{id}', 'printShow')->name('show-pemasukan-owner-print');
     Route::get('/pemasukan-owner/create', 'create')->name('create-pemasukan-owner');
     Route::post('/pemasukan-owner/store', 'store')->name('store-pemasukan-owner');
     Route::get('/pemasukan-owner/edit/{id}', 'edit')->name('edit-pemasukan-owner');
@@ -69,9 +70,10 @@ Route::controller(PemasukanOwnerController::class)->group(function () {
 
 //Route Pengeluaran Owner
 Route::controller(PengeluaranOwnerController::class)->group(function () {
-    Route::get('/pengeluaran-owner', 'index')->name('pengeluaran-owner');
+    Route::get('/pengeluaran-owner', 'getDataTables')->name('pengeluaran-owner');
     Route::get('/pengeluaran-owner/create', 'create')->name('create-pengeluaran-owner'); 
     Route::get('/pengeluaran-owner/show', 'show')->name('show-pengeluaran-owner');
+    Route::get('/pengeluaran-owner-print/show/{id}', 'printShow')->name('show-pengeluaran-owner-print');
     Route::post('/pengeluaran-owner/store', 'store')->name('store-pengeluaran-owner');
     Route::get('/pengeluaran-owner/edit/{id}', 'edit')->name('edit-pengeluaran-owner');
     Route::post('/pengeluaran-owner/update', 'update')->name('update-pengeluaran-owner');
@@ -125,6 +127,12 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/laporan-admin-bulanan', 'laporanBulanan')->name('laporan-admin-bulanan');
     Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
     Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
+    Route::get('/laporan-harian-pengeluaran-admin', 'laporanPengeluaran')->name('laporan-harian-pengeluaran-admin');
+    Route::get('/laporan-harian-pengeluaran-admin-print', 'laporanPengeluaranPrint')->name('laporan-harian-pengeluaran-admin-print');
+    Route::get('/laporan-harian-pemasukan-admin', 'laporanPemasukan')->name('laporan-harian-pemasukan-admin');
+    Route::get('/laporan-harian-pemasukan-admin-print', 'laporanPemasukanPrint')->name('laporan-harian-pemasukan-admin-print');
+
+
 
 });
 
@@ -133,6 +141,7 @@ Route::controller(PemasukanAdminController::class)->group(function () {
     Route::get('/pemasukan-admin', 'getDataTables')->name('pemasukan-admin');
     // Route::get('/pemasukan-admin', 'dataTables')->name('pemasukan-admin');
     Route::get('/pemasukan-admin/show', 'show')->name('show-pemasukan-admin');
+    Route::get('/pemasukan-admin-print/show/{id}', 'printShow')->name('show-pemasukan-admin-print');
     Route::get('/pemasukan-admin/create', 'create')->name('create-pemasukan-admin');
     Route::post('/pemasukan-admin/store', 'store')->name('store-pemasukan-admin');
     Route::get('/pemasukan-admin/edit/{id}', 'edit')->name('edit-pemasukan-admin');
@@ -145,6 +154,7 @@ Route::controller(PengeluaranAdminController::class)->group(function () {
     Route::get('/pengeluaran-admin', 'getDataTables')->name('pengeluaran-admin');
     Route::get('/pengeluaran-admin/create', 'create')->name('create-pengeluaran-admin');    
     Route::get('/pengeluaran-admin/show', 'show')->name('show-pengeluaran-admin');
+    Route::get('/pengeluaran-admin-print/show/{id}', 'printShow')->name('show-pengeluaran-admin-print');
     Route::post('/pengeluaran-admin/store', 'store')->name('store-pengeluaran-admin');
     Route::get('/pengeluaran-admin/edit/{id}', 'edit')->name('edit-pengeluaran-admin');
     Route::post('/pengeluaran-admin/update', 'update')->name('update-pengeluaran-admin');

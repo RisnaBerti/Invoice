@@ -1,5 +1,29 @@
 @extends('layouts.index')
 @section('content')
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            /* border: 1px solid black;
+                    padding: 8px; */
+            text-align: center;
+            /* Center align text in th and td */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-fluid">
         <!--begin::Products-->
@@ -8,15 +32,24 @@
             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    {{-- <form action="{{ route('laporan-admin-harian') }}" method="GET">
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                            <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
-                                id="q" placeholder="Mencari data" value="" />
-                            <button type="submit" class="btn btn-primary">Cari</button>
+                    <form method="GET" action="{{ route('laporan-harian-pengeluaran-admin') }}" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="tgl_awal" class="form-label">Tanggal Awal</label>
+                                <input type="date" class="form-control" id="tgl_awal" name="tgl_awal"
+                                    value="{{ request()->get('tgl_awal') }}">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="tgl_akhir" class="form-label">Tanggal Akhir</label>
+                                <input type="date" class="form-control" id="tgl_akhir" name="tgl_akhir"
+                                    value="{{ request()->get('tgl_akhir') }}">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
                         </div>
-                    </form> --}}
-                    
+                    </form>
+
                     <!--begin::Search-->
                     <div class="d-flex align-items-center position-relative my-1">
                         {{-- <i class="ki-outline ki-magnifier fs-2 position-absolute ms-4"></i>
@@ -31,9 +64,10 @@
                 <!--end::Card title-->
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                   
 
-                    <form class="d-flex justify-content-between" action="{{ route('laporan-admin-harian') }}" method="GET">
+
+                    {{-- <form class="d-flex justify-content-between" action="{{ route('laporan-admin-harian') }}"
+                        method="GET">
                         <div class="col">
                             <!--begin::Select2-->
                             <select id="bulan" name="bulan" class="form-select form-select-solid"
@@ -70,7 +104,7 @@
                             <!--end::Select2-->
                         </div>
                         <button type="submit" class="btn btn-primary">Cari</button>
-                    </form>
+                    </form> --}}
 
                     <!--begin::Export dropdown-->
                     {{-- <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
@@ -100,44 +134,41 @@
             <!--begin::Card body-->
             <div class="card-body pt-0">
                 <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_report_views_table">
-
-                    <thead>
-                        <tr class="text-start text-gray-400 fw-bold fs-4 text-uppercase gs-0">
-                            <th>Tanggal Pemasukan</th>
-                            <th>Debet</th>
-                            <th>Kredit</th>
-                            <th>Total Pendapatan</th>
-                            <th>Total Piutang</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="fw-semibold text-gray-600">
-                        @foreach ($saldo as $total)
-                            <tr>
-                                <td>
-                                    <span>{{ date('d-M-Y', strtotime($total->tgl_pemasukan)) }}</span>
-                                </td>
-                                <td>
-                                    <span>Rp. {{ number_format($total->total_debet, 0, ',', '.') }}</span>
-                                </td>
-                                <td>
-                                    <span>Rp. {{ number_format($total->total_kredit, 0, ',', '.') }}</span>
-                                </td>
-                                <td>
-                                    <span>Rp. {{ number_format($total->total_semua - $total->total_piutang, 0, ',', '.') }}</span>
-                                </td>
-                                <td>
-                                    <span>Rp. {{ number_format($total->total_piutang, 0, ',', '.') }}</span>
-                                </td>
-                                <td>
-                                    <a href="{{ route('sendNotifWhatsApp', ['tgl_pemasukan' => $total->tgl_pemasukan, 'saldo' => $saldo]) }}"
-                                        class="btn btn-primary"><i class="ki-outline ki-send fs-2"></i>Kirim</a>
-                                </td>
-
+                <table class="table table-bordered align-middle table-row-dashed fs-6 gy-5" ">
+                        <thead>
+                            <tr class="text-center fw-bold fs-5 text-uppercase gs-0">
+                                <th rowspan="2">NO</th>
+                                <th rowspan="2">TANGGAL</th>
+                                <th colspan="4">DETAIL PENGELUARAN</th>
                             </tr>
+                            <tr class="text-center fw-bold fs-5 text-uppercase gs-0">
+                                <th>Nama Barang</th>
+                                <th>QTY</th>
+                                <th>Harga Satuan</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
+                             @foreach ($pengeluaran as $key=> $item)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $item->tgl_pengeluaran }}</td>
+                        @foreach ($item->detail as $detail)
+                            <td>{{ $detail->nama_barang_keluar }}</td>
+                            <td>{{ $detail->jumlah_barang_keluar }}</td>
+                            <td>{{ $detail->harga_satuan }}</td>
+                            <td>{{ $detail->subtotal }}</td>
                         @endforeach
+                        <td>{{ $item->total_harga }}</td>
+                    </tr>
+                    @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">Total</td>
+                            <td>{{ $item->total_harga }}</td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <!--end::Table-->
             </div>
@@ -147,8 +178,8 @@
     </div>
     <!--end::Content container-->
 
-    
 
-    
+
+
     {{-- <span>{{ \Carbon\Carbon::parse($total->tgl_pemasukan)->translatedFormat('l, d-M-Y') }}</span> --}}
 @endsection

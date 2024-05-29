@@ -139,15 +139,6 @@
 
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link">
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-setting-2 fs-2"></i>
-                    </span>
-                    <span class="menu-title">Pengaturan</span>
-                    <span class="menu-arrow"></span>
-                </span>
-                <!--end:Menu link-->
                 <!--begin:Menu sub-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->

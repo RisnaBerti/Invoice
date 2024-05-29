@@ -32,4 +32,9 @@ class Pemasukan extends Model
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
+    //relasi produk
+    public function produk() {
+        return $this->belongsToMany(Produk::class, 'detail_pemasukan', 'id_pemasukan', 'id_produk')->withPivot('id_produk', 'harga_barang_masuk');
+    }
+
 }

@@ -9,21 +9,14 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-                    {{-- <form action="{{ route('pengeluaran-owner') }}" method="GET">
+                    <form action="{{ route('pengeluaran-owner') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
                                 id="q" placeholder="Mencari data" value="" />
                             <button type="submit" class="btn btn-primary">Cari</button>
                         </div>
-                    </form> --}}
-
-                    {{-- <div class="d-flex align-items-center position-relative my-1">
-                        <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                        <input type="text" data-kt-user-table-filter="search"
-                            class="form-control form-control-solid w-250px ps-13" name="q" id="q"
-                            placeholder="Mencari data" value="" />
-                    </div> --}}
+                    </form>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
@@ -57,6 +50,7 @@
                             </ul>
                         </div>
                         <!--end::Export button-->
+
 
                         <!--begin::Add Data-->
                         <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
@@ -109,6 +103,8 @@
                                         </div>
                                         <!--end::Heading-->
 
+
+
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-8 fv-row">
                                             <label class="required fs-6 fw-semibold mb-2">Tanggal Pengeluaran</label>
@@ -143,7 +139,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total" name="total"
+                                                        <th><input type="text" id="total_harga" name="total_harga"
                                                                 class="form-control" readonly></th>
                                                         <th></th>
                                                     </tr>
@@ -157,14 +153,6 @@
                                                         <td><input type="text" name="detail[0][harga_satuan]"
                                                                 class="form-control harga_satuan" required>
                                                         </td>
-                                                        {{-- <td>
-                                                            <select name="detail[0][tipe_saldo]" class="form-control tipe-saldo">
-                                                                <option value="debet">Debet</option>
-                                                                <option value="kredit">Kredit</option>
-                                                            </select>
-                                                        </td> --}}
-
-                                                        {{-- <td><input type="text" name="detail[0][saldo]" class="form-control saldo" required></td> --}}
                                                         <td><input type="text" name="detail[0][subtotal]"
                                                                 class="form-control subtotal" required readonly></td>
                                                         <td class="add-remove text-end">
@@ -187,9 +175,6 @@
                                             <button type="submit" id="kt_modal_new_target_submit"
                                                 class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
-                                                {{-- <span class="indicator-progress">Please wait...
-                                                    <span
-                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span> --}}
                                             </button>
                                         </div>
                                         <!--end::Actions-->
@@ -242,7 +227,7 @@
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
-                                        <input type="hiddes" name="id_pengeluaran_edit" id="id_pengeluaran_edit">
+                                        <input type="hidden" name="id_pengeluaran_edit" id="id_pengeluaran_edit">
                                         {{-- <input type="hidden" name="id_user" id="id_user"  value="{{ Auth::user()->id }}"> --}}
                                         <div class="d-flex flex-column mb-8 fv-row">
                                             <label class="required fs-6 fw-semibold mb-2">Tanggal Pengeluaran</label>
@@ -261,7 +246,7 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
-                                        <!--begin::Detail Pengeluaran-->
+                                        <!--begin::Detail Pemasukan-->
                                         <div class="form-group">
                                             <label>Detail Pengeluaran:</label>
                                             <table id="detailTableEdit" class="table">
@@ -277,8 +262,9 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="3" class="text-end">Total:</th>
-                                                        <th><input type="text" id="total_edit" name="total_edit"
-                                                                class="form-control" readonly></th>
+                                                        <th><input type="text" id="total_harga_edit"
+                                                                name="total_harga_edit" class="form-control" readonly>
+                                                        </th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -297,16 +283,6 @@
                                                                 id="detail[0][harga_satuan_edit]"
                                                                 class="form-control harga_satuan_edit" required>
                                                         </td>
-                                                        {{-- <td>
-                                                         <select name="detail[0][tipe_saldo]" class="form-control tipe-saldo">
-                                                             <option value="debet">Debet</option>
-                                                             <option value="kredit">Kredit</option>
-                                                         </select>
-                                                     </td> --}}
-
-
-
-                                                        {{-- <td><input type="text" name="detail[0][saldo]" class="form-control saldo" required></td> --}}
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
                                                                 class="form-control subtotal_edit" required readonly></td>
@@ -323,7 +299,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!--end::Detail Pengeluaran-->
+                                        <!--end::Detail Pemasukan-->
                                         <!--begin::Actions-->
                                         <div class="text-center">
                                             <button type="reset" id="kt_modal_new_target_cancel"
@@ -355,9 +331,9 @@
             <!--begin::Card body-->
             <div class="card-body py-4">
                 <!--begin::Table-->
-                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                     <thead>
-                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Nama Barang</th>
@@ -369,11 +345,11 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
-                        {{-- @foreach ($pengeluaran as $index => $item)
+                        @foreach ($pengeluaran as $index => $item)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ date('d-M-Y', strtotime($item->tgl_pengeluaran)) }}</td>
 
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->tgl_pengeluaran }}</td>
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
@@ -388,6 +364,7 @@
                                         @endforeach
                                     </ul>
                                 </td>
+
                                 <td>
                                     <ul>
                                         @foreach ($item->detail as $detail)
@@ -418,10 +395,12 @@
                                             style="border:none; background:none; padding:0; cursor:pointer;"><i
                                                 class="fas fa-trash-alt text-danger"></i></button>
                                     </form>
-                                    <a href="{{ route('show-pengeluaran-owner', ['id' => $item->id_pengeluaran]) }}"  class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>
+                                    <a href="{{ route('show-pengeluaran-owner', ['id' => $item->id_pengeluaran]) }}"
+                                        class="menu-link px-1 show-row"><i class="fas fa-eye text-success"></i></a>
                                 </td>
+
                             </tr>
-                        @endforeach --}}
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -437,77 +416,17 @@
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#kt_table_users').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                ajax: "{{ route('pengeluaran-owner') }}",
-                columns: [{
-                        data: 'id_pengeluaran',
-                        name: 'id_pengeluaran'
-                    },
-                    {
-                        data: 'tgl_pengeluaran',
-                        name: 'tgl_pengeluaran',
-                        render: function(data) {
-                            // Memformat tanggal menggunakan Moment.js
-                            return moment(data).format('DD-MM-YYYY');
-                        }
-                    },
-                    {
-                        data: 'nama_barang_keluar',
-                        name: 'nama_barang_keluar'
-                    },
-                    {
-                        data: 'jumlah_barang_keluar',
-                        name: 'jumlah_barang_keluar'
-                    },
-                    {
-                        data: 'harga_satuan',
-                        name: 'harga_satuan',
-                        // render: function(data) {
-                        //     // Memformat harga menggunakan Number.prototype.toLocaleString()
-                        //     return 'Rp ' + parseInt(data).toLocaleString();
-                        // }
-                    },
-                    {
-                        data: 'subtotal',
-                        name: 'subtotal',
-                        // render: function(data) {
-                        //     // Memformat harga menggunakan Number.prototype.toLocaleString()
-                        //     return 'Rp ' + parseInt(data).toLocaleString();
-                        // }
-                    },
-                    {
-                        data: 'total_harga',
-                        name: 'total_harga',
-                        render: function(data) {
-                            // Memformat harga menggunakan Number.prototype.toLocaleString()
-                            return 'Rp ' + parseInt(data).toLocaleString();
-                        }
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ]
-            });
-        });
-    </script>
-
     <script>
         //Modal Untuk Tambah Data Pengeluaran
         $(document).ready(function() {
-            // Hitung total keseluruhan
+            // Hitung total_harga keseluruhan
             function calculateGrandTotal() {
                 var grandTotal = 0;
                 $('.subtotal').each(function() {
                     var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
                     grandTotal += subtotal;
                 });
-                $('#total').val(formatRupiah(grandTotal));
+                $('#total_harga').val(formatRupiah(grandTotal));
             }
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
@@ -551,18 +470,18 @@
             });
 
 
-            // Hitung total saat jumlah_barang_keluar atau harga_satuan berubah
+            // Hitung total_harga saat jumlah_barang_keluar atau harga_satuan berubah
             $(document).on('change', '.jumlah_barang_keluar, .harga_satuan', function() {
                 calculateTotal($(this).closest('tr'));
             });
 
-            // Fungsi untuk menghitung total
+            // Fungsi untuk menghitung total_harga
             function calculateTotal(row) {
                 var jumlah_barang_keluar = parseInt(row.find('.jumlah_barang_keluar').val()) || 0;
                 var harga_satuan = parseInt(row.find('.harga_satuan').val().replace(/\./g, '').replace('Rp ',
                     '')) || 0; // Menghapus titik dan 'Rp' dari harga_satuan
-                var total = jumlah_barang_keluar * harga_satuan;
-                row.find('.subtotal').val(formatRupiah(total));
+                var total_harga = jumlah_barang_keluar * harga_satuan;
+                row.find('.subtotal').val(formatRupiah(total_harga));
             }
 
             // Format Rupiah saat mengetikkan angka
@@ -608,7 +527,7 @@
                 $.get(url, function(data) {
                     $('#id_pengeluaran_edit').val(data.id_pengeluaran);
                     $('#tgl_pengeluaran_edit').val(data.tgl_pengeluaran);
-                    $('#total_edit').val(data.total);
+                    $('#total_harga_edit').val(data.total_harga);
                     $('#detailTableEdit tbody').empty();
                     data.detail.forEach(function(detail, index) {
                         var row = '<tr>' +
@@ -649,7 +568,7 @@
             $('#kt_modal_new_target_submit_edit').click(function() {
                 // var id_pengeluaran = $('#id_pengeluaran').val();
                 var tgl_pengeluaran = $('#tgl_pengeluaran_edit').val();
-                // var total = $('#total_edit').val();
+                var total_harga = $('#total_harga_edit').val();
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
                     var nama_barang_keluar_edit = $(this).find('.nama_barang_keluar_edit').val();
@@ -670,7 +589,7 @@
                     data: {
                         // id_pengeluaran: id_pengeluaran,
                         tgl_pengeluaran: tgl_pengeluaran_edit,
-                        // total: total,
+                        total_harga: total_harga,
                         detail: detail
                     },
                     success: function(response) {
@@ -716,7 +635,7 @@
                 $(this).closest('tr').remove();
             });
 
-            // Hitung total keseluruhan
+            // Hitung total_harga keseluruhan
             function calculateGrandTotal() {
                 var grandTotal = 0;
                 $('.subtotal_edit').each(function() {
@@ -724,7 +643,7 @@
                         0;
                     grandTotal += subtotal_edit;
                 });
-                $('#total_edit').val(formatRupiah(grandTotal));
+                $('#total_harga_edit').val(formatRupiah(grandTotal));
             }
 
             // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal_edit
@@ -738,19 +657,19 @@
             });
 
 
-            // Hitung total saat jumlah_barang_keluar atau harga_satuan_edit berubah
+            // Hitung total_harga saat jumlah_barang_keluar atau harga_satuan_edit berubah
             $(document).on('change', '.jumlah_barang_keluar_edit, .harga_satuan_edit', function() {
                 calculateTotal($(this).closest('tr'));
             });
 
-            // Fungsi untuk menghitung total
+            // Fungsi untuk menghitung total_harga
             function calculateTotal(row) {
                 var jumlah_barang_keluar_edit = parseInt(row.find('.jumlah_barang_keluar_edit').val()) || 0;
                 var harga_satuan_edit = parseInt(row.find('.harga_satuan_edit').val().replace(/\./g, '').replace(
                     'Rp ',
                     '')) || 0; // Menghapus titik dan 'Rp' dari harga_satuan_edit
-                var total = jumlah_barang_keluar_edit * harga_satuan_edit;
-                row.find('.subtotal_edit').val(formatRupiah(total));
+                var total_harga = jumlah_barang_keluar_edit * harga_satuan_edit;
+                row.find('.subtotal_edit').val(formatRupiah(total_harga));
             }
 
             // Format Rupiah saat mengetikkan angka

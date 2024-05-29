@@ -83,6 +83,9 @@ class AdminController extends Controller
         );
     }
 
+    //fungsi Laporan Harian
+
+
     public function laporanHarian(Request $request)
     {
         // Request bulan dan tahun
@@ -102,9 +105,9 @@ class AdminController extends Controller
                 'tgl_pemasukan',
                 DB::raw('YEAR(tgl_pemasukan) AS tahun'),
                 DB::raw('MONTH(tgl_pemasukan) AS bulan'),
-                DB::raw('SUM(CASE WHEN pemasukan.keterangan = "Kasbon" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Kredit" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_debet'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit'),
+                DB::raw('SUM(CASE WHEN pemasukan.keterangan = "Belum Lunas" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
+                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_debet'),
+                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Kredit" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit'),
                 DB::raw('SUM(detail_pemasukan.subtotal) AS total_semua')
             )
             ->join('detail_pemasukan', 'pemasukan.id_pemasukan', '=', 'detail_pemasukan.id_pemasukan')
@@ -247,5 +250,147 @@ class AdminController extends Controller
 
         // return true;
         return redirect()->back()->with('success', 'Notifikasi berhasil dikirim');
+    }
+
+    //fungsi laporan pengeluaran harian admin
+    public function laporanPengeluaranHarian2()
+    {
+        //get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+
+        //jika di filter berdasarkan tanggal awal dan tanggal akhir
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+
+        return view(
+            'admin.laporan-harian-pengeluaran-admin',
+            compact('pengeluaran'),
+            [
+                'title' => 'Laporan Harian Admin'
+            ]
+
+        );
+    }
+
+    public function laporanPengeluaran()
+    {
+        // Get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pengeluaran
+        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+
+        return view(
+            'admin.laporan-harian-pengeluaran-admin',
+            compact('groupedPengeluaran'),
+            [
+                'title' => 'Laporan Pengeluaran Admin'
+            ]
+        );
+    }
+
+    public function laporanPengeluaranPrint(Request $request)
+    {
+        // Get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pengeluaran
+        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+
+        // var_dump($groupedPengeluaran);
+        // die();
+
+        return view(
+            'admin.laporan-harian-pengeluaran-admin-print',
+            compact('groupedPengeluaran'),
+            [
+                'title' => 'Laporan Pengeluaran Admin'
+            ]
+        );
+    }
+
+    public function laporanPemasukan()
+    {
+        // Get data pemasukan join detail pemasukan join data user
+        $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
+                ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan', 'mitra');
+
+        return view(
+            'admin.laporan-harian-pemasukan-admin',
+            compact('groupedPemasukan'),
+            [
+                'title' => 'Laporan Pemasukan Admin'
+            ]
+        );
+    }
+
+
+    public function laporanPemasukanPrint(Request $request)
+    {
+        // Get data pemasukan join detail pemasukan join data user
+        $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
+                ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan', 'mitra');
+
+        // var_dump($groupedpemasukan);
+        // die();
+
+        return view(
+            'admin.laporan-harian-pemasukan-admin-print',
+            compact('groupedPemasukan'),
+            [
+                'title' => 'Laporan Pemasukan Admin'
+            ]
+        );
     }
 }

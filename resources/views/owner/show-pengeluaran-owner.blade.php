@@ -1,4 +1,4 @@
-@extends('layouts.index-owner')
+@extends('layouts.index')
 @section('content')
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-fluid">
@@ -14,9 +14,8 @@
                         <!--end::Logo-->
                         <div class="text-sm-end">
                             <!--begin::Logo-->
-                            <a href="#" class="d-block mw-150px ms-sm-auto">
-                                <img alt="Logo" src="{{ url('') }}/assets/logo.png"
-                                    class="w-100" />
+                            <a href="" class="d-block mw-150px ms-sm-auto">
+                                <img alt="Logo" src="{{ url('') }}/assets/logo.png" class="w-100" />
                             </a>
                             <!--end::Logo-->
                             <!--begin::Text-->
@@ -38,7 +37,7 @@
                                 <span class="text-muted fs-3">{{ date('d-M-Y', strtotime($pengeluaran->tgl_pengeluaran)) }}
                                 </span>
                                 <br />
-                                {{-- <span class="text-muted fs-5">Berikut adalah detail pesanan Anda. Kami berterima kasih atas pembelian Anda.</span> --}}
+                                <span class="text-muted fs-5">Dibuat Oleh: {{ $pengeluaran->user->nama }} </span>
                             </div>
                             <!--begin::Message-->
                             <!--begin::Separator-->
@@ -72,16 +71,19 @@
                                                         {{ $detail->jumlah_barang_keluar }}
                                                     </td>
                                                     <td>
-                                                        {{ $detail->harga_satuan }}
+                                                        {{ 'Rp ' . number_format($detail->harga_satuan, 0, ',', '.') }}
                                                     </td>
                                                     <td>
-                                                        {{ $detail->subtotal }}
+                                                        {{ 'Rp ' . number_format($detail->subtotal, 0, ',', '.') }}
+
                                                     </td>
                                                 </tr>
                                             @endforeach
                                             <tr>
                                                 <td colspan="3" class="fs-5 text-dark fw-bold">Total</td>
-                                                <td class="text-dark fs-5 fw-bolder">{{ $pengeluaran->total_harga }}</td>
+                                                <td class="text-dark fs-5 fw-bolder">
+                                                    {{ 'Rp ' . number_format($pengeluaran->total_harga, 0, ',', '.') }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -94,11 +96,14 @@
                         <!-- begin::Actions-->
                         <div class="my-1 me-5">
                             <!-- begin::Pint-->
-                            <button type="button" class="btn btn-success my-1 me-4" onclick="window.print();">Print
+                            <button type="button" class="btn btn-success my-1 me-4"
+                                onclick="window.open('{{ route('show-pengeluaran-owner-print', $pengeluaran->id_pengeluaran) }}', '_blank')">Print
                                 Detail</button>
+
                             <!-- end::Pint-->
                             <!-- begin::Download-->
-                            <button type="button" class="btn btn-light-success my-1" onclick="window.location.href='{{ route('pengeluaran-admin') }}'">Kembali</button>
+                            <button type="button" class="btn btn-light-success my-1"
+                                onclick="window.location.href='{{ route('pengeluaran-owner') }}'">Kembali</button>
 
                             <!-- end::Download-->
                         </div>
@@ -119,7 +124,7 @@
                     {{-- </div> --}}
                     <!-- end::Actions-->
                     <!-- begin::Action-->
-                    {{-- <a href="{{ route('pengeluaran-admin') }}" class="btn btn-primary my-1">Tambah Pengeluaran</a> --}}
+                    {{-- <a href="{{ route('pengeluaran-owner') }}" class="btn btn-primary my-1">Tambah Pengeluaran</a> --}}
                     <!-- end::Action-->
                     {{-- </div> --}}
                     <!-- end::Footer-->

@@ -6,6 +6,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ProdukAdminController extends Controller
 {
@@ -72,6 +73,17 @@ class ProdukAdminController extends Controller
     //fungsi store admin
     public function store(Request $request)
     {
+        //validasi
+        $validator = Validator::make($request->all(), [
+            'nama_produk' => 'required',
+            'harga_produk' => 'required|numeric',
+            'deskripsi_produk' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
         $produk = new Produk();
         $produk->nama_produk = $request->nama_produk;
         $produk->harga_produk = floatval(str_replace(['.', 'Rp '], '', $request->harga_produk)) ;

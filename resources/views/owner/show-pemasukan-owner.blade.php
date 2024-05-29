@@ -1,4 +1,4 @@
-@extends('layouts.index-owner')
+@extends('layouts.index')
 @section('content')
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-fluid">
@@ -14,12 +14,12 @@
                         <!--end::Logo-->
                         <div class="text-sm-end">
                             <!--begin::Logo-->
-                            <a href="#" class="d-block mw-150px ms-sm-auto">
+                            <a href="" class="d-block mw-150px ms-sm-auto">
                                 <img alt="Logo" src="{{ url('') }}/assets/logo.png" class="w-100" />
                             </a>
                             <!--end::Logo-->
                             <!--begin::Text-->
-                            <div class="text-sm-end fw-semibold fs-4 text-muted mt-7">
+                            <div class="text-sm-end fw-semibold fs-4  mt-7">
                                 <div>CV Toba Jaya Teknik Cilacap</div>
                                 <div>JL MT. Haryono, No. 75, Donan,Prenca, Cilacap Tengah</div>
                             </div>
@@ -32,11 +32,12 @@
                         <!--begin::Wrapper-->
                         <div class="d-flex flex-column gap-7 gap-md-10">
                             <!--begin::Message-->
-                            <div class="fw-bold fs-2">{{ $pemasukan->nama_perusahaan }} <br />
+                            <div class="fw-bold fs-2">{{ $pemasukan->mitra->nama_mitra }}
+                                <br />
                                 <span class="text-muted fs-3">{{ date('d-M-Y', strtotime($pemasukan->tgl_pemasukan)) }}
                                 </span>
                                 <br />
-                                {{-- <span class="text-muted fs-5">Berikut adalah detail pesanan Anda. Kami berterima kasih atas pembelian Anda.</span> --}}
+                                <span class="text-muted fs-5">Dibuat Oleh: {{ $pemasukan->user->nama }}</span>
                             </div>
                             <!--begin::Message-->
                             <!--begin::Separator-->
@@ -55,7 +56,6 @@
                                                 <th class="text-dark">QTY</th>
                                                 <th class="text-dark">Bayar</th>
                                                 <th class="text-dark">Saldo</th>
-                                                <th class="text-dark">Keterangan</th>
                                                 <th class="text-dark">Sub Total</th>
                                             </tr>
                                         </thead>
@@ -66,32 +66,33 @@
                                                     {{ $detail->jenis_pemasukan }}
                                                 </td> --}}
                                                     <td>
-                                                        <ul>
-                                                            {{ $detail->nama_barang_masuk }}
-                                                        </ul>
+                                                        {{ $detail->produk->nama_produk }}
+                                                    </td>
                                                     <td>
-                                                        {{ $detail->harga_barang_masuk }}
+                                                        {{ 'Rp ' . number_format($detail->harga_barang_masuk, 0, ',', '.') }}
                                                     </td>
                                                     <td>
                                                         {{ $detail->jumlah_barang_masuk }}
                                                     </td>
                                                     <td>
-                                                        {{ $detail->bayar }}
+                                                        {{ 'Rp ' . number_format($detail->bayar, 0, ',', '.') }}
                                                     </td>
                                                     <td>
                                                         {{ $detail->saldo }}
                                                     </td>
                                                     <td>
-                                                        {{ $detail->keterangan }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $detail->subtotal }}
+                                                        {{ 'Rp ' . number_format($detail->subtotal, 0, ',', '.') }}
                                                     </td>
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <td colspan="6" class="fs-5 text-dark fw-bold">Total</td>
-                                                <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->total_harga }}</td>
+                                                <td colspan="5" class="fs-5 text-dark fw-bold">Total</td>
+                                                <td class="text-dark fs-5 fw-bolder">
+                                                    {{ 'Rp ' . number_format($pemasukan->total_harga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="fs-5 text-dark fw-bold">keterangan</td>
+                                                <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->keterangan }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -104,8 +105,13 @@
                         <!-- begin::Actions-->
                         <div class="my-1 me-5">
                             <!-- begin::Pint-->
-                            <button type="button" class="btn btn-success my-1 me-12" onclick="window.print();">Print
+                            {{-- tombol print redirect ke route print-pemasukan --}}
+                            <button type="button" class="btn btn-success my-1 me-4"
+                                onclick="window.open('{{ route('show-pemasukan-owner-print', $pemasukan->id_pemasukan) }}', '_blank')">Print
                                 Detail</button>
+
+                            {{-- <button type="button" class="btn btn-success my-1 me-4" >Print
+                                Detail</button> --}}
                             <button type="button" class="btn btn-light-success my-1"
                                 onclick="window.location.href='{{ route('pemasukan-owner') }}'">Kembali</button>
                             <!-- end::Pint-->

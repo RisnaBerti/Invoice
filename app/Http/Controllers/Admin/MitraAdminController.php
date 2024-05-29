@@ -6,6 +6,7 @@ use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MitraAdminController extends Controller
 {
@@ -60,6 +61,7 @@ class MitraAdminController extends Controller
     public function create()
     {
 
+
         return view(
             'admin.create-mitra-admin',
             [
@@ -71,6 +73,17 @@ class MitraAdminController extends Controller
     //fungsi store admin
     public function store(Request $request)
     {
+        //validasi
+        $validator = Validator::make($request->all(), [
+            'nama_mitra' => 'required',
+            'alamat_mitra' => 'required',
+            'no_telp_mitra' => 'required|numeric',
+            'email_mitra' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
         $mitra = new Mitra();
         $mitra->nama_mitra = $request->nama_mitra;
         $mitra->alamat_mitra = $request->alamat_mitra;

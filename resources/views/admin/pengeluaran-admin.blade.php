@@ -8,6 +8,9 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
+                    {{-- tombol filter berdasarkan tanggal awal dan tanggal akhir --}}
+
+                    
                     <!--begin::Search-->
                     {{-- <form action="{{ route('pengeluaran-admin') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
@@ -32,7 +35,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end gap-2 gap-lg-3" data-kt-user-table-toolbar="base">
                         <!--begin::Export button -->
-                        <div class="btn-group">
+                        {{-- <div class="btn-group">
                             <button type="button" class="btn btn-light-primary dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <span class="svg-icon svg-icon-md">
@@ -55,7 +58,7 @@
                                 </li>
                                 <!--end::Navigation-->
                             </ul>
-                        </div>
+                        </div> --}}
                         <!--end::Export button-->
 
                         <!--begin::Add Data-->

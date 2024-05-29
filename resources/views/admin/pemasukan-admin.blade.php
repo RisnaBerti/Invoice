@@ -23,7 +23,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end gap-2 gap-lg-3" data-kt-user-table-toolbar="base">
                         <!--begin::Export button -->
-                        <div class="btn-group">
+                        {{-- <div class="btn-group">
                             <button type="button" class="btn btn-light-primary dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <span class="svg-icon svg-icon-md">
@@ -38,15 +38,15 @@
                                         <span class="nav-text">PDF</span>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="#" class="dropdown-item">
                                         <span class="nav-icon"><i class="la la-file-excel-o"></i></span>
                                         <span class="nav-text">Excel</span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <!--end::Navigation-->
                             </ul>
-                        </div>
+                        </div> --}}
                         <!--end::Export button-->
 
                         <!--begin::Add Data-->

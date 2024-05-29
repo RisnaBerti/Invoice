@@ -78,4 +78,16 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    //relasi dengan tabel pemasukan
+    public function pemasukan()
+    {
+        return $this->hasMany(Pemasukan::class, 'id_user', 'id_user');
+    }
+
+    //relasi dengan tabel pengeluaran
+    public function pengeluaran()
+    {
+        return $this->hasMany(Pengeluaran::class, 'id_user', 'id_user');
+    }
 }
