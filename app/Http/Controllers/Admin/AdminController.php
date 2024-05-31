@@ -333,7 +333,6 @@ class AdminController extends Controller
         );
     }
 
-
     public function laporanPemasukan()
     {
         // Get data pemasukan join detail pemasukan join data user
@@ -360,8 +359,6 @@ class AdminController extends Controller
             ]
         );
     }
-    
-
 
     public function laporanPemasukanPrint(Request $request)
     {
@@ -392,4 +389,34 @@ class AdminController extends Controller
             ]
         );
     }
+
+    //fungsi laporan bulanan pemasukan
+    public function laporanPemasukanBulanan()
+    {
+        // Get data pemasukan join detail pemasukan join data user
+        $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
+                ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
+
+        return view(
+            'admin.laporan-bulanan-pemasukan-admin',
+            compact('groupedPemasukan'),
+            [
+                'title' => 'Laporan Pemasukan Admin'
+            ]
+        );
+    }
+
+    
 }

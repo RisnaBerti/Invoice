@@ -19,7 +19,7 @@
 
     <div class="text-center mb-4">
         <h5>LAPORAN PENGELUARAN</h5>
-        <h6>CV</h6>
+        <h6>CV Toba Jaya Teknik Cilacap</h6>
         <h6>{{ request()->get('tgl_awal') }} - {{ request()->get('tgl_akhir') }}</h6>
     </div>
 

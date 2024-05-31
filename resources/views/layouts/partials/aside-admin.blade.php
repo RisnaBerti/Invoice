@@ -249,17 +249,18 @@
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
-            {{-- <div class="menu-item menu-accordion">
+            <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/data-user') }}">
+                <a class="menu-link" href="{{ url('/laporan') }}">
                     <span class="menu-icon">
                         <i class="ki-outline ki-profile-user fs-2"></i>
                     </span>
                     <span class="menu-title">Kelola Pengguna</span>
                 </a>
                 <!--end:Menu link-->
-            </div> --}}
+            </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->

@@ -18,21 +18,23 @@
 <body onload="window.print()">
 
     <div class="text-center mb-4">
-        <h5>LAPORAN PEMASUKAN</h5>
+        <h5>LAPORAN PENGELUARAN BULANAN</h5>
         <h6>CV Toba Jaya Teknik Cilacap</h6>
         <h6>{{ request()->get('tgl_awal') }} - {{ request()->get('tgl_akhir') }}</h6>
     </div>
 
     <div class="container">
+        <!--begin::Table-->
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th rowspan="2">NO</th>
                     <th rowspan="2">TANGGAL</th>
+                    <th rowspan="2">MITRA</th>
                     <th colspan="4">DETAIL PEMASUKAN</th>
                 </tr>
                 <tr>
-                    <th>Nama Barang</th>
+                    <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Subtotal</th>
@@ -42,38 +44,35 @@
                 @php
                     function formatRupiah($angka)
                     {
-                        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+                        $hasil_rupiah = 'Rp ' . number_format($angka, 2, ',', '.');
                         return $hasil_rupiah;
                     }
                     $index = 1;
                     $totalKeseluruhan = 0;
                 @endphp
-                @foreach ($groupedPengeluaran as $tgl_pemasukan => $items)
+                @foreach ($groupedPemasukan as $tgl_pemasukan => $items)
                     @php
-                        $first = true;
                         $total_harga = 0;
-                        $total_rows = $items->reduce(function ($carry, $item) {
-                            return $carry + $item->detail->count();
-                        }, 0);
                     @endphp
                     @foreach ($items as $item)
                         @foreach ($item->detail as $detail)
+                            @php
+                                $subtotal = $detail->harga_barang_masuk * $detail->jumlah_barang_masuk;
+                                $total_harga += $subtotal;
+                            @endphp
                             <tr>
-                                @if ($first)
-                                    <td rowspan="{{ $total_rows }}">{{ $index }}</td>
-                                    <td rowspan="{{ $total_rows }}">{{ $tgl_pemasukan }}</td>
-                                    @php $first = false; @endphp
-                                @endif
-                                <td>{{ $detail->nama_barang_keluar }}</td>
-                                <td>{{ formatRupiah($detail->harga_satuan) }}</td>
-                                <td>{{ $detail->jumlah_barang_keluar }}</td>
-                                <td>{{ formatRupiah($detail->subtotal) }}</td>
+                                <td>{{ $index }}</td>
+                                <td>{{ $tgl_pemasukan }}</td>
+                                <td>{{ $item->mitra->nama_mitra }}</td>
+                                <td>{{ $detail->produk->nama_produk }}</td>
+                                <td>{{ formatRupiah($detail->harga_barang_masuk) }}</td>
+                                <td>{{ $detail->jumlah_barang_masuk }}</td>
+                                <td>{{ formatRupiah($subtotal) }}</td>
                             </tr>
-                            @php $total_harga += $detail->subtotal; @endphp
                         @endforeach
                     @endforeach
                     <tr>
-                        <td colspan="5" class="text-end fw-bold">Total</td>
+                        <td colspan="6" class="text-end fw-bold">Total</td>
                         <td>{{ formatRupiah($total_harga) }}</td>
                     </tr>
                     @php
@@ -82,13 +81,13 @@
                     @endphp
                 @endforeach
                 <tr>
-                    <td colspan="5" class="text-end fw-bold">Total Keseluruhan</td>
+                    <td colspan="6" class="text-end fw-bold">Total Keseluruhan</td>
                     <td>{{ formatRupiah($totalKeseluruhan) }}</td>
                 </tr>
             </tbody>
         </table>
+        <!--end::Table-->
     </div>
-
 
 </body>
 
