@@ -249,7 +249,7 @@
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('/laporan') }}">
                     <span class="menu-icon">
@@ -258,7 +258,7 @@
                     <span class="menu-title">Kelola Pengguna</span>
                 </a>
                 <!--end:Menu link-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
