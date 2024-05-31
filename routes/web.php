@@ -53,6 +53,10 @@ Route::controller(OwnerController::class)->group(function () {
     Route::get('/laporan-owner-bulanan', 'laporanBulanan')->name('laporan-owner-bulanan');
     Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
     Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
+    Route::get('/laporan-harian-pengeluaran-owner', 'laporanPengeluaran')->name('laporan-harian-pengeluaran-owner');
+    Route::get('/laporan-harian-pengeluaran-owner-print', 'laporanPengeluaranPrint')->name('laporan-harian-pengeluaran-owner-print');
+    Route::get('/laporan-harian-pemasukan-owner', 'laporanPemasukan')->name('laporan-harian-pemasukan-owner');
+    Route::get('/laporan-harian-pemasukan-owner-print', 'laporanPemasukanPrint')->name('laporan-harian-pemasukan-owner-print');
 });
 
 //Route Pemasukan Owner

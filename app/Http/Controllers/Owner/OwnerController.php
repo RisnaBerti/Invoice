@@ -122,9 +122,9 @@ class OwnerController extends Controller
         // Eksekusi query dan dapatkan data saldo
         $saldo = $query->groupBy('tgl_pemasukan')->get();
 
-        return view('admin.laporan-admin-harian', [
-            'title' => 'Laporan Admin',
-            'active' => 'laporan-admin',
+        return view('owner.laporan-owner-harian', [
+            'title' => 'Laporan Owner',
+            'active' => 'laporan-owner',
             'saldo' => $saldo,
             'tahun' => $tahunList
         ]);
@@ -169,9 +169,9 @@ class OwnerController extends Controller
         // Eksekusi query dan dapatkan data saldo
         $saldo = $query->groupBy('tgl_pemasukan')->get();
 
-        return view('admin.laporan-admin-bulanan', [
-            'title' => 'Laporan Admin',
-            'active' => 'laporan-admin',
+        return view('owner.laporan-owner-bulanan', [
+            'title' => 'Laporan Owner',
+            'active' => 'laporan-owner',
             'saldo' => $saldo,
             'tahun' => $tahunList
         ]);
@@ -246,5 +246,116 @@ class OwnerController extends Controller
 
         // return true;
         return redirect()->back()->with('success', 'Notifikasi berhasil dikirim');
+    }
+
+    public function laporanPengeluaran()
+    {
+        // Get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pengeluaran
+        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+
+        return view(
+            'owner.laporan-harian-pengeluaran-owner',
+            compact('groupedPengeluaran'),
+            [
+                'title' => 'Laporan Pengeluaran Owner'
+            ]
+        );
+    }
+
+    public function laporanPengeluaranPrint(Request $request)
+    {
+        // Get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pengeluaran
+        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+
+        return view(
+            'owner.laporan-harian-pengeluaran-owner-print',
+            compact('groupedPengeluaran'),
+            [
+                'title' => 'Laporan Pengeluaran Owner'
+            ]
+        );
+    }
+
+    public function laporanPemasukan()
+    {
+        // Get data pemasukan join detail pemasukan join data user
+        $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
+                ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
+
+        return view(
+            'owner.laporan-harian-pemasukan-owner',
+            compact('groupedPemasukan'),
+            [
+                'title' => 'Laporan Pemasukan Owner'
+            ]
+        );
+    }
+
+    public function laporanPemasukanPrint(Request $request)
+    {
+        // Get data pemasukan join detail pemasukan join data user
+        $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
+
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
+                ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan', 'mitra');
+
+        // var_dump($groupedpemasukan);
+        // die();
+
+        return view(
+            'owner.laporan-harian-pemasukan-owner-print',
+            compact('groupedPemasukan'),
+            [
+                'title' => 'Laporan Pemasukan Owner'
+            ]
+        );
     }
 }

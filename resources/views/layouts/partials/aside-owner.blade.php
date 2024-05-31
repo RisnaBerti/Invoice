@@ -23,30 +23,105 @@
                 <!--end:Menu link-->
             </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/pemasukan-owner') }}">
+                <span class="menu-link">
                     <span class="menu-icon">
-                        <i class="ki-outline ki-dollar fs-2"></i>
+                        <i class="ki-outline ki-wallet dollar fs-2"></i>
                     </span>
                     <span class="menu-title">Pemasukan</span>
-                </a>
+                    <span class="menu-arrow"></span>
+                </span>
                 <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('/pemasukan-owner') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-wallet dollar fs-2"></i>
+                            </span>
+                            <span class="menu-title">Data Pemasukan</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-harian-pemasukan-owner') }}"
+                            title="Check out the complete documentation" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            {{-- <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span> --}}
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-key fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Pemasukan</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/pengeluaran-owner') }}">
+                <span class="menu-link">
                     <span class="menu-icon">
                         <i class="ki-outline ki-wallet dollar fs-2"></i>
                     </span>
                     <span class="menu-title">Pengeluaran</span>
-                </a>
+                    <span class="menu-arrow"></span>
+                </span>
                 <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('/pengeluaran-owner') }}"
+                            title="Check out over 200 in-house components" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-wallet dollar fs-2"></i>
+                            </span>
+                            <span class="menu-title">Data Pengeluaran</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{ url('laporan-harian-pengeluaran-owner') }}"
+                            title="Check out the complete documentation" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            {{-- <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span> --}}
+                            <span class="menu-icon">
+                                <i class="ki-outline ki-key fs-2"></i>
+                            </span>
+                            <span class="menu-title">Laporan Pengeluaran</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
+
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
@@ -76,7 +151,7 @@
 
             <!--begin:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -108,9 +183,6 @@
                         <a class="menu-link" href="{{ url('laporan-owner-bulanan') }}"
                             title="Check out the complete documentation" data-bs-toggle="tooltip"
                             data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            {{-- <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span> --}}
                             <span class="menu-icon">
                                 <i class="ki-outline ki-key fs-2"></i>
                             </span>
@@ -121,7 +193,7 @@
                     <!--end:Menu item-->
                 </div>
                 <!--end:Menu sub-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
             <!--end:Menu item-->
             <!--begin:Menu item-->

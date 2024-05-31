@@ -8,7 +8,7 @@
             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <form action="{{ route('laporan-admin-harian') }}" method="GET">
+                    <form action="{{ route('laporan-owner-harian') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" class="form-control form-control-solid w-250px ps-13" name="q"
@@ -33,7 +33,7 @@
                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                    
 
-                    <form class="d-flex justify-content-between" action="{{ route('laporan-admin-harian') }}" method="GET">
+                    <form class="d-flex justify-content-between" action="{{ route('laporan-owner-harian') }}" method="GET">
                         <div class="col">
                             <!--begin::Select2-->
                             <select id="bulan" name="bulan" class="form-select form-select-solid"
