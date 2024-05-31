@@ -368,7 +368,7 @@
                                                         <td><input type="text"
                                                                 name="detail[0][harga_barang_masuk_edit]"
                                                                 id="detail[0][harga_barang_masuk_edit]"
-                                                                class="form-control harga_barang_masuk_edit" required>
+                                                                class="form-control harga_barang_masuk_edit" required readonly>
                                                         </td>
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
