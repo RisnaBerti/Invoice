@@ -40,9 +40,15 @@
             </thead>
             <tbody>
                 @php
+                    function formatRupiah($angka)
+                    {
+                        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+                        return $hasil_rupiah;
+                    }
                     $index = 1;
+                    $totalKeseluruhan = 0;
                 @endphp
-                @foreach ($groupedPemasukan as $tgl_pemasukan => $items)
+                @foreach ($groupedPengeluaran as $tgl_pemasukan => $items)
                     @php
                         $first = true;
                         $total_harga = 0;
@@ -59,22 +65,30 @@
                                     @php $first = false; @endphp
                                 @endif
                                 <td>{{ $detail->nama_barang_keluar }}</td>
-                                <td>{{ $detail->harga_satuan }}</td>
+                                <td>{{ formatRupiah($detail->harga_satuan) }}</td>
                                 <td>{{ $detail->jumlah_barang_keluar }}</td>
-                                <td>{{ $detail->subtotal }}</td>
+                                <td>{{ formatRupiah($detail->subtotal) }}</td>
                             </tr>
                             @php $total_harga += $detail->subtotal; @endphp
                         @endforeach
                     @endforeach
                     <tr>
                         <td colspan="5" class="text-end fw-bold">Total</td>
-                        <td>{{ $total_harga }}</td>
+                        <td>{{ formatRupiah($total_harga) }}</td>
                     </tr>
-                    @php $index++; @endphp
+                    @php
+                        $index++;
+                        $totalKeseluruhan += $total_harga;
+                    @endphp
                 @endforeach
+                <tr>
+                    <td colspan="5" class="text-end fw-bold">Total Keseluruhan</td>
+                    <td>{{ formatRupiah($totalKeseluruhan) }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
+
 
 </body>
 

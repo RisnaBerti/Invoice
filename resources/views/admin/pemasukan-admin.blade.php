@@ -189,32 +189,22 @@
                                                                 @endforeach
                                                             </select>
                                                         </td>
-                                                        <td>
-                                                            <input type="number" name="detail[0][jumlah_barang_masuk]"
-                                                                id="detail[0][jumlah_barang_masuk]"
-                                                                class="form-control jumlah_barang_masuk" required>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="detail[0][harga_barang_masuk]"
+                                                        <td><input type="number" name="detail[0][jumlah_barang_masuk]"
+                                                                class="form-control jumlah_barang_masuk"
+                                                                id="detail_0_jumlah_barang_masuk" required></td>
+                                                        <td><input type="text" name="detail[0][harga_barang_masuk]"
                                                                 id="detail_0_harga_barang_masuk"
-                                                                class="form-control harga_barang_masuk" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="detail[0][subtotal]"
-                                                                id="detail[0][subtotal]" class="form-control subtotal"
-                                                                required readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="detail[0][bayar]"
-                                                                id="detail[0][bayar]" class="form-control bayar" required>
-                                                        </td>
-                                                        <td>
-                                                            <select name="detail[0][saldo]" class="form-control saldo"
-                                                                id="saldo">
+                                                                class="form-control harga_barang_masuk" readonly></td>
+                                                        <td><input type="text" name="detail[0][subtotal]"
+                                                                class="form-control subtotal" id="detail_0_subtotal"
+                                                                required readonly></td>
+                                                        <td><input type="text" name="detail[0][bayar]"
+                                                                class="form-control bayar" required></td>
+                                                        <td><select name="detail[0][saldo]" class="form-control saldo"
+                                                                required>
                                                                 <option value="Debet">Debet</option>
                                                                 <option value="Kredit">Kredit</option>
-                                                            </select>
-                                                        </td>
+                                                            </select></td>
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn me-2">
                                                                 <i class="fas fa-plus-circle text-success"></i>
@@ -224,6 +214,7 @@
                                                             </a>
                                                         </td>
                                                     </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -368,7 +359,8 @@
                                                         <td><input type="text"
                                                                 name="detail[0][harga_barang_masuk_edit]"
                                                                 id="detail[0][harga_barang_masuk_edit]"
-                                                                class="form-control harga_barang_masuk_edit" required readonly>
+                                                                class="form-control harga_barang_masuk_edit" required
+                                                                readonly>
                                                         </td>
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
@@ -428,8 +420,8 @@
             <!--begin::Card body-->
             <div class="card-body">
                 <!--begin::Table-->
-                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5"
-                    id="kt_table_users" name="kt_table_users">
+                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_table_users"
+                    name="kt_table_users">
 
                     <thead>
                         <tr class="table-light fw-bold fs-7 text-uppercase gs-0">
@@ -463,69 +455,87 @@
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>
-        function updateHarga(index) {
-            var selectProduk = document.getElementById('detail_' + index + '_id_produk');
-            var selectedOption = selectProduk.options[selectProduk.selectedIndex];
-            var harga = selectedOption.getAttribute('data-harga');
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fungsi untuk memformat angka sebagai mata uang
+            function formatRupiah(angka) {
+                var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-            var inputHarga = document.getElementById('detail_' + index + '_harga_barang_masuk');
-            inputHarga.value = formatRupiah(harga);
-        }
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
 
-        function formatRupiah(angka) {
-            var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return 'Rp ' + rupiah;
             }
 
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return 'Rp ' + rupiah;
-        }
+            // Fungsi untuk memperbarui harga berdasarkan produk yang dipilih
+            function updateHarga(index) {
+                var selectProduk = document.getElementById('detail_' + index + '_id_produk');
+                var selectedOption = selectProduk.options[selectProduk.selectedIndex];
+                var harga = selectedOption.getAttribute('data-harga');
 
-        // // Fungsi untuk menghitung subtotal
-        // function calculateTotal(row) {
-        //     var jumlah_barang_masuk = parseInt(row.find('.jumlah_barang_masuk').val()) || 0;
-        //     var harga_barang_masuk = parseInt(row.find('.id_produk option:selected').data('harga')) || 0; // Ambil harga dari opsi yang dipilih
-        //     var total_harga = jumlah_barang_masuk * harga_barang_masuk;
-        //     row.find('.subtotal').val(formatRupiah(total_harga));
-        // }
+                var inputHarga = document.getElementById('detail_' + index + '_harga_barang_masuk');
+                inputHarga.value = formatRupiah(harga);
 
-        // // Panggil fungsi calculateTotal saat ada perubahan pada jumlah barang masuk
-        // $(document).on('change', '.jumlah_barang_masuk', function() {
-        //     var row = $(this).closest('tr');
-        //     calculateTotal(row);
-        // });
+                calculateSubtotal(index);
+            }
 
-        // // Fungsi untuk menghitung total_harga keseluruhan
-        // function calculateGrandTotal() {
-        //     var grandTotal = 0;
-        //     $('.subtotal').each(function() {
-        //         var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
-        //         grandTotal += subtotal;
-        //     });
-        //     // Periksa apakah elemen dengan id 'total_harga' ada
-        //     if ($('#total_harga').length > 0) {
-        //         $('#total_harga').val(formatRupiah(grandTotal));
-        //     }
-        // }
+            // Fungsi untuk menghitung subtotal untuk satu baris
+            function calculateSubtotal(index) {
+                var qty = parseFloat(document.getElementById('detail[' + index + '][jumlah_barang_masuk]').value) ||
+                    0;
+                var harga = parseFloat(document.getElementById('detail_' + index + '_harga_barang_masuk').value
+                    .replace(/[^0-9,-]+/g, '')) || 0;
+                var subtotal = qty * harga;
+                document.getElementById('detail[' + index + '][subtotal]').value = formatRupiah(subtotal);
+                calculateTotalHarga();
+            }
 
-        // // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
-        // $(document).on('change', '.subtotal', function() {
-        //     calculateGrandTotal();
-        // });
+            // Fungsi untuk menghitung total harga
+            function calculateTotalHarga() {
+                var totalHarga = 0;
+                document.querySelectorAll('.subtotal').forEach(function(element) {
+                    var subtotal = parseFloat(element.value.replace(/[^0-9,-]+/g, '')) || 0;
+                    totalHarga += subtotal;
+                });
+                document.getElementById('total_harga').value = formatRupiah(totalHarga);
+            }
 
-        // // Panggil fungsi calculateGrandTotal saat menambah atau menghapus baris
-        // $(document).on('click', '.remove-btn, .add-btn', function() {
-        //     calculateGrandTotal();
-        // });
-    </script>
+            // Event listener untuk perubahan kuantitas
+            document.addEventListener('change', function(event) {
+                if (event.target.classList.contains('jumlah_barang_masuk')) {
+                    var row = event.target.closest('tr');
+                    var index = row.rowIndex - 1;
+                    calculateSubtotal(index);
+                }
+            });
+
+            // Event listener untuk perubahan pemilihan produk
+            document.addEventListener('change', function(event) {
+                if (event.target.classList.contains('id_produk')) {
+                    var row = event.target.closest('tr');
+                    var index = row.rowIndex - 1;
+                    updateHarga(index);
+                }
+            });
+
+            // Event listener untuk pengiriman formulir
+            document.getElementById('pemasukanForm').addEventListener('submit', function(event) {
+                document.querySelectorAll('.harga_barang_masuk, .subtotal, .bayar').forEach(function(
+                    element) {
+                    element.value = element.value.replace(/[^0-9,-]+/g, '');
+                });
+            });
+        });
+
+        
+    </script> --}}
 
     <script>
         $(document).ready(function() {
@@ -658,6 +668,73 @@
     {{-- //Modal Untuk Tambah Data Pemasukan --}}
     <script>
         $(document).ready(function() {
+            // Fungsi untuk memformat angka sebagai mata uang
+            function formatRupiah(angka) {
+                var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return 'Rp ' + rupiah;
+            }
+
+            // Fungsi untuk memperbarui harga berdasarkan produk yang dipilih
+            function updateHarga(index) {
+                var selectProduk = document.getElementById('detail_' + index + '_id_produk');
+                var selectedOption = selectProduk.options[selectProduk.selectedIndex];
+                var harga = selectedOption.getAttribute('data-harga');
+
+                var inputHarga = document.getElementById('detail_' + index + '_harga_barang_masuk');
+                inputHarga.value = formatRupiah(harga); // Format rupiah untuk tampilan
+
+                calculateSubtotal(index);
+            }
+
+            // Fungsi untuk menghitung subtotal untuk satu baris
+            function calculateSubtotal(index) {
+                var qty = parseFloat(document.getElementById('detail_' + index + '_jumlah_barang_masuk').value) ||
+                0;
+                var harga = parseFloat(document.getElementById('detail_' + index + '_harga_barang_masuk').value
+                    .replace(/[^0-9,-]+/g, '')) || 0;
+                var subtotal = qty * harga;
+                document.getElementById('detail_' + index + '_subtotal').value = formatRupiah(
+                subtotal); // Format rupiah untuk tampilan
+                calculateTotalHarga();
+            }
+
+            // Fungsi untuk menghitung total harga
+            function calculateTotalHarga() {
+                var totalHarga = 0;
+                document.querySelectorAll('.subtotal').forEach(function(element) {
+                    var subtotal = parseFloat(element.value.replace(/[^0-9,-]+/g, '')) || 0;
+                    totalHarga += subtotal;
+                });
+                document.getElementById('total_harga').value = formatRupiah(
+                totalHarga); // Format rupiah untuk tampilan
+            }
+
+            // Event listener untuk perubahan kuantitas
+            $(document).on('change', '.jumlah_barang_masuk', function() {
+                var row = $(this).closest('tr');
+                var index = row.index();
+                calculateSubtotal(index);
+            });
+
+            // Event listener untuk perubahan pemilihan produk
+            $(document).on('change', '.id_produk', function() {
+                var row = $(this).closest('tr');
+                var index = row.index();
+                updateHarga(index);
+            });
+
+            // Fungsi untuk menambah baris baru
             $(document).on('click', '.add-btn', function() {
                 var rowCount = $('#detailTable tbody tr').length;
                 var row = '<tr>' +
@@ -672,12 +749,14 @@
                     '</select>' +
                     '</td>' +
                     '<td><input type="number" name="detail[' + rowCount +
-                    '][jumlah_barang_masuk]" class="form-control jumlah_barang_masuk" required></td>' +
+                    '][jumlah_barang_masuk]" class="form-control jumlah_barang_masuk" id="detail_' +
+                    rowCount + '_jumlah_barang_masuk" required></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][harga_barang_masuk]" id="detail_' + rowCount +
                     '_harga_barang_masuk" class="form-control harga_barang_masuk" readonly></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
-                    '][subtotal]" class="form-control subtotal" required readonly></td>' +
+                    '][subtotal]" class="form-control subtotal" id="detail_' + rowCount +
+                    '_subtotal" required readonly></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][bayar]" class="form-control bayar" required></td>' +
                     '<td><select name="detail[' + rowCount +
@@ -697,141 +776,20 @@
                 $('#detailTable tbody').append(row);
             });
 
-            function updateHarga(index) {
-                var selectProduk = document.getElementById('detail_' + index + '_id_produk');
-                var selectedOption = selectProduk.options[selectProduk.selectedIndex];
-                var harga = selectedOption.getAttribute('data-harga');
-
-                var inputHarga = document.getElementById('detail_' + index + '_harga_barang_masuk');
-                inputHarga.value = formatRupiah(harga);
-
-                var row = $(selectProduk).closest('tr');
-                calculateTotal(row);
-            }
-
-            function formatRupiah(angka) {
-                var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return 'Rp ' + rupiah;
-            }
-
-            function calculateTotal(row) {
-                var jumlah_barang_masuk = parseInt(row.find('.jumlah_barang_masuk').val()) || 0;
-                var harga_barang_masuk = parseInt(row.find('.harga_barang_masuk').val().replace(/\./g, '').replace(
-                    'Rp ', '')) || 0;
-                var total_harga = jumlah_barang_masuk * harga_barang_masuk;
-                row.find('.subtotal').val(formatRupiah(total_harga));
-            }
-
-            $(document).on('change', '.jumlah_barang_masuk', function() {
-                var row = $(this).closest('tr');
-                calculateTotal(row);
-            });
-
-            function calculateGrandTotal() {
-                var grandTotal = 0;
-                $('.subtotal').each(function() {
-                    var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
-                    grandTotal += subtotal;
-                });
-
-                if ($('#total_harga').length > 0) {
-                    $('#total_harga').val(formatRupiah(grandTotal));
-                }
-            }
-
-            $(document).on('change', '.subtotal', function() {
-                calculateGrandTotal();
-            });
-
-            $(document).on('click', '.remove-btn, .add-btn', function() {
-                calculateGrandTotal();
-            });
-
-
-
-            // Hitung total_harga keseluruhan
-            function calculateGrandTotal() {
-                var grandTotal = 0;
-                $('.subtotal').each(function() {
-                    var subtotal = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) || 0;
-                    grandTotal += subtotal;
-                });
-                // Periksa apakah elemen dengan id 'total_harga' ada
-                // row.find('.total_harga').val(formatRupiah(grandTotal));
-                if ($('#total_harga').length > 0) {
-                    $('#total_harga').val(formatRupiah(grandTotal));
-                }
-            }
-
-            // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal
-            $(document).on('change', '.subtotal', function() {
-                calculateGrandTotal();
-            });
-
-            // Panggil fungsi calculateGrandTotal saat menambah atau menghapus baris
-            $(document).on('click', '.remove-btn, .add-btn', function() {
-                calculateGrandTotal();
-            });
-
-            // Hapus baris pada tabel
+            // Fungsi untuk menghapus baris
             $(document).on('click', '.remove-btn', function() {
                 $(this).closest('tr').remove();
+                calculateTotalHarga();
             });
 
-            // Hitung total_harga saat jumlah_barang_masuk atau harga_barang_masuk berubah
-            $(document).on('change', '.jumlah_barang_masuk, .harga_barang_masuk', function() {
-                calculateTotal($(this).closest('tr'));
-            });
-
-            // Fungsi untuk menghitung total_harga
-            function calculateTotal(row) {
-                var jumlah_barang_masuk = parseInt(row.find('.jumlah_barang_masuk').val()) || 0;
-                var harga_barang_masuk = parseInt(row.find('.harga_barang_masuk').val().replace(/\./g, '').replace(
-                    'Rp ',
-                    '')) || 0; // Menghapus titik dan 'Rp' dari harga_barang_masuk
-                var total_harga = jumlah_barang_masuk * harga_barang_masuk;
-                row.find('.subtotal').val(formatRupiah(total_harga));
-            }
-
-            // Format Rupiah saat mengetikkan angka
-            $(document).on('keyup', '.harga_barang_masuk', function() {
-                $(this).val(formatRupiah($(this).val().replace(/\./g, '')));
-            });
-
-            // Format Rupiah
-            function formatRupiah(angka) {
-                var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/g);
-
-                // tambahkan titik jika yang diinput sudah menjadi angka ribuan
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return 'Rp ' + rupiah;
-            }
-
-            // Submit form
+            // Event listener untuk pengiriman formulir
             $('#pemasukanForm').submit(function() {
+                $('.harga_barang_masuk, .subtotal, .bayar').each(function() {
+                    var numericValue = $(this).val().replace(/[^0-9]/g, '');
+                    $(this).val(numericValue);
+                });
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
-
         });
     </script>
 

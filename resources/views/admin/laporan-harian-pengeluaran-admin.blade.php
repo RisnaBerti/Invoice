@@ -52,33 +52,53 @@
                             <th>Subtotal</th>
                         </tr>
                     </thead>
-                    <tbody class="fw-semibold text-gray-600">
-                        @foreach ($groupedPengeluaran as $tgl_pengeluaran => $items)
+                    <tbody>
+                        @php
+                            function formatRupiah($angka)
+                            {
+                                $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+                                return $hasil_rupiah;
+                            }
+                            $index = 1;
+                            $totalKeseluruhan = 0;
+                        @endphp
+                        @foreach ($groupedPengeluaran as $tgl_pemasukan => $items)
                             @php
                                 $first = true;
                                 $total_harga = 0;
+                                $total_rows = $items->reduce(function ($carry, $item) {
+                                    return $carry + $item->detail->count();
+                                }, 0);
                             @endphp
-                            @foreach ($items as $key => $item)
+                            @foreach ($items as $item)
                                 @foreach ($item->detail as $detail)
                                     <tr>
                                         @if ($first)
-                                            <td rowspan="{{ count($item->detail) }}">{{ $loop->parent->iteration }}</td>
-                                            <td rowspan="{{ count($item->detail) }}">{{ $tgl_pengeluaran }}</td>
+                                            <td rowspan="{{ $total_rows }}">{{ $index }}</td>
+                                            <td rowspan="{{ $total_rows }}">{{ $tgl_pemasukan }}</td>
                                             @php $first = false; @endphp
                                         @endif
                                         <td>{{ $detail->nama_barang_keluar }}</td>
+                                        <td>{{ formatRupiah($detail->harga_satuan) }}</td>
                                         <td>{{ $detail->jumlah_barang_keluar }}</td>
-                                        <td>{{ $detail->harga_satuan }}</td>
-                                        <td>{{ $detail->subtotal }}</td>
+                                        <td>{{ formatRupiah($detail->subtotal) }}</td>
                                     </tr>
                                     @php $total_harga += $detail->subtotal; @endphp
                                 @endforeach
                             @endforeach
                             <tr>
                                 <td colspan="5" class="text-end fw-bold">Total</td>
-                                <td>{{ $total_harga }}</td>
+                                <td>{{ formatRupiah($total_harga) }}</td>
                             </tr>
+                            @php
+                                $index++;
+                                $totalKeseluruhan += $total_harga;
+                            @endphp
                         @endforeach
+                        <tr>
+                            <td colspan="5" class="text-end fw-bold">Total Keseluruhan</td>
+                            <td>{{ formatRupiah($totalKeseluruhan) }}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <!--end::Table-->

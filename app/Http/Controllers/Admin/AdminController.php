@@ -281,21 +281,21 @@ class AdminController extends Controller
 
     public function laporanPengeluaran()
     {
-        // Get data pengeluaran join detail pengeluaran join data user
-        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+         // Get data pengeluaran join detail pengeluaran join data user
+         $pengeluaran = Pengeluaran::with('detail', 'user')->get();
 
-        // If filtered by start date and end date
-        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
-            $tgl_awal = $_GET['tgl_awal'];
-            $tgl_akhir = $_GET['tgl_akhir'];
-
-            $pengeluaran = Pengeluaran::with('detail', 'user')
-                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
-                ->get();
-        }
-
-        // Group data by tgl_pengeluaran
-        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+         // If filtered by start date and end date
+         if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+             $tgl_awal = $_GET['tgl_awal'];
+             $tgl_akhir = $_GET['tgl_akhir'];
+ 
+             $pengeluaran = Pengeluaran::with('detail', 'user')
+                 ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                 ->get();
+         }
+ 
+         // Group data by tgl_pengeluaran
+         $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
 
         return view(
             'admin.laporan-harian-pengeluaran-admin',
@@ -324,9 +324,6 @@ class AdminController extends Controller
         // Group data by tgl_pengeluaran
         $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
 
-        // var_dump($groupedPengeluaran);
-        // die();
-
         return view(
             'admin.laporan-harian-pengeluaran-admin-print',
             compact('groupedPengeluaran'),
@@ -336,24 +333,25 @@ class AdminController extends Controller
         );
     }
 
+
     public function laporanPemasukan()
     {
         // Get data pemasukan join detail pemasukan join data user
         $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
-
+    
         // If filtered by start date and end date
         if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
             $tgl_awal = $_GET['tgl_awal'];
             $tgl_akhir = $_GET['tgl_akhir'];
-
+    
             $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
                 ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
                 ->get();
         }
-
+    
         // Group data by tgl_pemasukan
-        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan', 'mitra');
-
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
+    
         return view(
             'admin.laporan-harian-pemasukan-admin',
             compact('groupedPemasukan'),
@@ -362,6 +360,7 @@ class AdminController extends Controller
             ]
         );
     }
+    
 
 
     public function laporanPemasukanPrint(Request $request)

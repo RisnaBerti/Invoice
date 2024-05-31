@@ -98,7 +98,7 @@ class PemasukanAdminController extends Controller
     {
         $id = $request->id;
         $pemasukan = Pemasukan::with('mitra', 'detail', 'produk', 'user')->find($id);
-        
+
 
         return view('admin.show-pemasukan-admin', [
             'title' => 'Pemasukan Admin',
@@ -109,7 +109,7 @@ class PemasukanAdminController extends Controller
     public function printShow($id)
     {
         $pemasukan = Pemasukan::with('mitra', 'detail', 'produk', 'user')->find($id);
-        
+
 
         return view('admin.show-pemasukan-admin-print', [
             'title' => 'Pemasukan Admin',
@@ -150,20 +150,18 @@ class PemasukanAdminController extends Controller
 
     public function store(Request $request)
     {
-        // Ambil id user yang sedang login
         $user_id = auth()->user()->id_user;
 
-        //validasi
         $validator = Validator::make($request->all(), [
             'tgl_pemasukan' => 'required',
             'id_mitra' => 'required',
             'keterangan' => 'required',
             'detail.*.id_produk' => 'required',
             'detail.*.jumlah_barang_masuk' => 'required|numeric',
-            'detail.*.harga_barang_masuk' => 'required|numeric',
-            'detail.*.saldo' => 'required|numeric',
-            'detail.*.bayar' => 'required|numeric',
-            'detail.*.subtotal' => 'required|numeric'
+            'detail.*.harga_barang_masuk' => 'required',
+            'detail.*.saldo' => 'required',
+            'detail.*.bayar' => 'required',
+            'detail.*.subtotal' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -175,31 +173,28 @@ class PemasukanAdminController extends Controller
             $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']));
         }
 
-        // Buat objek pemasukan baru
         $pemasukan = Pemasukan::create([
             'tgl_pemasukan' => $request->tgl_pemasukan,
             'id_user' => $user_id,
             'id_mitra' => $request->id_mitra,
             'total_harga' => $total_harga,
             'keterangan' => $request->keterangan
-
         ]);
 
-        // Tambahkan detail pemasukan
         foreach ($request->detail as $detail) {
             $pemasukan->detail()->create([
                 'id_produk' => $detail['id_produk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
                 'saldo' => $detail['saldo'],
-                'bayar' => $detail['bayar'],
+                'bayar' => floatval(str_replace(['.', 'Rp '], '', $detail['bayar'])),
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']))
             ]);
         }
 
-        //redirect ke halaman utama dan menampilkan sweetalert
         return redirect()->route('pemasukan-admin')->with('success', 'Data Berhasil Ditambahkan!');
     }
+
 
     public function edit($id)
     {

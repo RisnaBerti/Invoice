@@ -37,11 +37,18 @@
                     <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
+                    <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
                 @php
+                    function formatRupiah($angka)
+                    {
+                        $hasil_rupiah = 'Rp ' . number_format($angka, 2, ',', '.');
+                        return $hasil_rupiah;
+                    }
                     $index = 1;
+                    $totalKeseluruhan = 0;
                 @endphp
                 @foreach ($groupedPemasukan as $tgl_pemasukan => $items)
                     @php
@@ -58,20 +65,25 @@
                                 <td>{{ $tgl_pemasukan }}</td>
                                 <td>{{ $item->mitra->nama_mitra }}</td>
                                 <td>{{ $detail->produk->nama_produk }}</td>
-                                <td>{{ $detail->harga_barang_masuk }}</td>
+                                <td>{{ formatRupiah($detail->harga_barang_masuk) }}</td>
                                 <td>{{ $detail->jumlah_barang_masuk }}</td>
-                                <td>{{ $subtotal }}</td>
+                                <td>{{ formatRupiah($subtotal) }}</td>
                             </tr>
                         @endforeach
                     @endforeach
                     <tr>
                         <td colspan="6" class="text-end fw-bold">Total</td>
-                        <td>{{ $total_harga }}</td>
+                        <td>{{ formatRupiah($total_harga) }}</td>
                     </tr>
                     @php
                         $index++;
+                        $totalKeseluruhan += $total_harga;
                     @endphp
                 @endforeach
+                <tr>
+                    <td colspan="6" class="text-end fw-bold">Total Keseluruhan</td>
+                    <td>{{ formatRupiah($totalKeseluruhan) }}</td>
+                </tr>
             </tbody>
         </table>
         <!--end::Table-->

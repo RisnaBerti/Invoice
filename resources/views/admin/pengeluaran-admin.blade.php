@@ -10,7 +10,7 @@
                 <div class="card-title">
                     {{-- tombol filter berdasarkan tanggal awal dan tanggal akhir --}}
 
-                    
+
                     <!--begin::Search-->
                     {{-- <form action="{{ route('pengeluaran-admin') }}" method="GET">
                         <div class="d-flex align-items-center position-relative my-1">
@@ -95,8 +95,8 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                     <!--begin:Form-->
-                                    <form id="kt_modal_new_target_form" class="form"
-                                        action="{{ route('store-pengeluaran-admin') }}" method="POST" id="pengeluaranForm">
+                                    <form id="pengeluaranForm" class="form"
+                                        action="{{ route('store-pengeluaran-admin') }}" method="POST">
                                         @csrf
                                         <!--begin::Heading-->
                                         <div class="mb-13 text-center">
@@ -160,14 +160,6 @@
                                                         <td><input type="text" name="detail[0][harga_satuan]"
                                                                 class="form-control harga_satuan" required>
                                                         </td>
-                                                        {{-- <td>
-                                                            <select name="detail[0][tipe_saldo]" class="form-control tipe-saldo">
-                                                                <option value="debet">Debet</option>
-                                                                <option value="kredit">Kredit</option>
-                                                            </select>
-                                                        </td> --}}
-
-                                                        {{-- <td><input type="text" name="detail[0][saldo]" class="form-control saldo" required></td> --}}
                                                         <td><input type="text" name="detail[0][subtotal]"
                                                                 class="form-control subtotal" required readonly></td>
                                                         <td class="add-remove text-end">
@@ -178,8 +170,8 @@
                                                                 <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
-
-
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
 
@@ -187,12 +179,8 @@
                                         <div class="text-center">
                                             <button type="reset" id="kt_modal_new_target_cancel"
                                                 class="btn btn-light me-3">Cancel</button>
-                                            <button type="submit" id="kt_modal_new_target_submit"
-                                                class="btn btn-primary">
+                                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
                                                 <span class="indicator-label">Submit</span>
-                                                {{-- <span class="indicator-progress">Please wait...
-                                                    <span
-                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span> --}}
                                             </button>
                                         </div>
                                         <!--end::Actions-->
@@ -206,6 +194,8 @@
                         <!--end::Modal dialog-->
                     </div>
                     <!--end::Modal - Tambah Data -->
+
+
 
                     <!--begin::Modal - Edit Data -->
                     <div class="modal fade" id="kt_modal_edit_data" tabindex="-1" data-bs-backdrop="static"
@@ -245,7 +235,7 @@
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
-                                        <input type="hiddes" name="id_pengeluaran_edit" id="id_pengeluaran_edit">
+                                        <input type="hidden" name="id_pengeluaran_edit" id="id_pengeluaran_edit">
                                         {{-- <input type="hidden" name="id_user" id="id_user"  value="{{ Auth::user()->id }}"> --}}
                                         <div class="d-flex flex-column mb-8 fv-row">
                                             <label class="required fs-6 fw-semibold mb-2">Tanggal Pengeluaran</label>
@@ -500,8 +490,9 @@
         });
     </script>
 
+
     <script>
-        //Modal Untuk Tambah Data Pengeluaran
+        // Modal Untuk Tambah Data Pengeluaran
         $(document).ready(function() {
             // Hitung total keseluruhan
             function calculateGrandTotal() {
@@ -541,18 +532,15 @@
                     '<a href="javascript:void(0);" class="remove-btn">' +
                     '<i class="fas fa-trash text-danger"></i>' +
                     '</a>' +
-                    '</td>' +
                     '</tr>';
                 $('#detailTable tbody').append(row);
             });
 
-
-
             // Hapus baris pada tabel
             $(document).on('click', '.remove-btn', function() {
                 $(this).closest('tr').remove();
+                calculateGrandTotal();
             });
-
 
             // Hitung total saat jumlah_barang_keluar atau harga_satuan berubah
             $(document).on('change', '.jumlah_barang_keluar, .harga_satuan', function() {
@@ -566,6 +554,7 @@
                     '')) || 0; // Menghapus titik dan 'Rp' dari harga_satuan
                 var total = jumlah_barang_keluar * harga_satuan;
                 row.find('.subtotal').val(formatRupiah(total));
+                calculateGrandTotal();
             }
 
             // Format Rupiah saat mengetikkan angka
@@ -591,13 +580,21 @@
                 return 'Rp ' + rupiah;
             }
 
-            // Submit form
+            // Remove currency formatting before form submission
             $('#pengeluaranForm').submit(function() {
+                $('.harga_satuan').each(function() {
+                    $(this).val($(this).val().replace(/\./g, '').replace('Rp ', ''));
+                });
+                $('.subtotal').each(function() {
+                    $(this).val($(this).val().replace(/\./g, '').replace('Rp ', ''));
+                });
+                $('#total').val($('#total').val().replace(/\./g, '').replace('Rp ', ''));
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
-
         });
     </script>
+
+
 
     <script>
         //Modal Untuk Edit Data Pengeluaran

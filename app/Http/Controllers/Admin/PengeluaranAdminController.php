@@ -135,9 +135,9 @@ class PengeluaranAdminController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'tgl_pengeluaran' => 'required',
-            'detail.*.nama_barang_keluar' => 'required',
-            'detail.*.jumlah_barang_keluar' => 'required|numeric',
+            'tgl_pengeluaran' => 'required|date',
+            'detail.*.nama_barang_keluar' => 'required|string',
+            'detail.*.jumlah_barang_keluar' => 'required|integer',
             'detail.*.harga_satuan' => 'required|numeric',
             'detail.*.subtotal' => 'required|numeric',
         ]);
@@ -151,7 +151,7 @@ class PengeluaranAdminController extends Controller
 
         $total_harga = 0;
         foreach ($request->detail as $detail) {
-            $total_harga += floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']));
+            $total_harga += floatval($detail['subtotal']);
         }
 
         // Buat objek pengeluaran baru
@@ -161,23 +161,20 @@ class PengeluaranAdminController extends Controller
             'total_harga' => $total_harga
         ]);
 
-        // Hitung total harga dari semua detail pengeluaran
-
-
         // Tambahkan detail pengeluaran
         foreach ($request->detail as $detail) {
             $pengeluaran->detail()->create([
                 'nama_barang_keluar' => $detail['nama_barang_keluar'],
                 'jumlah_barang_keluar' => $detail['jumlah_barang_keluar'],
-                'harga_satuan' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_satuan'])),
-                'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal'])),
+                'harga_satuan' => $detail['harga_satuan'],
+                'subtotal' => $detail['subtotal'],
             ]);
         }
 
-        //redirect ke halaman utama dan menampilkan sweetalert
         return redirect()->route('pengeluaran-admin')->with('success', 'Data Berhasil Ditambahkan!');
     }
 
+    //fungsi edit pengeluaran admin dengan menggunakan ajax
     public function edit($id)
     {
         $pengeluaran = Pengeluaran::with('detail')->find($id);
@@ -229,6 +226,4 @@ class PengeluaranAdminController extends Controller
 
         return redirect()->route('pengeluaran-admin')->with('success', 'Data Berhasil Dihapus!');
     }
-
-    
 }
