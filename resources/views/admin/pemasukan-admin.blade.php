@@ -313,12 +313,6 @@
                                                 <div class="position-relative d-flex align-items-center">
                                                     <select class="form-control form-control-solid" id="id_mitra_edit"
                                                         name="id_mitra_edit" required>
-                                                        <!-- Options will be populated by JavaScript -->
-                                                        {{-- @foreach ($jurusan as $item)
-                                                            <option value="{{ $item->id_jurusan }}"
-                                                                {{ $alumni->id_jurusan == $item->id_jurusan ? 'selected' : '' }}>
-                                                                {{ $item->nama_jurusan }}</option>
-                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                             </div>
