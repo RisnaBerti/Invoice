@@ -31,36 +31,10 @@
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end gap-2 gap-lg-3" data-kt-user-table-toolbar="base">
-                        <!--begin::Export button -->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-light-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <span class="svg-icon svg-icon-md">
-                                    <!-- Icon -->
-                                </span><i class="ki-outline ki-exit-up fs-2"></i> Export
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                <!-- Navigation -->
-                                <li class="nav-item">
-                                    <a href="#" class="dropdown-item">
-                                        <span class="nav-icon"><i class="la la-file-pdf-o"></i></span>
-                                        <span class="nav-text">PDF</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="dropdown-item">
-                                        <span class="nav-icon"><i class="la la-file-excel-o"></i></span>
-                                        <span class="nav-text">Excel</span>
-                                    </a>
-                                </li>
-                                <!--end::Navigation-->
-                            </ul>
-                        </div>
-                        <!--end::Export button-->
 
                         <!--begin::Add Data-->
-                        <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_new_target"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a>
+                        {{-- <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_new_target"><i class="ki-outline ki-plus fs-2"></i>Tambah Data</a> --}}
                         <!--end::Add Data-->
                         <!--begin::Add user-->
                         {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -69,9 +43,6 @@
                         <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
-
-
-
 
                     <!--begin::Modal - Tambah Data -->
                     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" data-bs-backdrop="static"
