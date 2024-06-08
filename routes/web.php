@@ -112,6 +112,13 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/data-user/edit/{id}', 'edit')->name('edit-data-user');
     Route::post('/data-user/update', 'update')->name('update-data-user');
     Route::post('/data-user/delete/{id}', 'delete')->name('delete-data-user');  
+    Route::get('/edit-akun-user/{id}', 'editDataUser')->name('edit-akun-user');
+    Route::post('/ganti-akun-user', 'editAkunUser')->name('ganti-akun-user');
+    Route::post('/ganti-password-user', 'gantiPasswordUser')->name('ganti-password-user');
+    
+    // Route::post('/setting-owner/update', 'update')->name('update-setting-owner');
+    // Route::post('/setting-owner/gantiPassword', 'gantiPassword')->name('update-password-owner');
+
 });
 
 //Route Pengaturan Owner

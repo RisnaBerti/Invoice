@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -86,7 +89,8 @@ class UserController extends Controller
 
         $user->nama = $request->nama_edit;
         $user->email = $request->email_edit;
-        $user->password = $request->password_edit;
+        $user->jabatan = $request->jabatan_edit;
+        // $user->password = $request->password_edit;
         $user->save();
 
         // $validated = $request->validate([
@@ -123,5 +127,102 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('data-user');
+    }
+
+    //fungsi reset password user
+    public function editDataUser($id)
+    {
+
+        $user = User::where('id_user', $id)->first();
+
+        return view(
+            'owner.edit-data-user',
+            [
+                'title' => 'Edit Profil Pengguna',
+                'active' => 'Edit Profil Pengguna',
+                'user' => $user,
+            ]
+        );
+    }
+
+    //fungsi reset password user
+    // public function resetPassword(Request $request)
+    // {
+    //     $id = $request->id_user_reset;
+    //     $user = User::where('id_user', $id)->first();
+
+    //     $user->password = $request->password_reset;
+    //     $user->save();
+
+    //     return redirect()->route('data-user');
+    // }
+
+    //update profile user
+    public function editAkunUser(Request $request)
+    {
+        // Mendapatkan pengguna yang sedang login
+        $user = Auth::user();
+
+        // Validasi data
+        $rules = [
+            'nama' => ['required'],
+            // 'email' => [
+            //     'required',
+            //     'email',
+            //     Rule::unique('users', 'email')->ignore($user->id_user, 'id_user')
+            // ]
+        ];
+
+        $customMessages = [
+            'required' => 'Nama harus diisi!',
+            'email' => 'Email tidak valid!',
+            'unique' => 'Email telah digunakan!'
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
+        // Update data pengguna
+        $user->nama = $request->nama;
+        // $user->email = $request->email;
+        $user->jabatan = $request->jabatan;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Data profil Anda berhasil diubah!');
+    }
+
+
+
+
+
+    public function gantiPasswordUser(Request $request)
+    {
+        // Validasi input
+        $rules = [
+            'passwordLama' => 'required',
+            'passwordBaru' => 'required|between:8,16',
+            'konfirmasiPasswordBaru' => 'required|same:passwordBaru'
+        ];
+
+        $customMessages = [
+            'passwordLama.required' => 'Password lama wajib diisi!',
+            'passwordBaru.required' => 'Password baru wajib diisi!',
+            'passwordBaru.between' => 'Password harus terdiri dari 8 sampai dengan 16 karakter!',
+            'konfirmasiPasswordBaru.required' => 'Konfirmasi password harus diisi!',
+            'konfirmasiPasswordBaru.same' => 'Konfirmasi password tidak cocok dengan password baru!',
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
+        // Cek apakah password lama sesuai
+        if (!Hash::check($request->passwordLama, Auth::user()->password)) {
+            return back()->with("error", "Password lama yang dimasukkan salah!");
+        } else {
+            // Update password baru
+            User::where('id_user', Auth::user()->id_user)->update([
+                'password' => bcrypt($request->passwordBaru)
+            ]);
+
+            return redirect()->back()->with("success", "Password berhasil diganti");
+        }
     }
 }

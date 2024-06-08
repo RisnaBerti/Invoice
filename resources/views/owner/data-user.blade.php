@@ -193,14 +193,14 @@
                                             <!--begin::Description-->
                                             <div class="text-muted fw-semibold fs-5">Data Pengguna
                                                 <a href="" class="fw-bold link-primary">CV Toba Jaya Teknik
-                                                    Cilacap</a>.
+                                                    Cilacap 2</a>.
                                             </div>
                                             <!--end::Description-->
                                         </div>
                                         <!--end::Heading-->
 
                                         {{-- id mitra hide --}}
-                                        <input type="text" class="form-control form-control-solid" name="id_user_edit"
+                                        <input type="hidden" class="form-control form-control-solid" name="id_user_edit"
                                             id="id_user_edit" />
 
                                         <!--begin::Input group-->
@@ -239,6 +239,22 @@
                                         <div class="d-flex flex-column mb-8 fv-row">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Jabatan</span>
+                                                <span class="ms-1" data-bs-toggle="tooltip"
+                                                    title="Specify a target name for future usage and reference">
+                                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                                </span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Jabatan" name="jabatan_edit" id="jabatan_edit" readonly />
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        {{-- <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                 <span class="required">Password</span>
                                                 <span class="ms-1" data-bs-toggle="tooltip"
                                                     title="Specify a target name for future usage and reference">
@@ -248,7 +264,7 @@
                                             <!--end::Label-->
                                             <input type="password" class="form-control form-control-solid"
                                                 placeholder="Password" name="password_edit" id="password_edit" />
-                                        </div>
+                                        </div> --}}
                                         <!--end::Input group-->
 
                                         <!--begin::Actions-->
@@ -290,7 +306,8 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Jabatan</th>
-                            <th>Actions</th>
+                            <th>Reset Password</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
@@ -301,12 +318,29 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->jabatan }}</td>
+                                <td>
+                                    <a href="{{ route('edit-akun-user', ['id' => $item->id_user]) }}"
+                                        class="menu-link px-1"><i class="fas fa-key text-primary"></i> 
+                                        {{-- tombol ganti password --}}
+                                        Reset Password
+
+                                     </a>
+
+
+                                    {{-- <form action="{{ route('edit-akun-user', ['id' => $item->id_user]) }}"
+                                        method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="menu-link px-1"
+                                            style="border:none; background:none; padding:0; cursor:pointer;"><i
+                                                class="fas fa-key text-primary"></i></button>
+                                    </form> --}}
+                                </td>
 
                                 <td>
                                     <a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_user }}"><i
                                             class="fas fa-edit text-warning"></i></a>
-                                    <form action="{{ route('delete-pengeluaran-admin', ['id' => $item->id_user]) }}"
+                                    <form action="{{ route('delete-data-user', ['id' => $item->id_user]) }}"
                                         method="POST" style="display:inline;">
                                         @csrf
                                         <button type="submit" class="menu-link px-1"
@@ -455,11 +489,11 @@
                     $('#nama_edit').val(data.nama);
                     $('#email_edit').val(data.email);
                     $('#jabatan_edit').val(data.jabatan);
-                    $('#password_edit').val(data.pasword);
+                //    $('#password_edit').val(data.password);
                 });
 
                 //vardump data get
-                // console.log(data);
+                console.log(data);
                 // die();
                 $("#kt_modal_edit_data").modal("show");
             });
@@ -470,7 +504,7 @@
                 var nama = $('#nama_edit').val();
                 var email = $('#email_edit').val();
                 var jabatan = $('#jabatan_edit').val();
-                var pasword = $('#password_edit').val();
+                // var password = $('#password_edit').val();
 
                 $.ajax({
                     url: "{{ route('update-data-user') }}",
@@ -480,7 +514,8 @@
                         nama: nama_edit,
                         email: email_edit,
                         jabatan: jabatan_edit,
-                        pasword: password_edit
+                        // password: password_edit,
+                        _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
                         console.log(response);
