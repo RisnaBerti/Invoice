@@ -191,20 +191,15 @@ class UserController extends Controller
     }
 
 
-
-
-
     public function gantiPasswordUser(Request $request)
     {
         // Validasi input
         $rules = [
-            'passwordLama' => 'required',
             'passwordBaru' => 'required|between:8,16',
             'konfirmasiPasswordBaru' => 'required|same:passwordBaru'
         ];
 
         $customMessages = [
-            'passwordLama.required' => 'Password lama wajib diisi!',
             'passwordBaru.required' => 'Password baru wajib diisi!',
             'passwordBaru.between' => 'Password harus terdiri dari 8 sampai dengan 16 karakter!',
             'konfirmasiPasswordBaru.required' => 'Konfirmasi password harus diisi!',
@@ -213,16 +208,17 @@ class UserController extends Controller
 
         $this->validate($request, $rules, $customMessages);
 
-        // Cek apakah password lama sesuai
-        if (!Hash::check($request->passwordLama, Auth::user()->password)) {
-            return back()->with("error", "Password lama yang dimasukkan salah!");
-        } else {
-            // Update password baru
-            User::where('id_user', Auth::user()->id_user)->update([
-                'password' => bcrypt($request->passwordBaru)
-            ]);
+        // Update password baru
+        User::where('id_user', Auth::user()->id_user)->update([
+            'password' => bcrypt($request->passwordBaru)
+        ]);
 
-            return redirect()->back()->with("success", "Password berhasil diganti");
-        }
+        return redirect()->back()->with("success", "Password berhasil diganti");
+
+        // // Cek apakah password lama sesuai
+        // if (!Hash::check(Auth::user()->password)) {
+        //     return back()->with("error", "Password lama yang dimasukkan salah!");
+        // } else {
+        // }
     }
 }

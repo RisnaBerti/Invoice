@@ -303,7 +303,7 @@
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
-                <a href="{{ url('/logout') }}" class="menu-link">
+                <a href="{{ url('/logout') }}" id="logoutButton" class="menu-link">
                     <span class="menu-icon">
                         <i class="ki-outline ki-exit-right fs-1"></i>
                     </span>

@@ -118,8 +118,8 @@
                                 <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
                                     <div></div>
                                     <!--begin::Link-->
-                                    <a href="{{ url('lupa.password') }}"
-                                        class="link-primary" data-kt-translate="sign-in-forgot-password">Forgot Password
+                                    <a href="{{ route('lupa-password') }}"
+                                        class="link-primary" data-kt-translate="sign-in-forgot-password">Lupa Password
                                         ?</a>
                                     <!--end::Link-->
                                 </div>
@@ -177,6 +177,9 @@
     <script src="{{ url('') }}/assets/src/js/custom/authentication/sign-in/i18n.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+    
+    @include('sweetalert::alert')
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 </body>
 <!--end::Body-->
 

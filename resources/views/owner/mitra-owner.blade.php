@@ -311,7 +311,7 @@
                             <th>Alamat</th>
                             <th>No Tlp</th>
                             <th>Email</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
@@ -527,10 +527,10 @@
                         data: 'email_mitra',
                         name: 'email_mitra'
                     },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
+                  //  {
+                   //     data: 'action',
+                     //   name: 'action'
+                    //},
                 ]
             });
         });

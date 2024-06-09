@@ -1,10 +1,22 @@
 <!DOCTYPE html>
+<!--
+Author: Keenthemes
+Product Name: Metronic
+Product Version: 8.1.8
+Purchase: https://1.envato.market/EA4JP
+Website: http://www.keenthemes.com
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+-->
 <html lang="en">
 <!--begin::Head-->
 
 <head>
     <base href="../../../" />
-    <title>SIRETRA - RESET PASSWORD</title>
+    <title>SIRETRA RESET PASSWORD</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -54,7 +66,7 @@
     <!--end::Theme mode setup on page load-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root" id="kt_app_root">
-        <!--begin::Authentication - Password reset -->
+        <!--begin::Authentication - New password -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Logo-->
             <a href="../../demo39/dist/index.html" class="d-block d-lg-none mx-auto py-20">
@@ -70,66 +82,97 @@
                     <div class="d-flex flex-stack py-2">
                         <!--begin::Back link-->
                         <div class="me-2">
-                            <a href="../../demo39/dist/authentication/layouts/fancy/sign-in.html"
+                            <a href="{{ route('login') }}"
                                 class="btn btn-icon bg-light rounded-circle">
                                 <i class="ki-outline ki-black-left fs-2 text-gray-800"></i>
                             </a>
                         </div>
                         <!--end::Back link-->
                         <!--begin::Sign Up link-->
-                        {{-- <div class="m-0">
+                        <div class="m-0">
                             <span class="text-gray-400 fw-bold fs-5 me-2"
-                                data-kt-translate="password-reset-head-desc">Already a member ?</span>
-                            <a href="../../demo39/dist/authentication/layouts/fancy/sign-in.html"
-                                class="link-primary fw-bold fs-5" data-kt-translate="password-reset-head-link">Sign
-                                In</a>
-                        </div> --}}
+                                data-kt-translate="new-password-head-desc">Already a member ?</span>
+                            <a href="{{ route('login') }}"
+                                class="link-primary fw-bold fs-5" data-kt-translate="new-password-head-link">Sign In</a>
+                        </div>
                         <!--end::Sign Up link=-->
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="py-20">
                         <!--begin::Form-->
-                        <form class="form w-100" novalidate="novalidate" id="kt_password_reset_form"
-                            data-kt-redirect-url="../../demo39/dist/authentication/layouts/fancy/new-password.html"
-                            action="#">
+                        <form class="form w-100" novalidate="novalidate" id="kt_new_password_form" method="POST" action="{{ route('action-reset-password', ['token' => $token]) }}">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
                             <!--begin::Heading-->
                             <div class="text-start mb-10">
                                 <!--begin::Title-->
-                                <h1 class="text-dark mb-3 fs-3x" data-kt-translate="password-reset-title">Forgot
-                                    Password ?</h1>
+                                <h1 class="text-dark mb-3 fs-3x" data-kt-translate="new-password-title">Setup
+                                    Password Baru</h1>
                                 <!--end::Title-->
                                 <!--begin::Text-->
-                                <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="password-reset-desc">
-                                    Enter your email to reset your password.</div>
+                                <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="new-password-desc">Have
+                                    you already reset the password ?</div>
                                 <!--end::Link-->
                             </div>
-                            <!--begin::Heading-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-10">
-                                <input class="form-control form-control-solid" type="email" placeholder="Email"
-                                    name="email" autocomplete="off" data-kt-translate="password-reset-input-email" />
+                            <!--end::Heading-->
+                              <!--begin::Input group=-->
+                              <div class="fv-row mb-10">
+                                <input class="form-control form-control-lg form-control-solid" type="email"
+                                    placeholder="Email" name="email" autocomplete="off" />
                             </div>
-                            <!--end::Input group-->
+                            <!--end::Input group=-->
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row" data-kt-password-meter="true">
+                                <!--begin::Wrapper-->
+                                <div class="mb-1">
+                                    <!--begin::Input wrapper-->
+                                    <div class="position-relative mb-3">
+                                        <input class="form-control form-control-lg form-control-solid" type="password"
+                                            placeholder="Password" name="password" autocomplete="off" />
+                                        <span
+                                            class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                            data-kt-password-meter-control="visibility">
+                                            <i class="ki-outline ki-eye-slash fs-2"></i>
+                                            <i class="ki-outline ki-eye fs-2 d-none"></i>
+                                        </span>
+                                    </div>
+                                    <!--end::Input wrapper-->
+                                    <!--begin::Meter-->
+                                    <div class="d-flex align-items-center mb-3"
+                                        data-kt-password-meter-control="highlight">
+                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+                                        </div>
+                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+                                        </div>
+                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+                                        </div>
+                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                    </div>
+                                    <!--end::Meter-->
+                                </div>
+                                <!--end::Wrapper-->
+                                <!--begin::Hint-->
+                                <div class="text-muted" data-kt-translate="new-password-hint">Use 8 or more characters
+                                    with a mix of letters, numbers & symbols.</div>
+                                <!--end::Hint-->
+                            </div>
+                            <!--end::Input group=-->
+                            <!--begin::Input group=-->
+                            <div class="fv-row mb-10">
+                                <input class="form-control form-control-lg form-control-solid" type="password"
+                                    placeholder="Confirm Password" name="password_confirmation" autocomplete="off" />
+                            </div>
+                            <!--end::Input group=-->
                             <!--begin::Actions-->
                             <div class="d-flex flex-stack">
+                                
+                                <button class="btn btn-primary" type="submit">Submit</button>
                                 <!--begin::Link-->
-                                <div class="m-0">
-                                    <button id="kt_password_reset_submit" class="btn btn-primary me-2"
-                                        data-kt-translate="password-reset-submit">
-                                        <!--begin::Indicator label-->
-                                        <span class="indicator-label">Submit</span>
-                                        <!--end::Indicator label-->
-                                        <!--begin::Indicator progress-->
-                                        <span class="indicator-progress">Please wait...
-                                            <span
-                                                class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        <!--end::Indicator progress-->
-                                    </button>
-                                    <a href="../../demo39/dist/authentication/layouts/fancy/sign-in.html"
-                                        class="btn btn-lg btn-light-primary fw-bold"
-                                        data-kt-translate="password-reset-cancel">Cancel</a>
-                                </div>
+                                {{-- <button id="kt_new_password_submit" class="btn btn-primary">
+                                    <!--begin::Indicator label-->
+                                    <span class="indicator-label">Submit</span>
+                                </button> --}}
                                 <!--end::Link-->
                             </div>
                             <!--end::Actions-->
@@ -138,77 +181,7 @@
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->
-                    <div class="m-0">
-                        <!--begin::Toggle-->
-                        {{-- <button class="btn btn-flex btn-link rotate" data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
-                            <img data-kt-element="current-lang-flag" class="w-25px h-25px rounded-circle me-3"
-                                src="{{ url('') }}/assets/src/media/flags/united-states.svg" alt="" />
-                            <span data-kt-element="current-lang-name" class="me-2">English</span>
-                            <i class="ki-outline ki-down fs-2 text-muted rotate-180 m-0"></i>
-                        </button> --}}
-                        <!--end::Toggle-->
-                        <!--begin::Menu-->
-                        {{-- <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4"
-                            data-kt-menu="true" id="kt_auth_lang_menu">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5" data-kt-lang="English">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img data-kt-element="lang-flag" class="rounded-1"
-                                            src="{{ url('') }}/assets/src/media/flags/united-states.svg" alt="" />
-                                    </span>
-                                    <span data-kt-element="lang-name">English</span>
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5" data-kt-lang="Spanish">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img data-kt-element="lang-flag" class="rounded-1"
-                                            src="{{ url('') }}/assets/src/media/flags/spain.svg" alt="" />
-                                    </span>
-                                    <span data-kt-element="lang-name">Spanish</span>
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5" data-kt-lang="German">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img data-kt-element="lang-flag" class="rounded-1"
-                                            src="{{ url('') }}/assets/src/media/flags/germany.svg" alt="" />
-                                    </span>
-                                    <span data-kt-element="lang-name">German</span>
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5" data-kt-lang="Japanese">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img data-kt-element="lang-flag" class="rounded-1"
-                                            src="{{ url('') }}/assets/src/media/flags/japan.svg" alt="" />
-                                    </span>
-                                    <span data-kt-element="lang-name">Japanese</span>
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link d-flex px-5" data-kt-lang="French">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img data-kt-element="lang-flag" class="rounded-1"
-                                            src="{{ url('') }}/assets/src/media/flags/france.svg" alt="" />
-                                    </span>
-                                    <span data-kt-element="lang-name">French</span>
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div> --}}
-                        <!--end::Menu-->
-                    </div>
+                   
                     <!--end::Footer-->
                 </div>
                 <!--end::Wrapper-->
@@ -219,7 +192,7 @@
                 style="background-image: url({{ url('') }}/assets/src/media/auth/bg11.png)"></div>
             <!--begin::Body-->
         </div>
-        <!--end::Authentication - Password reset-->
+        <!--end::Authentication - New password-->
     </div>
     <!--end::Root-->
     <!--begin::Javascript-->
@@ -231,10 +204,13 @@
     <script src="{{ url('') }}/assets/src/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ url('') }}/assets/src/js/custom/authentication/reset-password/reset-password.js"></script>
+    <script src="{{ url('') }}/assets/src/js/custom/authentication/reset-password/new-password.js"></script>
     <script src="{{ url('') }}/assets/src/js/custom/authentication/sign-in/i18n.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+    
+    @include('sweetalert::alert')
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 </body>
 <!--end::Body-->
 

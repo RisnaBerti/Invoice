@@ -23,9 +23,9 @@
                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
 
                         <!--begin::Export-->
-                        <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+                        {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_export_users">
-                            <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
+                            <i class="ki-outline ki-exit-up fs-2"></i>Export</button> --}}
                         <!--end::Export-->
                         <!--begin::Add Data-->
                         <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"

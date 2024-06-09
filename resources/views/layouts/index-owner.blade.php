@@ -107,15 +107,41 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 
-    {{-- <link href="https://cdn.datatables.net/v/zf/dt-2.0.6/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fh-4.0.1/kt-2.12.0/r-3.0.2/rg-1.5.0/sc-2.4.2/sb-1.7.1/sp-2.3.1/sl-2.0.1/sr-1.4.1/datatables.min.css" rel="stylesheet"> --}}
-    
-    {{-- <script src="https://cdn.datatables.net/v/zf/dt-2.0.6/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fh-4.0.1/kt-2.12.0/r-3.0.2/rg-1.5.0/sc-2.4.2/sb-1.7.1/sp-2.3.1/sl-2.0.1/sr-1.4.1/datatables.min.js"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.min.css"></script> --}}
-
     {{-- {{ $chart->script() }} --}}
     <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah tindakan default dari tautan
+
+            const url = this.href; // Simpan URL dari tautan
+
+            Swal.fire({
+                title: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Logout!',
+                        'Anda telah logout.',
+                        'success'
+                    ).then(() => {
+                        // Arahkan ke URL logout setelah konfirmasi sukses
+                        window.location.href = url;
+                    });
+                }
+            });
+        });
+    </script>
+    
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 
 </body>
 

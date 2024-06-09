@@ -282,7 +282,7 @@
                             <th>Nama Produk</th>
                             <th>Harga Produk</th>
                             <th>Deskripsi Produk</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
@@ -435,10 +435,10 @@
                         data: 'deskripsi_produk',
                         name: 'deskripsi_produk'
                     },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
+                    // {
+                    //     data: 'action',
+                    //     name: 'action'
+                    // },
                 ]
             });
         });
