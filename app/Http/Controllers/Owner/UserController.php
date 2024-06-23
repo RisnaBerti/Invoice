@@ -64,7 +64,7 @@ class UserController extends Controller
         $user->id_role = '2';
         $user->nama = $request->nama;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt('12345678');
         $user->jabatan = 'Admin';
         $user->is_aktif = '1';
         $user->save();

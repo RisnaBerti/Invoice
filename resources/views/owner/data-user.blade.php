@@ -109,17 +109,17 @@
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-8 fv-row">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            {{-- <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                 <span class="required">Password</span>
                                                 <span class="ms-1" data-bs-toggle="tooltip"
                                                     title="Specify a target name for future usage and reference">
                                                     <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                                                 </span>
-                                            </label>
+                                            </label> --}}
                                             <!--end::Label-->
-                                            <input type="password" class="form-control form-control-solid"
-                                                placeholder="Password" name="password" id="password" value="12345678"
-                                                readonly />
+                                            {{-- <input type="password" class="form-control form-control-solid"
+                                                placeholder="Password" name="password" id="password" value=""
+                                                /> --}}
                                         </div>
                                         <!--end::Input group-->
 
@@ -320,37 +320,33 @@
                                 <td>{{ $item->jabatan }}</td>
                                 <td>
                                     <a href="{{ route('edit-akun-user', ['id' => $item->id_user]) }}"
-                                        class="menu-link px-1"><i class="fas fa-key text-primary"></i> 
+                                        class="menu-link px-1"><i class="fas fa-key text-primary"></i>
                                         {{-- tombol ganti password --}}
                                         Reset Password
 
-                                     </a>
-
-
-                                    {{-- <form action="{{ route('edit-akun-user', ['id' => $item->id_user]) }}"
-                                        method="POST" style="display:inline;">
-                                        @csrf
-                                        <button type="submit" class="menu-link px-1"
-                                            style="border:none; background:none; padding:0; cursor:pointer;"><i
-                                                class="fas fa-key text-primary"></i></button>
-                                    </form> --}}
+                                    </a>
                                 </td>
-
+                                @if ($item->id_role == 2)
                                 <td>
                                     <a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_user }}"><i
                                             class="fas fa-edit text-warning"></i></a>
-                                    <form action="{{ route('delete-data-user', ['id' => $item->id_user]) }}"
-                                        method="POST" style="display:inline;">
+                                    {{-- <form action="{{ route('delete-data-user', ['id' => $item->id_user]) }}" method="POST"
+                                        style="display:inline;">
                                         @csrf
-                                        <button type="submit" class="menu-link px-1"
-                                            data-kt-users-table-filter="delete_row"
+                                        @method('DELETE')
+                                        <button type="submit" class="menu-link px-1" data-kt-users-table-filter="delete_row"
                                             style="border:none; background:none; padding:0; cursor:pointer;"><i
                                                 class="fas fa-trash-alt text-danger"></i></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
-
-
+                            @else
+                                <td>
+                                    <a href="#" class="menu-link px-1 edit-row" data-bs-toggle="modal"
+                                    data-bs-target="#kt_modal_edit_data" data-id="{{ $item->id_user }}"><i
+                                        class="fas fa-edit text-warning"></i></a>
+                                </td> 
+                            @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -489,7 +485,7 @@
                     $('#nama_edit').val(data.nama);
                     $('#email_edit').val(data.email);
                     $('#jabatan_edit').val(data.jabatan);
-                //    $('#password_edit').val(data.password);
+                    //    $('#password_edit').val(data.password);
                 });
 
                 //vardump data get
