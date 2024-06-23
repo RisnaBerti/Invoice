@@ -162,7 +162,7 @@
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
-            {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -191,7 +191,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ url('laporan-admin-bulanan') }}"
+                        <a class="menu-link" href="{{ url('laporan-laba-rugi-admin') }}"
                             title="Check out the complete documentation" data-bs-toggle="tooltip"
                             data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet">
@@ -200,27 +200,14 @@
                             <span class="menu-icon">
                                 <i class="ki-outline ki-key fs-2"></i>
                             </span>
-                            <span class="menu-title">Laporan Bulanan</span>
+                            <span class="menu-title">Laporan Laba Rugi</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
                 </div>
                 <!--end:Menu sub-->
-            </div> --}}
-            <!--end:Menu item-->
-
-            <!--begin:Menu item-->
-            {{-- <div class="menu-item menu-accordion">
-                <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/laporan') }}">
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-profile-user fs-2"></i>
-                    </span>
-                    <span class="menu-title">Kelola Pengguna</span>
-                </a>
-                <!--end:Menu link-->
-            </div> --}}
+            </div>
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
@@ -277,32 +264,6 @@
 
         </div>
         <!--end::Sidebar menu-->
-
-
-
-        <!--begin::Separator-->
-        {{-- <div class="app-sidebar-separator separator mx-5 mt-2 mb-2"></div> --}}
-        <!--end::Separator-->
-
-        <!--begin::Teames-->
-        {{-- <div class="app-sidebar-menu-secondary menu menu-rounded menu-column ps-5 pe-6">
-            <!--begin::Heading-->
-            <div class="menu-item menu-labels">
-                <div class="menu-content d-flex flex-stack fw-bold text-gray-600 text-uppercase fs-7">
-                    <span class="menu-heading ps-1">Keluar</span>
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-tag-cross fs-2"></i>
-                    </span>
-                    <!--begin::Link-->
-                    <a class="menu-btn ps-2" href="../../demo39/dist/authentication/layouts/corporate/sign-in.html">
-                        <i class="ki-outline ki-plus-square fs-2 text-success"></i>
-                    </a>
-                    <!--end::Link-->
-                </div>
-            </div>
-            <!--end::Heading-->
-        </div> --}}
-        <!--end::Teames-->
 
     </div>
     <!--end::Wrapper-->

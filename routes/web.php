@@ -153,6 +153,8 @@ Route::middleware(['auth', 'role:2'])->group(function () {
         Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
         Route::get('/laporan-pemasukan-admin', 'laporanPemasukanAdmin')->name('laporan-pemasukan-admin');
         Route::get('/laporan-pemasukan-admin-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-admin-show');
+        Route::get('/laporan-laba-rugi-admin', 'laporanLabaRugiAdmin')->name('laporan-laba-rugi-admin');
+        Route::get('/laporan-laba-rugi-admin-detail/{bulan_tahun}', 'laporanLabaRugiAdminDetail')->name('laporan-laba-rugi-admin-detail');
 
         Route::get('/laporan-harian-pengeluaran-admin', 'laporanPengeluaran')->name('laporan-harian-pengeluaran-admin');
         Route::get('/laporan-harian-pengeluaran-admin-print', 'laporanPengeluaranPrint')->name('laporan-harian-pengeluaran-admin-print');

@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Dompdf\Dompdf;
 
 use App\Models\User;
+use App\Models\Mitra;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
+use App\Models\DetailPengeluaran;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Mitra;
 
 class AdminController extends Controller
 {
@@ -126,8 +127,6 @@ class AdminController extends Controller
         ]);
     }
 
-
-
     public function laporanHarian(Request $request)
     {
         // Request bulan dan tahun
@@ -222,7 +221,6 @@ class AdminController extends Controller
             'tahun' => $tahunList
         ]);
     }
-
 
     public function downloadPDF(Request $request)
     {
@@ -461,51 +459,6 @@ class AdminController extends Controller
     }
 
     //fungsi laporanPemasukanAdmin
-    // public function laporanPemasukanAdmin(Request $request)
-    // {
-    //     // Fetch data with relationships and filters
-    //     $pemasukan = Pemasukan::with(['mitra'])
-    //         ->when($request->nama_mitra, function($query) use ($request) {
-    //             $query->whereHas('mitra', function($q) use ($request) {
-    //                 $q->where('id', $request->nama_mitra);
-    //             });
-    //         })
-    //         ->when($request->tgl_awal, function($query) use ($request) {
-    //             $query->whereDate('tgl_pemasukan', '>=', $request->tgl_awal);
-    //         })
-    //         ->when($request->tgl_akhir, function($query) use ($request) {
-    //             $query->whereDate('tgl_pemasukan', '<=', $request->tgl_akhir);
-    //         })
-    //         ->get();
-
-    //     // Group data by mitra
-    //     $groupedPemasukan = $pemasukan->groupBy(function($item) {
-    //         return $item->mitra->nama_mitra;
-    //     });
-
-    //     // Calculate total debet and kredit for each mitra
-    //     $totalDebet = $groupedPemasukan->map(function($items) {
-    //         return $items->sum(function($item) {
-    //             return $item->where('jenis_bayar', 'DEBET')->sum('total_harga');
-    //         });
-    //     });
-
-    //     $totalKredit = $groupedPemasukan->map(function($items) {
-    //         return $items->sum(function($item) {
-    //             return $item->where('jenis_bayar', 'KREDIT')->sum('total_harga');
-    //         });
-    //     });
-
-    //     // Get mitra
-    //     $mitra = Mitra::all();
-
-    //     return view(
-    //         'admin.laporan-pemasukan-admin',
-    //         compact('pemasukan', 'totalDebet', 'totalKredit', 'groupedPemasukan', 'mitra')
-    //     )->with([
-    //         'title' => 'Detail Pemasukan Admin'
-    //     ]);
-    // }
     public function laporanPemasukanAdmin(Request $request)
     {
 
@@ -584,5 +537,67 @@ class AdminController extends Controller
                 'title' => 'Detail Laporan Pemasukan Admin'
             ]
         );
+    }
+
+    //fungsi laporanLabaRugiAdmin
+    public function laporanLabaRugiAdmin(Request $request)
+    {
+        // Fetch distinct months and years from the 'tgl_pemasukan' column
+        $bulanTahun = Pemasukan::select(DB::raw("DATE_FORMAT(tgl_pemasukan, '%M %Y') as bulan_tahun"))
+            ->distinct()
+            ->get();
+
+        // Default value for bulan dan tahun
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+
+        return view('admin.laporan-laba-rugi-admin', [
+            'bulanTahun' => $bulanTahun,
+            'selectedBulan' => $bulan,
+            'selectedTahun' => $tahun,
+            'title' => 'Laporan Laba Rugi Admin'
+        ]);
+    }
+
+    ///fungsi laporanLabaRugiAdminDetail
+    public function laporanLabaRugiAdminDetail($bulan_tahun)
+    {
+        // Extract month and year from the 'bulan_tahun' parameter
+        $bulan = date('m', strtotime($bulan_tahun));
+        $tahun = date('Y', strtotime($bulan_tahun));
+
+        // Fetch data pemasukan with related mitra
+        $pemasukan = Pemasukan::with('mitra')
+            ->select('id_mitra', DB::raw('SUM(total_harga) as total_pemasukan'))
+            ->whereMonth('tgl_pemasukan', $bulan)
+            ->whereYear('tgl_pemasukan', $tahun)
+            ->groupBy('id_mitra')
+            ->get();
+
+        $pengeluaran = Pengeluaran::with(['detail'])
+            ->select('pengeluaran.id_pengeluaran', 'pengeluaran.total_harga', 'detail_pengeluaran.nama_barang_keluar', 'detail_pengeluaran.harga_satuan', 'detail_pengeluaran.jumlah_barang_keluar')
+            ->join('detail_pengeluaran', 'pengeluaran.id_pengeluaran', '=', 'detail_pengeluaran.id_pengeluaran')
+            ->whereMonth('pengeluaran.tgl_pengeluaran', $bulan)
+            ->whereYear('pengeluaran.tgl_pengeluaran', $tahun)
+            ->get();
+
+        // Calculate total pemasukan
+        $total_pemasukan = $pemasukan->sum('total_pemasukan');
+
+        // Calculate total pengeluaran
+        $total_pengeluaran = $pengeluaran->sum('total_harga');
+
+
+        // Calculate laba/rugi
+        $labaRugi = $total_pemasukan - $total_pengeluaran;
+
+        return view('admin.laporan-laba-rugi-admin-detail', [
+            'bulan_tahun' => $bulan_tahun,
+            'pemasukan' => $pemasukan,
+            'pengeluaran' => $pengeluaran,
+            'labaRugi' => $labaRugi,
+            'title' => 'Detail Laba Rugi Admin'
+        ]);
     }
 }
