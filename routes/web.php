@@ -54,10 +54,14 @@ Route::post('/action-reset-password/{token}', [AuthController::class, 'processRe
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::controller(OwnerController::class)->group(function () {
         Route::get('/owner', 'owner')->name('dashboard-owner');
+        Route::get('/laporan-pemasukan-owner', 'laporanPemasukanOwner')->name('laporan-pemasukan-owner');
+        Route::get('/laporan-pemasukan-owner-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-owner-show');
+
         Route::get('/laporan-owner-harian', 'laporanHarian')->name('laporan-owner-harian');
         Route::get('/laporan-owner-bulanan', 'laporanBulanan')->name('laporan-owner-bulanan');
         Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
         Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
+
         Route::get('/laporan-harian-pengeluaran-owner', 'laporanPengeluaran')->name('laporan-harian-pengeluaran-owner');
         Route::get('/laporan-harian-pengeluaran-owner-print', 'laporanPengeluaranPrint')->name('laporan-harian-pengeluaran-owner-print');
         Route::get('/laporan-harian-pemasukan-owner', 'laporanPemasukan')->name('laporan-harian-pemasukan-owner');
@@ -144,7 +148,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
         Route::get('/laporan-admin-harian', 'laporanHarian')->name('laporan-admin-harian');
         Route::get('/laporan-admin-bulanan', 'laporanBulanan')->name('laporan-admin-bulanan');
         Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
-        Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');        
+        Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
         Route::get('/laporan-pemasukan-admin', 'laporanPemasukanAdmin')->name('laporan-pemasukan-admin');
         Route::get('/laporan-pemasukan-admin-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-admin-show');
 

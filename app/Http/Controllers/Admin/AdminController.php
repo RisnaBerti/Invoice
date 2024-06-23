@@ -514,10 +514,6 @@ class AdminController extends Controller
         ]);
     }
 
-
-
-
-
     //fungsi laporanPemasukanShow
     public function laporanPemasukanShow($nama_mitra)
     {
