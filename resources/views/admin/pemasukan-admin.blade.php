@@ -232,7 +232,7 @@
 
                                         <!--begin::Actions-->
                                         <div class="text-center">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="reset" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
                                             <button type="submit" id="kt_modal_add_pemasukan_submit"
                                                 class="btn btn-primary">
