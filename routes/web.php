@@ -53,7 +53,8 @@ Route::post('/action-reset-password/{token}', [AuthController::class, 'processRe
 //Route Owner
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::controller(OwnerController::class)->group(function () {
-        Route::get('/owner', 'owner')->name('dashboard-owner');
+        Route::get('/owner', 'owner')->name('dashboard-owner');        
+        Route::get('/getDataForYearOwner/{year}', 'getDataForYearOwner');
         Route::get('/laporan-pemasukan-owner', 'laporanPemasukanOwner')->name('laporan-pemasukan-owner');
         Route::get('/laporan-pemasukan-owner-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-owner-show');
 
@@ -145,6 +146,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin', 'admin')->name('dashboard-admin');
+        Route::get('/getDataForYear/{year}', 'getDataForYear');
         Route::get('/laporan-admin-harian', 'laporanHarian')->name('laporan-admin-harian');
         Route::get('/laporan-admin-bulanan', 'laporanBulanan')->name('laporan-admin-bulanan');
         Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');

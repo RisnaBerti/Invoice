@@ -185,20 +185,16 @@
                             <span class="card-label fw-bold text-gray-800">Grafik Pemasukan</span>
                             <span class="text-gray-400 mt-1 fw-semibold fs-6">Perbulan</span>
                         </h3>
-                        <!--end::Title-->
-                        <!--begin::Toolbar-->
-                        <div class="card-toolbar">
-                            <!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
-                            <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
-                                class="btn btn-sm btn-light d-flex align-items-center px-4">
-                                <!--begin::Display range-->
-                                <div class="text-gray-600 fw-bold">Loading date range...</div>
-                                <!--end::Display range-->
-                                <i class="ki-outline ki-calendar-8 fs-1 ms-2 me-0"></i>
-                            </div>
-                            <!--end::Daterangepicker-->
+                        <div class="me-4">
+                            <select class="form-select form-select-solid form-select-sm" id="tahun" name="tahun" onchange="handleYearChange(this)">
+                                <option value="">-- Pilih Tahun --</option>
+                                @foreach (range(date('Y'), 2018) as $tahun_option)
+                                    <option value="{{ $tahun_option }}" {{ $tahun_option == $tahun ? 'selected' : '' }}>{{ $tahun_option }}</option>
+                                @endforeach
+                            </select>
+                            
                         </div>
-                        <!--end::Toolbar-->
+                        <!--end::Title-->
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
@@ -352,5 +348,32 @@
         var chart = new ApexCharts(document.querySelector("#responsive-chart"), options);
 
         chart.render();
+    </script>
+
+    <script>
+         function handleYearChange(selectObject) {
+            var selectedYear = selectObject.value;
+
+            // Fetch updated data based on selectedYear using AJAX (optional) or PHP
+            fetch('/getDataForYearOwner/' + selectedYear)
+                .then(response => response.json())
+                .then(data => {
+                    chart.updateSeries([
+                        { data: data.dataNumeric },
+                        { data: data.dataNumeric2 }
+                    ]);
+                    chart.updateOptions({
+                        xaxis: {
+                            categories: data.months
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Tahun ' + selectedYear
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
     </script>
 @endsection

@@ -76,15 +76,56 @@ class AdminController extends Controller
                 'pemasukan_formatted' => $pemasukan_formatted,
                 'dataNumeric' => $dataNumeric,
                 'dataNumeric2' => $dataNumeric2,
-                // 'dataBulan' => $dataBulan,
-                // 'prevMonth' => $prevMonth,
-                // 'months' => $months
+                'tahun' => $tahun,
 
             ]
         );
     }
 
-    //fungsi Laporan Harian
+    //fungsi get data chart filter tahun
+    public function getDataForYear($year)
+    {
+        $dataNumeric = [];
+        $dataNumeric2 = [];
+        $months = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $months[] = date('M', mktime(0, 0, 0, $i, 1));
+        }
+
+        for ($i = 1; $i <= 12; $i++) {
+            $dataPemasukan = Pemasukan::select(DB::raw('MONTH(tgl_pemasukan) as bulan'), DB::raw('SUM(total_harga) as total'))
+                ->whereYear('tgl_pemasukan', $year)
+                ->whereMonth('tgl_pemasukan', $i)
+                ->groupBy('bulan')
+                ->first();
+
+            if ($dataPemasukan) {
+                $dataNumeric[] = $dataPemasukan->total;
+            } else {
+                $dataNumeric[] = 0;
+            }
+
+            $dataPengeluaran = Pengeluaran::select(DB::raw('MONTH(tgl_pengeluaran) as bulan'), DB::raw('SUM(total_harga) as total'))
+                ->whereYear('tgl_pengeluaran', $year)
+                ->whereMonth('tgl_pengeluaran', $i)
+                ->groupBy('bulan')
+                ->first();
+
+            if ($dataPengeluaran) {
+                $dataNumeric2[] = $dataPengeluaran->total;
+            } else {
+                $dataNumeric2[] = 0;
+            }
+        }
+
+        return response()->json([
+            'dataNumeric' => $dataNumeric,
+            'dataNumeric2' => $dataNumeric2,
+            'months' => $months
+        ]);
+    }
+
 
 
     public function laporanHarian(Request $request)
@@ -519,23 +560,23 @@ class AdminController extends Controller
     {
         // Fetch data for the specified mitra with optional date range filters
         $pemasukan = Pemasukan::with(['detail', 'mitra', 'produk', 'user'])
-            ->whereHas('mitra', function($query) use ($nama_mitra) {
+            ->whereHas('mitra', function ($query) use ($nama_mitra) {
                 $query->where('nama_mitra', $nama_mitra);
             });
-    
+
         // Apply date range filters if provided
         if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
             $tgl_awal = $_GET['tgl_awal'];
             $tgl_akhir = $_GET['tgl_akhir'];
-    
+
             $pemasukan = $pemasukan->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir]);
         }
-    
+
         $pemasukan = $pemasukan->get();
-    
+
         // Group data by tgl_pemasukan
         $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
-    
+
         return view(
             'admin.laporan-pemasukan-admin-show',
             compact('pemasukan', 'groupedPemasukan'),
@@ -544,5 +585,4 @@ class AdminController extends Controller
             ]
         );
     }
-    
 }
