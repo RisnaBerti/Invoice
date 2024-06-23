@@ -149,7 +149,7 @@
             <!--end:Menu item-->
 
              <!--begin:Menu item-->
-             <div class="menu-item menu-accordion">
+             {{-- <div class="menu-item menu-accordion">
                 <!--begin:Menu link-->
                 <a class="menu-link" href="{{ url('laporan-admin-harian') }}">
                     <span class="menu-icon">
@@ -158,7 +158,7 @@
                     <span class="menu-title">Laporan Pendapatan Harian</span>
                 </a>
                 <!--end:Menu link-->
-            </div>
+            </div> --}}
             <!--end:Menu item-->
 
             <!--begin:Menu item-->

@@ -148,9 +148,10 @@ class OwnerController extends Controller
                 'tgl_pemasukan',
                 DB::raw('YEAR(tgl_pemasukan) AS tahun'),
                 DB::raw('MONTH(tgl_pemasukan) AS bulan'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.keterangan = "Kasbon" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Kredit" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_debet'),
-                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit')
+                DB::raw('SUM(CASE WHEN pemasukan.keterangan = "Belum Lunas" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_piutang'),
+                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Debet" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_debet'),
+                DB::raw('SUM(CASE WHEN detail_pemasukan.saldo = "Kredit" THEN detail_pemasukan.subtotal ELSE 0 END) AS total_kredit'),
+                DB::raw('SUM(detail_pemasukan.subtotal) AS total_semua')
             )
             ->join('detail_pemasukan', 'pemasukan.id_pemasukan', '=', 'detail_pemasukan.id_pemasukan')
             ->when($tahun, function ($query, $tahun) {
@@ -169,7 +170,7 @@ class OwnerController extends Controller
         $saldo = $query->groupBy('tgl_pemasukan')->get();
 
         return view('owner.laporan-owner-harian', [
-            'title' => 'Laporan Owner',
+            'title' => 'Laporan Admin',
             'active' => 'laporan-owner',
             'saldo' => $saldo,
             'tahun' => $tahunList
@@ -481,5 +482,67 @@ class OwnerController extends Controller
                 'title' => 'Detail Laporan Pemasukan Owner'
             ]
         );
+    }
+
+    //fungsi laporanLabaRugiAdmin
+    public function laporanLabaRugiOwner(Request $request)
+    {
+        // Fetch distinct months and years from the 'tgl_pemasukan' column
+        $bulanTahun = Pemasukan::select(DB::raw("DATE_FORMAT(tgl_pemasukan, '%M %Y') as bulan_tahun"))
+            ->distinct()
+            ->get();
+
+        // Default value for bulan dan tahun
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+
+        return view('owner.laporan-laba-rugi-owner', [
+            'bulanTahun' => $bulanTahun,
+            'selectedBulan' => $bulan,
+            'selectedTahun' => $tahun,
+            'title' => 'Laporan Laba Rugi Admin'
+        ]);
+    }
+
+    ///fungsi laporanLabaRugiAdminDetail
+    public function laporanLabaRugiOwnerDetail($bulan_tahun)
+    {
+        // Extract month and year from the 'bulan_tahun' parameter
+        $bulan = date('m', strtotime($bulan_tahun));
+        $tahun = date('Y', strtotime($bulan_tahun));
+
+        // Fetch data pemasukan with related mitra
+        $pemasukan = Pemasukan::with('mitra')
+            ->select('id_mitra', DB::raw('SUM(total_harga) as total_pemasukan'))
+            ->whereMonth('tgl_pemasukan', $bulan)
+            ->whereYear('tgl_pemasukan', $tahun)
+            ->groupBy('id_mitra')
+            ->get();
+
+        $pengeluaran = Pengeluaran::with(['detail'])
+            ->select('pengeluaran.id_pengeluaran', 'pengeluaran.total_harga', 'detail_pengeluaran.nama_barang_keluar', 'detail_pengeluaran.harga_satuan', 'detail_pengeluaran.jumlah_barang_keluar')
+            ->join('detail_pengeluaran', 'pengeluaran.id_pengeluaran', '=', 'detail_pengeluaran.id_pengeluaran')
+            ->whereMonth('pengeluaran.tgl_pengeluaran', $bulan)
+            ->whereYear('pengeluaran.tgl_pengeluaran', $tahun)
+            ->get();
+
+        // Calculate total pemasukan
+        $total_pemasukan = $pemasukan->sum('total_pemasukan');
+
+        // Calculate total pengeluaran
+        $total_pengeluaran = $pengeluaran->sum('total_harga');
+
+
+        // Calculate laba/rugi
+        $labaRugi = $total_pemasukan - $total_pengeluaran;
+
+        return view('owner.laporan-laba-rugi-owner-detail', [
+            'bulan_tahun' => $bulan_tahun,
+            'pemasukan' => $pemasukan,
+            'pengeluaran' => $pengeluaran,
+            'labaRugi' => $labaRugi,
+            'title' => 'Detail Laba Rugi Admin'
+        ]);
     }
 }

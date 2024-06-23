@@ -57,6 +57,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         Route::get('/getDataForYearOwner/{year}', 'getDataForYearOwner');
         Route::get('/laporan-pemasukan-owner', 'laporanPemasukanOwner')->name('laporan-pemasukan-owner');
         Route::get('/laporan-pemasukan-owner-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-owner-show');
+        Route::get('/laporan-laba-rugi-owner', 'laporanLabaRugiOwner')->name('laporan-laba-rugi-owner');
+        Route::get('/laporan-laba-rugi-owner-detail/{bulan_tahun}', 'laporanLabaRugiOwnerDetail')->name('laporan-laba-rugi-owner-detail');
 
         Route::get('/laporan-owner-harian', 'laporanHarian')->name('laporan-owner-harian');
         Route::get('/laporan-owner-bulanan', 'laporanBulanan')->name('laporan-owner-bulanan');
