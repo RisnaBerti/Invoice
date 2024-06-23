@@ -50,21 +50,15 @@
                                     <table class="table">
                                         <thead>
                                             <tr class="border-bottom fs-6 fw-bold text-muted">
-                                                {{-- <th class="text-dark">Jenis Barang</th> --}}
                                                 <th class="text-dark">Nama Barang</th>
                                                 <th class="text-dark">Harga Barang</th>
                                                 <th class="text-dark">QTY</th>
-                                                <th class="text-dark">Bayar</th>
-                                                <th class="text-dark">Saldo</th>
                                                 <th class="text-dark">Sub Total</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-semibold text-gray-600">
                                             @foreach ($pemasukan->detail as $detail)
                                                 <tr>
-                                                    {{-- <td>
-                                                    {{ $detail->jenis_pemasukan }}
-                                                </td> --}}
                                                     <td>
                                                         {{ $detail->produk->nama_produk }}
                                                     </td>
@@ -75,23 +69,26 @@
                                                         {{ $detail->jumlah_barang_masuk }}
                                                     </td>
                                                     <td>
-                                                        {{ 'Rp ' . number_format($detail->bayar, 0, ',', '.') }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $detail->saldo }}
-                                                    </td>
-                                                    <td>
                                                         {{ 'Rp ' . number_format($detail->subtotal, 0, ',', '.') }}
                                                     </td>
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <td colspan="5" class="fs-5 text-dark fw-bold">Total</td>
+                                                <td colspan="3" class="fs-5 text-dark fw-bold">Total</td>
                                                 <td class="text-dark fs-5 fw-bolder">
                                                     {{ 'Rp ' . number_format($pemasukan->total_harga, 0, ',', '.') }}</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="5" class="fs-5 text-dark fw-bold">keterangan</td>
+                                                <td colspan="3" class="fs-5 text-dark fw-bold">Bayar</td>
+                                                <td class="text-dark fs-5 fw-bolder">
+                                                    {{ 'Rp ' . number_format($pemasukan->bayar, 0, ',', '.') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="fs-5 text-dark fw-bold">Jenis Bayar</td>
+                                                <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->jenis_bayar }}</td>
+                                            </tr>                                            
+                                            <tr>
+                                                <td colspan="3" class="fs-5 text-dark fw-bold">keterangan</td>
                                                 <td class="text-dark fs-5 fw-bolder">{{ $pemasukan->keterangan }}</td>
                                             </tr>
                                         </tbody>

@@ -54,7 +54,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ url('laporan-harian-pemasukan-admin') }}"
+                        <a class="menu-link" href="{{ url('laporan-pemasukan-admin') }}"
                             title="Check out the complete documentation" data-bs-toggle="tooltip"
                             data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             {{-- <span class="menu-bullet">
@@ -71,19 +71,6 @@
                 </div>
                 <!--end:Menu sub-->
             </div>
-            <!--end:Menu item-->
-
-            <!--begin:Menu item-->
-            {{-- <div class="menu-item menu-accordion">
-                <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/pemasukan-admin') }}">
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-dollar fs-2"></i>
-                    </span>
-                    <span class="menu-title">Pemasukan</span>
-                </a>
-                <!--end:Menu link-->
-            </div> --}}
             <!--end:Menu item-->
 
             <!--begin:Menu item-->
@@ -133,31 +120,6 @@
                 </div>
                 <!--end:Menu sub-->
             </div>
-            <!--end:Menu item-->
-
-            <!--begin:Menu item-->
-            {{-- <div class="menu-item menu-accordion">
-                <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/pengeluaran-admin') }}">
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-wallet dollar fs-2"></i>
-                    </span>
-                    <span class="menu-title">Pengeluaran</span>
-                </a>
-                <!--end:Menu link-->
-            </div> --}}
-            <!--end:Menu item-->
-            <!--begin:Menu item-->
-            {{-- <div class="menu-item menu-accordion">
-                <!--begin:Menu link-->
-                <a class="menu-link" href="{{ url('/laporan-admin') }}">
-                    <span class="menu-icon">
-                        <i class="ki-outline ki-financial-schedule fs-2"></i>
-                    </span>
-                    <span class="menu-title">Laporan</span>
-                </a>
-                <!--end:Menu link-->
-            </div> --}}
             <!--end:Menu item-->
 
             <!--begin:Menu item-->

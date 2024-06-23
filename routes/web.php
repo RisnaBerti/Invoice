@@ -144,7 +144,10 @@ Route::middleware(['auth', 'role:2'])->group(function () {
         Route::get('/laporan-admin-harian', 'laporanHarian')->name('laporan-admin-harian');
         Route::get('/laporan-admin-bulanan', 'laporanBulanan')->name('laporan-admin-bulanan');
         Route::get('/sendNotifWhatsApp/{tgl_pemasukan}', 'sendNotifWhatsApp')->name('sendNotifWhatsApp');
-        Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');
+        Route::get('/download-pdf', 'downloadPDF')->name('download.pdf');        
+        Route::get('/laporan-pemasukan-admin', 'laporanPemasukanAdmin')->name('laporan-pemasukan-admin');
+        Route::get('/laporan-pemasukan-admin-show/{id}', 'laporanPemasukanShow')->name('laporan-pemasukan-admin-show');
+
         Route::get('/laporan-harian-pengeluaran-admin', 'laporanPengeluaran')->name('laporan-harian-pengeluaran-admin');
         Route::get('/laporan-harian-pengeluaran-admin-print', 'laporanPengeluaranPrint')->name('laporan-harian-pengeluaran-admin-print');
         Route::get('/laporan-harian-pemasukan-admin', 'laporanPemasukan')->name('laporan-harian-pemasukan-admin');
@@ -154,7 +157,6 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     //Route Pemasukan Admin
     Route::controller(PemasukanAdminController::class)->group(function () {
         Route::get('/pemasukan-admin', 'getDataTables')->name('pemasukan-admin');
-        // Route::get('/pemasukan-admin', 'dataTables')->name('pemasukan-admin');
         Route::get('/pemasukan-admin/show', 'show')->name('show-pemasukan-admin');
         Route::get('/pemasukan-admin-print/show/{id}', 'printShow')->name('show-pemasukan-admin-print');
         Route::get('/pemasukan-admin/create', 'create')->name('create-pemasukan-admin');

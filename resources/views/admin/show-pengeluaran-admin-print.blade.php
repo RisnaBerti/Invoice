@@ -95,7 +95,6 @@
                                 <table class="table">
                                     <thead>
                                         <tr class="border-bottom fs-6 fw-bold text-muted">
-                                            {{-- <th class="text-dark">Jenis Barang</th> --}}
                                             <th class="text-dark">Nama Barang</th>
                                             <th class="text-dark">QTY</th>
                                             <th class="text-dark">Harga Satuan</th>
@@ -105,9 +104,6 @@
                                     <tbody class="fw-semibold text-gray-600">
                                         @foreach ($pengeluaran->detail as $detail)
                                             <tr>
-                                                {{-- <td>
-                                                    {{ $detail->jenis_pengeluaran }}
-                                                </td> --}}
                                                 <td>
                                                     <ul>
                                                         {{ $detail->nama_barang_keluar }}

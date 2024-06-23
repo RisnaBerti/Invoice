@@ -22,13 +22,15 @@ class PemasukanAdminController extends Controller
                 'pemasukan.tgl_pemasukan',
                 'mitra.nama_mitra',
                 'pemasukan.total_harga',
+                'pemasukan.bayar',
+                'pemasukan.jenis_bayar',
                 'pemasukan.keterangan',
                 DB::raw('GROUP_CONCAT(detail_pemasukan.id_produk SEPARATOR ", ") as id_produk'),
                 DB::raw('GROUP_CONCAT(produk.nama_produk SEPARATOR ", ") as nama_produk'),
                 DB::raw('GROUP_CONCAT(detail_pemasukan.jumlah_barang_masuk SEPARATOR ", ") as jumlah_barang_masuk'),
                 DB::raw('GROUP_CONCAT(detail_pemasukan.harga_barang_masuk SEPARATOR ", ") as harga_barang_masuk'),
-                DB::raw('GROUP_CONCAT(detail_pemasukan.saldo SEPARATOR ", ") as saldo'),
-                DB::raw('GROUP_CONCAT(detail_pemasukan.bayar SEPARATOR ", ") as bayar'),
+                // DB::raw('GROUP_CONCAT(detail_pemasukan.saldo SEPARATOR ", ") as saldo'),
+                // DB::raw('GROUP_CONCAT(detail_pemasukan.bayar SEPARATOR ", ") as bayar'),
                 DB::raw('GROUP_CONCAT(detail_pemasukan.subtotal SEPARATOR ", ") as subtotal')
             ])
                 ->leftJoin('detail_pemasukan', 'pemasukan.id_pemasukan', '=', 'detail_pemasukan.id_pemasukan')
@@ -39,6 +41,8 @@ class PemasukanAdminController extends Controller
                     'pemasukan.tgl_pemasukan',
                     'mitra.nama_mitra',
                     'pemasukan.total_harga',
+                    'pemasukan.bayar',
+                    'pemasukan.jenis_bayar',
                     'pemasukan.keterangan'
                 );
 
@@ -61,12 +65,14 @@ class PemasukanAdminController extends Controller
                             ->orHavingRaw("LOWER(GROUP_CONCAT(produk.nama_produk SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.jumlah_barang_masuk SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.harga_barang_masuk SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
-                            ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.saldo SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
-                            ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.bayar SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
+                            // ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.saldo SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
+                            // ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.bayar SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(GROUP_CONCAT(detail_pemasukan.subtotal SEPARATOR ', ')) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(pemasukan.tgl_pemasukan) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(mitra.nama_mitra) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(pemasukan.total_harga) LIKE ?", ["%{$search}%"])
+                            ->orHavingRaw("LOWER(pemasukan.jenis_bayar) LIKE ?", ["%{$search}%"])
+                            ->orHavingRaw("LOWER(pemasukan.bayar) LIKE ?", ["%{$search}%"])
                             ->orHavingRaw("LOWER(pemasukan.keterangan) LIKE ?", ["%{$search}%"]);
                     }
                 })
@@ -155,12 +161,14 @@ class PemasukanAdminController extends Controller
         $validator = Validator::make($request->all(), [
             'tgl_pemasukan' => 'required',
             'id_mitra' => 'required',
-            'keterangan' => 'required',
+            // 'keterangan' => 'required',
+            // 'bayar' => 'required',
+            // 'jenis_bayar' => 'required',
             'detail.*.id_produk' => 'required',
             'detail.*.jumlah_barang_masuk' => 'required|numeric',
             'detail.*.harga_barang_masuk' => 'required',
-            'detail.*.saldo' => 'required',
-            'detail.*.bayar' => 'required',
+            // 'detail.*.saldo' => 'required',
+            // 'detail.*.bayar' => 'required',
             'detail.*.subtotal' => 'required'
         ]);
 
@@ -178,6 +186,8 @@ class PemasukanAdminController extends Controller
             'id_user' => $user_id,
             'id_mitra' => $request->id_mitra,
             'total_harga' => $total_harga,
+            'bayar' => floatval(str_replace(['.', 'Rp '], '', $request->bayar)),
+            'jenis_bayar' => $request->jenis_bayar,
             'keterangan' => $request->keterangan
         ]);
 
@@ -186,8 +196,8 @@ class PemasukanAdminController extends Controller
                 'id_produk' => $detail['id_produk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
-                'saldo' => $detail['saldo'],
-                'bayar' => floatval(str_replace(['.', 'Rp '], '', $detail['bayar'])),
+                // 'saldo' => $detail['saldo'],
+                // 'bayar' => floatval(str_replace(['.', 'Rp '], '', $detail['bayar'])),
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']))
             ]);
         }
@@ -214,7 +224,17 @@ class PemasukanAdminController extends Controller
         //     return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         // }
         // Ambil data pemasukan dan detailnya
-        $query = "SELECT pemasukan.*, detail_pemasukan.*, mitra.nama_mitra, mitra.id_mitra, produk.id_produk, produk.nama_produk, produk.harga_produk 
+        $query = "SELECT pemasukan.*, 
+        detail_pemasukan.id_detail_pemasukan, 
+        detail_pemasukan.id_produk,
+        detail_pemasukan.jumlah_barang_masuk, 
+        detail_pemasukan.harga_barang_masuk, 
+        detail_pemasukan.subtotal, 
+        mitra.nama_mitra, 
+        mitra.id_mitra, 
+        produk.id_produk, 
+        produk.nama_produk, 
+        produk.harga_produk 
           FROM pemasukan 
           JOIN detail_pemasukan ON pemasukan.id_pemasukan = detail_pemasukan.id_pemasukan 
           JOIN mitra ON pemasukan.id_mitra = mitra.id_mitra 
@@ -233,6 +253,8 @@ class PemasukanAdminController extends Controller
             'tgl_pemasukan' => $pemasukanResult[0]->tgl_pemasukan,
             'id_mitra' => $pemasukanResult[0]->id_mitra,
             'keterangan' => $pemasukanResult[0]->keterangan,
+            'bayar' => $pemasukanResult[0]->bayar,
+            'jenis_bayar' => $pemasukanResult[0]->jenis_bayar,
             'detail' => []
         ];
 
@@ -242,8 +264,8 @@ class PemasukanAdminController extends Controller
                 'jumlah_barang_masuk' => $row->jumlah_barang_masuk,
                 'harga_barang_masuk' => $row->harga_barang_masuk,
                 'subtotal' => $row->subtotal,
-                'bayar' => $row->bayar,
-                'saldo' => $row->saldo,
+                // 'bayar' => $row->bayar,
+                // 'saldo' => $row->saldo,
             ];
             if (isset($row->subtotal_edit)) {
                 $detail['subtotal_edit'] = $row->subtotal_edit;
@@ -265,56 +287,7 @@ class PemasukanAdminController extends Controller
     }
 
 
-    // public function edit($id)
-    // {
-    //     // Ambil data pemasukan dan detailnya
-    //     $query = "SELECT pemasukan.*, detail_pemasukan.*, mitra.nama_mitra, mitra.id_mitra, produk.id_produk, produk.nama_produk, produk.harga_produk 
-    //           FROM pemasukan 
-    //           JOIN detail_pemasukan ON pemasukan.id_pemasukan = detail_pemasukan.id_pemasukan 
-    //           JOIN mitra ON pemasukan.id_mitra = mitra.id_mitra 
-    //           JOIN produk ON detail_pemasukan.id_produk = produk.id_produk 
-    //           WHERE pemasukan.id_pemasukan = $id";
-
-    //     $pemasukanResult = DB::select($query);
-
-    //     if (empty($pemasukanResult)) {
-    //         return response()->json(['error' => 'Data not found'], 404);
-    //     }
-
-    //     // Strukturi ulang data pemasukan dan detailnya
-    //     $pemasukan = [
-    //         'id_pemasukan' => $pemasukanResult[0]->id_pemasukan,
-    //         'tgl_pemasukan' => $pemasukanResult[0]->tgl_pemasukan,
-    //         'id_mitra' => $pemasukanResult[0]->id_mitra,
-    //         'keterangan' => $pemasukanResult[0]->keterangan,
-    //         'detail' => []
-    //     ];
-
-    //     foreach ($pemasukanResult as $row) {
-    //         $pemasukan['detail'][] = [
-    //             'id_produk' => $row->id_produk,
-    //             'jumlah_barang_masuk' => $row->jumlah_barang_masuk,
-    //             'harga_barang_masuk' => $row->harga_barang_masuk,
-    //             'subtotal' => $row->subtotal,
-    //             'bayar' => $row->bayar,
-    //             'saldo' => $row->saldo,
-    //         ];
-    //     }
-
-    //     // Ambil semua mitra untuk dropdown
-    //     $allMitra = DB::table('mitra')->select('id_mitra', 'nama_mitra')->get();
-
-    //     // Ambil semua produk untuk dropdown
-    //     $allProduk = DB::table('produk')->select('id_produk', 'nama_produk', 'harga_produk')->get();
-
-
-    //     return response()->json([
-    //         'pemasukan' => $pemasukan,
-    //         'all_mitra' => $allMitra,
-    //         'all_produk' => $allProduk
-    //     ]);
-    // }
-
+    //fungsi update pemasukan admin
     public function update(Request $request)
     {
         $id = $request->id_pemasukan_edit;
@@ -330,6 +303,8 @@ class PemasukanAdminController extends Controller
         $pemasukan->tgl_pemasukan = $request->tgl_pemasukan_edit;
         $pemasukan->id_mitra = $request->id_mitra_edit;
         $pemasukan->total_harga = $total_harga;
+        $pemasukan->bayar = floatval(str_replace(['.', 'Rp '], '', $request->bayar_edit));
+        $pemasukan->jenis_bayar = $request->jenis_bayar_edit;
         $pemasukan->keterangan = $request->keterangan_edit;
         $pemasukan->save();
 
@@ -342,8 +317,8 @@ class PemasukanAdminController extends Controller
                 'id_produk' => $detail['id_produk'],
                 'jumlah_barang_masuk' => $detail['jumlah_barang_masuk'],
                 'harga_barang_masuk' => floatval(str_replace(['.', 'Rp '], '', $detail['harga_barang_masuk'])),
-                'saldo' => $detail['saldo'],
-                'bayar' => $detail['bayar'],
+                // 'saldo' => $detail['saldo'],
+                // 'bayar' => $detail['bayar'],
                 'subtotal' => floatval(str_replace(['.', 'Rp '], '', $detail['subtotal']))
             ]);
         }

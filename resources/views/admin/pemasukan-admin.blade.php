@@ -145,32 +145,43 @@
                                             <table id="detailTable" class="table">
                                                 <thead>
                                                     <tr>
-                                                        {{-- <th>Jenis Barang</th> --}}
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
-                                                        <th>Bayar</th>
-                                                        <th>Saldo (Debet/Kredit)</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="5" class="text-end">Total:</th>
+                                                        <th colspan="3" class="text-end">Total:</th>
                                                         <th class="flex justify-between">
                                                             <input type="text" id="total_harga" name="total_harga"
                                                                 class="form-control" required readonly>
                                                         </th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="5" class="text-end">Keterangan:</th>
+                                                        <th colspan="3" class="text-end">Bayar:</th>
                                                         <td>
-                                                            <select name="keterangan" class="form-control keterangan"
-                                                                id="keterangan">
-                                                                <option value="Belum Lunas">Belum Lunas</option>
-                                                                <option value="Lunas">Lunas</option>
-                                                            </select>
+                                                            <input type="text" id="bayar" name="bayar"
+                                                            class="form-control" required >
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="3" class="text-end">Jenis Bayar:</th>
+                                                        <td>
+                                                            <input type="text" id="jenis_bayar" name="jenis_bayar" class="form-control" required readonly>
+                                                            {{-- <select name="jenis_bayar" class="form-control jenis_bayar" id="jenis_bayar">
+                                                                <option value="KREDIT">KREDIT</option>
+                                                                <option value="DEBET">DEBET</option>
+                                                            </select> --}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="3" class="text-end">Keterangan:</th>
+                                                        <td>
+                                                            <input type="text" id="keterangan" name="keterangan"
+                                                            class="form-control" required readonly >
                                                         </td>
                                                     </tr>
                                                 </tfoot>
@@ -198,13 +209,13 @@
                                                         <td><input type="text" name="detail[0][subtotal]"
                                                                 class="form-control subtotal" id="detail_0_subtotal"
                                                                 required readonly></td>
-                                                        <td><input type="text" name="detail[0][bayar]"
+                                                        {{-- <td><input type="text" name="detail[0][bayar]"
                                                                 class="form-control bayar" required></td>
                                                         <td><select name="detail[0][saldo]" class="form-control saldo"
                                                                 required>
                                                                 <option value="Debet">Debet</option>
                                                                 <option value="Kredit">Kredit</option>
-                                                            </select></td>
+                                                            </select></td> --}}
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn me-2">
                                                                 <i class="fas fa-plus-circle text-success"></i>
@@ -317,27 +328,36 @@
                                             <table id="detailTableEdit" class="table">
                                                 <thead>
                                                     <tr>
-                                                        {{-- <th>Jenis Barang</th> --}}
                                                         <th>Nama Barang</th>
                                                         <th>QTY</th>
                                                         <th>Harga Satuan</th>
                                                         <th>Sub Total</th>
-                                                        <th>Pembayaran</th>
-                                                        <th>Saldo (Debet/Kredit)</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="5" class="text-end">Total:</th>
+                                                        <th colspan="3" class="text-end">Total:</th>
                                                         <th class="flex justify-between">
-                                                            <input type="text" id="total_harga_edit"
-                                                                name="total_harga_edit" class="form-control" required
+                                                            <input type="text" id="total_harga_edit" name="total_harga_edit" class="form-control" required
                                                                 readonly>
                                                         </th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="5" class="text-end">Keterangan:</th>
+                                                        <th colspan="3" class="text-end">Bayar:</th>
+                                                        <td>
+                                                            <input type="text" id="bayar_edit" name="bayar_edit" class="form-control" required>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="3" class="text-end">Jenis Bayar:</th>
+                                                        <td>
+                                                            <input type="text" id="jenis_bayar_edit" name="jenis_bayar_edit"
+                                                                class="form-control" required readonly>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="3" class="text-end">Keterangan:</th>
                                                         <td>
                                                             <select name="keterangan_edit"
                                                                 class="form-control keterangan_edit" id="keterangan_edit">
@@ -365,7 +385,7 @@
                                                         <td><input type="text" name="detail[0][subtotal_edit]"
                                                                 id="detail[0][subtotal_edit]"
                                                                 class="form-control subtotal_edit" required readonly></td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <input type="text" name="detail[0][bayar_edit]"
                                                                 id="detail[0][bayar_edit]" class="form-control bayar_edit"
                                                                 required>
@@ -373,10 +393,10 @@
                                                         <td>
                                                             <select name="detail[0][saldo_edit]"
                                                                 class="form-control saldo_edit" id="saldo_edit">
-                                                                {{-- <option value="Debet"></option> --}}
-                                                                {{-- <option value="Kredit">Kredit</option> --}}
+                                                                <option value="Debet"></option>
+                                                                <option value="Kredit">Kredit</option>
                                                             </select>
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="add-remove text-end">
                                                             <a href="javascript:void(0);" class="add-btn-edit me-2">
                                                                 <i class="fas fa-plus-circle text-success"></i>
@@ -433,8 +453,8 @@
                             <th>Jumlah Barang</th>
                             <th>Harga Barang</th>
                             <th>Subtotal</th>
-                            <th>Saldo</th>
                             <th>Bayar</th>
+                            <th>Jenis Bayar</th>
                             <th>Keterangan</th>
                             <th>Actions</th>
                         </tr>
@@ -455,88 +475,7 @@
     <!-- Memuat jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fungsi untuk memformat angka sebagai mata uang
-            function formatRupiah(angka) {
-                var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return 'Rp ' + rupiah;
-            }
-
-            // Fungsi untuk memperbarui harga berdasarkan produk yang dipilih
-            function updateHarga(index) {
-                var selectProduk = document.getElementById('detail_' + index + '_id_produk');
-                var selectedOption = selectProduk.options[selectProduk.selectedIndex];
-                var harga = selectedOption.getAttribute('data-harga');
-
-                var inputHarga = document.getElementById('detail_' + index + '_harga_barang_masuk');
-                inputHarga.value = formatRupiah(harga);
-
-                calculateSubtotal(index);
-            }
-
-            // Fungsi untuk menghitung subtotal untuk satu baris
-            function calculateSubtotal(index) {
-                var qty = parseFloat(document.getElementById('detail[' + index + '][jumlah_barang_masuk]').value) ||
-                    0;
-                var harga = parseFloat(document.getElementById('detail_' + index + '_harga_barang_masuk').value
-                    .replace(/[^0-9,-]+/g, '')) || 0;
-                var subtotal = qty * harga;
-                document.getElementById('detail[' + index + '][subtotal]').value = formatRupiah(subtotal);
-                calculateTotalHarga();
-            }
-
-            // Fungsi untuk menghitung total harga
-            function calculateTotalHarga() {
-                var totalHarga = 0;
-                document.querySelectorAll('.subtotal').forEach(function(element) {
-                    var subtotal = parseFloat(element.value.replace(/[^0-9,-]+/g, '')) || 0;
-                    totalHarga += subtotal;
-                });
-                document.getElementById('total_harga').value = formatRupiah(totalHarga);
-            }
-
-            // Event listener untuk perubahan kuantitas
-            document.addEventListener('change', function(event) {
-                if (event.target.classList.contains('jumlah_barang_masuk')) {
-                    var row = event.target.closest('tr');
-                    var index = row.rowIndex - 1;
-                    calculateSubtotal(index);
-                }
-            });
-
-            // Event listener untuk perubahan pemilihan produk
-            document.addEventListener('change', function(event) {
-                if (event.target.classList.contains('id_produk')) {
-                    var row = event.target.closest('tr');
-                    var index = row.rowIndex - 1;
-                    updateHarga(index);
-                }
-            });
-
-            // Event listener untuk pengiriman formulir
-            document.getElementById('pemasukanForm').addEventListener('submit', function(event) {
-                document.querySelectorAll('.harga_barang_masuk, .subtotal, .bayar').forEach(function(
-                    element) {
-                    element.value = element.value.replace(/[^0-9,-]+/g, '');
-                });
-            });
-        });
-
-        
-    </script> --}}
-
+    {{-- get datatable --}}
     <script>
         $(document).ready(function() {
             $('#kt_table_users').DataTable({
@@ -576,21 +515,11 @@
                     },
                     {
                         data: 'harga_barang_masuk',
-                        name: 'harga_barang_masuk',
-                        // render: function(data) {
-                        //     return 'Rp ' + parseInt(data).toLocaleString();
-                        // }
+                        name: 'harga_barang_masuk'
                     },
                     {
                         data: 'subtotal',
-                        name: 'subtotal',
-                        // render: function(data) {
-                        //     return 'Rp ' + parseInt(data).toLocaleString();
-                        // }
-                    },
-                    {
-                        data: 'saldo',
-                        name: 'saldo'
+                        name: 'subtotal'
                     },
                     {
                         data: 'bayar',
@@ -598,6 +527,10 @@
                         render: function(data) {
                             return 'Rp ' + parseInt(data).toLocaleString();
                         }
+                    },
+                    {
+                        data: 'jenis_bayar',
+                        name: 'jenis_bayar'
                     },
                     {
                         data: 'keterangan',
@@ -614,56 +547,6 @@
 
         });
     </script>
-
-    {{-- // Memuat DataTable --}}
-    {{-- <script>
-        $(document).ready(function() {
-            $('#kt_table_users').DataTable({
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('pemasukan-admin') }}"
-                },
-                columns: [{
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            // Menggunakan meta.row untuk mendapatkan nomor urut
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: 'tgl_pemasukan',
-                        name: 'tgl_pemasukan',
-                        render: function(data) {
-                            // Memformat tanggal menggunakan Moment.js
-                            return moment(data).format('DD-MM-YYYY');
-                        }
-                    },
-                    {
-                        data: 'id_mitra',
-                        name: 'id_mitra'
-                    },
-                    {
-                        data: 'total_harga',
-                        name: 'total_harga',
-                        render: function(data) {
-                            // Memformat harga menggunakan Number.prototype.toLocaleString()
-                            return 'Rp ' + parseInt(data).toLocaleString();
-                        }
-                    },
-                    {
-                        data: 'keterangan',
-                        name: 'keterangan'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ]
-            });
-        });
-    </script> --}}
 
     {{-- //Modal Untuk Tambah Data Pemasukan --}}
     <script>
@@ -757,13 +640,13 @@
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal]" class="form-control subtotal" id="detail_' + rowCount +
                     '_subtotal" required readonly></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][bayar]" class="form-control bayar" required></td>' +
-                    '<td><select name="detail[' + rowCount +
-                    '][saldo]" class="form-control saldo" required>' +
-                    '<option value="Debet">Debet</option>' +
-                    '<option value="Kredit">Kredit</option>' +
-                    '</select></td>' +
+                    // '<td><input type="text" name="detail[' + rowCount +
+                    // '][bayar]" class="form-control bayar" required></td>' +
+                    // '<td><select name="detail[' + rowCount +
+                    // '][saldo]" class="form-control saldo" required>' +
+                    // '<option value="Debet">Debet</option>' +
+                    // '<option value="Kredit">Kredit</option>' +
+                    // '</select></td>' +
                     '<td class="add-remove text-end">' +
                     '<a href="javascript:void(0);" class="add-btn me-2">' +
                     '<i class="fas fa-plus-circle text-success"></i>' +
@@ -782,6 +665,20 @@
                 calculateTotalHarga();
             });
 
+            //fungsi untuk mengisi keterangan jika total > bayar makan isikan Belum Lunas
+            $(document).on('change', '#bayar', function() {
+                var total = parseFloat(document.getElementById('total_harga').value.replace(/[^0-9,-]+/g, '')) || 0;
+                var bayar = parseFloat(document.getElementById('bayar').value.replace(/[^0-9,-]+/g, '')) || 0;
+                var keterangan = document.getElementById('keterangan');
+                if (bayar < total) {
+                    keterangan.value = 'Belum Lunas';
+                    jenis_bayar.value = 'KREDIT';
+                } else {
+                    keterangan.value = 'Lunas';
+                    jenis_bayar.value = 'DEBET';
+                }
+            });
+
             // Event listener untuk pengiriman formulir
             $('#pemasukanForm').submit(function() {
                 $('.harga_barang_masuk, .subtotal, .bayar').each(function() {
@@ -794,269 +691,10 @@
     </script>
 
     {{-- //Modal Untuk Edit Data Pemasukan --}}
-    {{-- <script>
-        $(document).ready(function() {
-            // Menampilkan data dalam modal saat tombol "Edit" pada baris tabel diklik
-            $('#kt_table_users').on('click', '.edit-row', function() {
-                var id = $(this).data('id');
-                var url = "{{ route('edit-pemasukan-admin', ':id') }}";
-                url = url.replace(':id', id);
-                $.get(url, function(data) {
-                    $('#id_pemasukan_edit').val(data.id_pemasukan);
-                    $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
-                    $('#id_mitra_edit').val(data.id_mitra);
-                    $('#total_harga_edit').val(data.total_harga);
-
-                    // Isi dropdown dengan data yang diterima dari server
-                    var keteranganDropdown = $("#keterangan_edit");
-                    keteranganDropdown.empty(); // Kosongkan opsi sebelum mengisi ulang
-
-                    // Tambahkan opsi dari data yang diterima
-                    keteranganDropdown.append('<option value="Belum Lunas"' + (data.keterangan === 'Belum Lunas' ? ' selected' : '') + '>Belum Lunas</option>');
-                    keteranganDropdown.append('<option value="Lunas"' + (data.keterangan === 'Lunas' ? ' selected' : '') + '>Lunas</option>');
-                    
-                   
-                    // $('#keterangan_edit').val(data.keterangan);
-                   
-                    $('#detailTableEdit tbody').empty();
-                    data.detail.forEach(function(detail, index) {
-                        var row = '<tr>' +
-                            '<td><input type="text" name="detail[' + index +'][id_produk_edit]" class="form-control id_produk_edit" value="' +detail.id_produk + '" required></td>' +
-                            '<td><input type="number" name="detail[' + index +'][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" value="' +detail.jumlah_barang_masuk + '" required></td>' +
-                            '<td><input type="text" name="detail[' + index + '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" value="' + detail.harga_barang_masuk + '" required></td>' +
-                            '<td><input type="text" name="detail[' + index +'][subtotal_edit]" class="form-control subtotal_edit" value="' +detail.subtotal + '" required readonly></td>' +
-                            '<td><input type="text" name="detail[' + index +'][bayar_edit]" class="form-control bayar_edit" value="' +detail.bayar +'" required></td>' +
-                            '<td>' +
-                            '<select name="detail[' + index +'][saldo_edit]" class="form-control saldo_edit" required>' +
-                            '<option value="Debet"' + (detail.saldo === 'Debet' ? ' selected' : '') + '>Debet</option>' +
-                            '<option value="Kredit"' + (detail.saldo === 'Kredit' ? ' selected' : '') + '>Kredit</option>' +
-                            '</select>' +
-                            '</td>' +
-                            // '<td><select name="detail[' + index +'][saldo_edit]" class="form-control saldo_edit" required ><option value="Debet">Debet</option><option value="Kredit">Kredit</option></select></td>' +
-                            '<td class="add-remove text-end">' +
-                            '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
-                            '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
-                            '</td>' + '</tr>';
-                        $('#detailTableEdit').append(row);
-                    });
-
-                    //vardump data get
-                    console.log(data);
-                    die();
-                    $("#kt_modal_edit_data").modal("show");
-                });
-            });
-
-            //save data edit post controller update
-            $('#kt_modal_add_pemasukan_submit_edit').click(function() {
-                // var id_pemasukan = $('#id_pemasukan').val();
-                var tgl_pemasukan = $('#tgl_pemasukan_edit').val();
-                var id_mitra = $('#id_mitra_edit').val();
-                var keterangan = $('#keterangan_edit').val();
-                var detail = [];
-                $('#detailTableEdit tbody tr').each(function() {
-                    detail.push({
-                        // jenis_pemasukan: $(this).find('.jenis_pemasukan_edit').val(),
-                        id_produk: $(this).find('.id_produk_edit').val(),
-                        jumlah_barang_masuk: $(this).find('.jumlah_barang_masuk_edit')
-                            .val(),
-                        harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
-                        subtotal: $(this).find('.subtotal_edit').val(),
-                        bayar: $(this).find('.bayar_edit').val(),
-                        total_harga: $(this).find('.total_harga_edit').val(),
-                        saldo: $(this).find('.saldo_edit').val(),
-                        // keterangan: $(this).find('.keterangan_edit').val()
-                    });
-                });
-                $.ajax({
-                    url: "{{ route('update-pemasukan-admin') }}",
-                    type: "POST",
-                    data: {
-                        // id_pemasukan: id_pemasukan,
-                        tgl_pemasukan: tgl_pemasukan_edit,
-                        id_mitra: id_mitra,
-                        keterangan: keterangan,
-                        detail: detail
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        $('#kt_modal_edit_data').modal('hide');
-                        location.reload();
-                    }
-                });
-            });
-
-            // Hapus baris pada tabel Detail Barang Masuk
-            $("#detailTableEdit").on('click', '.remove-btn-edit', function() {
-                $(this).closest('tr').remove();
-                calculateGrandTotal();
-            });
-
-            //klik add button pada tabel
-            $(document).on('click', '.add-btn-edit', function() {
-                var rowCount = $('#detailTableEdit tbody tr').length;
-                var row = '<tr>' +
-                    // '<td><input type="hidden" name="detail[' + rowCount +
-                    // '][jenis_pemasukan_edit]" class="form-control jenis_pemasukan_edit" ></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][id_produk_edit]" class="form-control id_produk_edit" required></td>' +
-                    '<td><input type="number" name="detail[' + rowCount +
-                    '][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" required></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][subtotal_edit]" class="form-control subtotal_edit" required readonly></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][bayar_edit]" class="form-control bayar_edit" required></td>' +
-                    '<td><select name="detail[' + rowCount +
-                    '][saldo_edit]" class="form-control saldo_edit" required><option value="Debet">Debet</option><option value="Kredit">Kredit</option></select></td>' +
-                    // '<td><input type="text" name="detail[' + rowCount +
-                    // '][keterangan_edit]" class="form-control keterangan_edit" required></td>' +
-                    '<td class="add-remove text-end">' +
-                    '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
-                    '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
-                    '</td>' + '</tr>';
-                $('#detailTableEdit tbody').append(row);
-            });
-
-            // Hapus baris pada tabel
-            $(document).on('click', '.remove-btn-edit', function() {
-                $(this).closest('tr').remove();
-            });
-
-            // Hitung total_harga keseluruhan
-            function calculateGrandTotal() {
-                var grandTotal = 0;
-                $('.subtotal_edit').each(function() {
-                    var subtotal_edit = parseFloat($(this).val().replace(/\./g, '').replace('Rp ', '')) ||
-                        0;
-                    grandTotal += subtotal_edit;
-                });
-                $('#total_harga_edit').val(formatRupiah(grandTotal));
-            }
-
-            // Panggil fungsi calculateGrandTotal saat ada perubahan pada subtotal_edit
-            $(document).on('change', '.subtotal_edit', function() {
-                calculateGrandTotal();
-            });
-
-            // Panggil fungsi calculateGrandTotal saat menambah atau menghapus baris
-            $(document).on('click', '.remove-btn-edit, .add-btn-edit', function() {
-                calculateGrandTotal();
-            });
-
-
-            // Hitung total_harga saat jumlah_barang_masuk atau harga_barang_masuk_edit berubah
-            $(document).on('change', '.jumlah_barang_masuk_edit, .harga_barang_masuk_edit', function() {
-                calculateTotal($(this).closest('tr'));
-            });
-
-            // Fungsi untuk menghitung total_harga
-            function calculateTotal(row) {
-                var jumlah_barang_masuk_edit = parseInt(row.find('.jumlah_barang_masuk_edit').val()) || 0;
-                var harga_barang_masuk_edit = parseInt(row.find('.harga_barang_masuk_edit').val().replace(/\./g, '')
-                    .replace(
-                        'Rp ',
-                        '')) || 0; // Menghapus titik dan 'Rp' dari harga_barang_masuk_edit
-                var total_harga = jumlah_barang_masuk_edit * harga_barang_masuk_edit;
-                row.find('.subtotal_edit').val(formatRupiah(total_harga));
-            }
-
-            // Format Rupiah saat mengetikkan angka
-            $(document).on('keyup', '.harga_barang_masuk_edit', function() {
-                $(this).val(formatRupiah($(this).val().replace(/\./g, '')));
-            });
-
-            // Format Rupiah
-            function formatRupiah(angka) {
-                var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/g);
-
-                // tambahkan titik jika yang diinput sudah menjadi angka ribuan
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return 'Rp ' + rupiah;
-            }
-
-            // Submit form
-            $('#editPemasukanForm').submit(function() {
-                $(this).find('button[type="submit"]').prop('disabled', true);
-            });
-
-        });
-    </script> --}}
     <script>
         $(document).ready(function() {
             var allMitra = [];
             var allProduk = [];
-
-            // $('#kt_table_users').on('click', '.edit-row', function() {
-            //     var id = $(this).data('id');
-            //     var url = "{{ route('edit-pemasukan-admin', ':id') }}";
-            //     url = url.replace(':id', id);
-            //     $.get(url, function(response) {
-            //         var data = response.pemasukan;
-            //         allMitra = response.all_mitra;
-            //         allProduk = response.all_produk;
-
-            //         console.log("Loaded allProduk: ", allProduk);
-            //         console.log("Loaded allMitra: ", allMitra);
-
-            //         $('#id_pemasukan_edit').val(data.id_pemasukan);
-            //         $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
-
-            //         var mitraSelect = $('#id_mitra_edit');
-            //         mitraSelect.empty(); // Clear the select box
-
-            //         $.each(allMitra, function(index, item) {
-            //             var selected = pemasukan.id_mitra == item.id_mitra ? 'selected' : '';
-            //             mitraSelect.append('<option value="' + item.id_mitra + '" ' + selected + '>' + item.nama_mitra + '</option>');
-            //         });
-
-            //         // var mitraDropdown = $("#id_mitra_edit");
-            //         // mitraDropdown.empty();
-            //         // allMitra.forEach(function(mitra) {
-            //         //     mitraDropdown.append('<option value="' + mitra.id_mitra + '"' + (mitra.id_mitra == data.id_mitra ? ' selected' : '') + '>' + mitra.nama_mitra + '</option>');
-            //         // });
-
-            //         var keteranganDropdown = $("#keterangan_edit");
-            //         keteranganDropdown.empty();
-            //         keteranganDropdown.append('<option value="Belum Lunas"' + (data.keterangan === 'Belum Lunas' ? ' selected' : '') + '>Belum Lunas</option>');
-            //         keteranganDropdown.append('<option value="Lunas"' + (data.keterangan === 'Lunas' ? ' selected' : '') + '>Lunas</option>');
-
-            //         $('#detailTableEdit tbody').empty();
-            //         data.detail.forEach(function(detail, index) {
-            //             var row = '<tr>' +
-            //                 '<td><select name="detail[' + index + '][id_produk_edit]" class="form-control id_produk_edit" required>';
-            //             allProduk.forEach(function(produk) {
-            //                 row += '<option value="' + produk.id_produk + '"' + (produk.id_produk == detail.id_produk ? ' selected' : '') + '>' + produk.nama_produk + '</option>';
-            //             });
-            //             row += '</select></td>' +
-            //                 '<td><input type="number" name="detail[' + index + '][jumlah_barang_masuk_edit]" class="form-control jumlah_barang_masuk_edit" value="' + detail.jumlah_barang_masuk + '" required></td>' +
-            //                 '<td><input type="text" name="detail[' + index + '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" value="' + detail.harga_barang_masuk + '" required readonly></td>' +
-            //                 '<td><input type="text" name="detail[' + index + '][subtotal_edit]" class="form-control subtotal_edit" value="' + detail.subtotal + '" required readonly></td>' +
-            //                 '<td><input type="text" name="detail[' + index + '][bayar_edit]" class="form-control bayar_edit" value="' + detail.bayar + '" required></td>' +
-            //                 '<td><select name="detail[' + index + '][saldo_edit]" class="form-control saldo_edit" required>' +
-            //                 '<option value="Debet"' + (detail.saldo === 'Debet' ? ' selected' : '') + '>Debet</option>' +
-            //                 '<option value="Kredit"' + (detail.saldo === 'Kredit' ? ' selected' : '') + '>Kredit</option>' +
-            //                 '</select></td>' +
-            //                 '<td class="add-remove text-end">' +
-            //                 '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
-            //                 '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
-            //                 '</td>' + '</tr>';
-            //             $('#detailTableEdit').append(row);
-            //         });
-
-            //         $("#kt_modal_edit_data").modal("show");
-            //     });
-            // });
 
             $('#kt_table_users').on('click', '.edit-row', function() {
                 var id = $(this).data('id');
@@ -1072,6 +710,9 @@
 
                     $('#id_pemasukan_edit').val(data.id_pemasukan);
                     $('#tgl_pemasukan_edit').val(data.tgl_pemasukan);
+                    $('#bayar_edit').val(data.bayar);
+                    $('#jenis_bayar_edit').val(data.jenis_bayar);
+                    $('#total_harga_edit').val(data.total_harga);
 
                     var mitraSelect = $('#id_mitra_edit');
                     mitraSelect.empty(); // Clear the select box
@@ -1113,16 +754,16 @@
                             '<td><input type="text" name="detail[' + index +
                             '][subtotal_edit]" class="form-control subtotal_edit" value="' +
                             detail.subtotal + '" required readonly></td>' +
-                            '<td><input type="text" name="detail[' + index +
-                            '][bayar_edit]" class="form-control bayar_edit" value="' +
-                            detail.bayar + '" required></td>' +
-                            '<td><select name="detail[' + index +
-                            '][saldo_edit]" class="form-control saldo_edit" required>' +
-                            '<option value="Debet"' + (detail.saldo === 'Debet' ?
-                                ' selected' : '') + '>Debet</option>' +
-                            '<option value="Kredit"' + (detail.saldo === 'Kredit' ?
-                                ' selected' : '') + '>Kredit</option>' +
-                            '</select></td>' +
+                            // '<td><input type="text" name="detail[' + index +
+                            // '][bayar_edit]" class="form-control bayar_edit" value="' +
+                            // detail.bayar + '" required></td>' +
+                            // '<td><select name="detail[' + index +
+                            // '][saldo_edit]" class="form-control saldo_edit" required>' +
+                            // '<option value="Debet"' + (detail.saldo === 'Debet' ?
+                            //     ' selected' : '') + '>Debet</option>' +
+                            // '<option value="Kredit"' + (detail.saldo === 'Kredit' ?
+                            //     ' selected' : '') + '>Kredit</option>' +
+                            // '</select></td>' +
                             '<td class="add-remove text-end">' +
                             '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
                             '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +
@@ -1203,7 +844,10 @@
                 e.preventDefault();
                 var tgl_pemasukan = $('#tgl_pemasukan_edit').val();
                 var id_mitra = $('#id_mitra_edit').val();
+                var jenis_bayar = $('#jenis_bayar_edit').val();
+                var bayar = $('#bayar_edit').val();
                 var keterangan = $('#keterangan_edit').val();
+
                 var detail = [];
                 $('#detailTableEdit tbody tr').each(function() {
                     detail.push({
@@ -1213,8 +857,8 @@
                         harga_barang_masuk: $(this).find('.harga_barang_masuk_edit').val(),
                         subtotal: $(this).find('.subtotal_edit').val().replace(/\./g, '')
                             .replace('Rp ', '') || 0,
-                        bayar: $(this).find('.bayar_edit').val(),
-                        saldo: $(this).find('.saldo_edit').val(),
+                        // bayar: $(this).find('.bayar_edit').val(),
+                        // saldo: $(this).find('.saldo_edit').val(),
                     });
                 });
                 $.ajax({
@@ -1226,6 +870,8 @@
                         tgl_pemasukan_edit: tgl_pemasukan,
                         id_mitra_edit: id_mitra,
                         keterangan_edit: keterangan,
+                        jenis_bayar_edit: jenis_bayar,
+                        bayar_edit: bayar,
                         detail: detail
                     },
                     success: function(response) {
@@ -1260,13 +906,13 @@
                     '][harga_barang_masuk_edit]" class="form-control harga_barang_masuk_edit" required readonly></td>' +
                     '<td><input type="text" name="detail[' + rowCount +
                     '][subtotal_edit]" class="form-control subtotal_edit" required readonly></td>' +
-                    '<td><input type="text" name="detail[' + rowCount +
-                    '][bayar_edit]" class="form-control bayar_edit" required></td>' +
-                    '<td><select name="detail[' + rowCount +
-                    '][saldo_edit]" class="form-control saldo_edit" required>' +
-                    '<option value="Debet">Debet</option>' +
-                    '<option value="Kredit">Kredit</option>' +
-                    '</select></td>' +
+                    // '<td><input type="text" name="detail[' + rowCount +
+                    // '][bayar_edit]" class="form-control bayar_edit" required></td>' +
+                    // '<td><select name="detail[' + rowCount +
+                    // '][saldo_edit]" class="form-control saldo_edit" required>' +
+                    // '<option value="Debet">Debet</option>' +
+                    // '<option value="Kredit">Kredit</option>' +
+                    // '</select></td>' +
                     '<td class="add-remove text-end">' +
                     '<a href="javascript:void(0);" class="add-btn-edit me-2"><i class="fas fa-plus-circle text-success"></i></a>' +
                     '<a href="javascript:void(0);" class="remove-btn-edit"><i class="fas fa-trash text-danger"></i></a>' +

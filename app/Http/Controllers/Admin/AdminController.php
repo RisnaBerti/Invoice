@@ -10,6 +10,7 @@ use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Mitra;
 
 class AdminController extends Controller
 {
@@ -281,21 +282,21 @@ class AdminController extends Controller
 
     public function laporanPengeluaran()
     {
-         // Get data pengeluaran join detail pengeluaran join data user
-         $pengeluaran = Pengeluaran::with('detail', 'user')->get();
+        // Get data pengeluaran join detail pengeluaran join data user
+        $pengeluaran = Pengeluaran::with('detail', 'user')->get();
 
-         // If filtered by start date and end date
-         if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
-             $tgl_awal = $_GET['tgl_awal'];
-             $tgl_akhir = $_GET['tgl_akhir'];
- 
-             $pengeluaran = Pengeluaran::with('detail', 'user')
-                 ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
-                 ->get();
-         }
- 
-         // Group data by tgl_pengeluaran
-         $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
+        // If filtered by start date and end date
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+
+            $pengeluaran = Pengeluaran::with('detail', 'user')
+                ->whereBetween('tgl_pengeluaran', [$tgl_awal, $tgl_akhir])
+                ->get();
+        }
+
+        // Group data by tgl_pengeluaran
+        $groupedPengeluaran = $pengeluaran->groupBy('tgl_pengeluaran');
 
         return view(
             'admin.laporan-harian-pengeluaran-admin',
@@ -337,20 +338,20 @@ class AdminController extends Controller
     {
         // Get data pemasukan join detail pemasukan join data user
         $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')->get();
-    
+
         // If filtered by start date and end date
         if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
             $tgl_awal = $_GET['tgl_awal'];
             $tgl_akhir = $_GET['tgl_akhir'];
-    
+
             $pemasukan = Pemasukan::with('detail', 'mitra', 'produk', 'user')
                 ->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir])
                 ->get();
         }
-    
+
         // Group data by tgl_pemasukan
         $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
-    
+
         return view(
             'admin.laporan-harian-pemasukan-admin',
             compact('groupedPemasukan'),
@@ -418,5 +419,134 @@ class AdminController extends Controller
         );
     }
 
+    //fungsi laporanPemasukanAdmin
+    // public function laporanPemasukanAdmin(Request $request)
+    // {
+    //     // Fetch data with relationships and filters
+    //     $pemasukan = Pemasukan::with(['mitra'])
+    //         ->when($request->nama_mitra, function($query) use ($request) {
+    //             $query->whereHas('mitra', function($q) use ($request) {
+    //                 $q->where('id', $request->nama_mitra);
+    //             });
+    //         })
+    //         ->when($request->tgl_awal, function($query) use ($request) {
+    //             $query->whereDate('tgl_pemasukan', '>=', $request->tgl_awal);
+    //         })
+    //         ->when($request->tgl_akhir, function($query) use ($request) {
+    //             $query->whereDate('tgl_pemasukan', '<=', $request->tgl_akhir);
+    //         })
+    //         ->get();
+
+    //     // Group data by mitra
+    //     $groupedPemasukan = $pemasukan->groupBy(function($item) {
+    //         return $item->mitra->nama_mitra;
+    //     });
+
+    //     // Calculate total debet and kredit for each mitra
+    //     $totalDebet = $groupedPemasukan->map(function($items) {
+    //         return $items->sum(function($item) {
+    //             return $item->where('jenis_bayar', 'DEBET')->sum('total_harga');
+    //         });
+    //     });
+
+    //     $totalKredit = $groupedPemasukan->map(function($items) {
+    //         return $items->sum(function($item) {
+    //             return $item->where('jenis_bayar', 'KREDIT')->sum('total_harga');
+    //         });
+    //     });
+
+    //     // Get mitra
+    //     $mitra = Mitra::all();
+
+    //     return view(
+    //         'admin.laporan-pemasukan-admin',
+    //         compact('pemasukan', 'totalDebet', 'totalKredit', 'groupedPemasukan', 'mitra')
+    //     )->with([
+    //         'title' => 'Detail Pemasukan Admin'
+    //     ]);
+    // }
+    public function laporanPemasukanAdmin(Request $request)
+    {
+
+
+        // Fetch data with relationships and filters
+        $pemasukan = Pemasukan::with(['detail', 'mitra', 'produk', 'user'])
+            // ->when($request->nama_mitra, function ($query) use ($request) {
+            //     $query->whereHas('mitra', function ($q) use ($request) {
+            //         $q->where('id_mitra', $request->nama_mitra);
+            //     });
+            // })
+            // ->when($request->nama_mitra, function ($query) use ($request) {
+            //     $query->where('id_mitra', $request->nama_mitra); // Assuming 'mitra_id' is the foreign key in your 'Pemasukan' model
+            // })
+            // ->when($request->tgl_awal, function ($query) use ($request) {
+            //     $query->whereDate('tgl_pemasukan', '>=', $request->tgl_awal);
+            // })
+            // ->when($request->tgl_akhir, function ($query) use ($request) {
+            //     $query->whereDate('tgl_pemasukan', '<=', $request->tgl_akhir);
+            // })
+            ->get();
+
+        // Group data by mitra and calculate totals
+        $groupedPemasukan = $pemasukan->groupBy(function ($item) {
+            return $item->mitra->nama_mitra;
+        });
+
+        $mitraTotals = $groupedPemasukan->map(function ($items, $mitraName) {
+            $totalDebet = $items->where('jenis_bayar', 'DEBET')->sum('total_harga');
+            $totalKredit = $items->where('jenis_bayar', 'KREDIT')->sum('total_harga');
+            return [
+                'mitra' => $mitraName,
+                'totalDebet' => $totalDebet,
+                'totalKredit' => $totalKredit,
+                'subtotal' => $totalDebet + $totalKredit,
+            ];
+        });
+
+        // Get mitra
+        $mitra = Mitra::all();
+
+        return view(
+            'admin.laporan-pemasukan-admin',
+            compact('mitraTotals', 'mitra')
+        )->with([
+            'title' => 'Detail Pemasukan Admin'
+        ]);
+    }
+
+
+
+
+
+    //fungsi laporanPemasukanShow
+    public function laporanPemasukanShow($nama_mitra)
+    {
+        // Fetch data for the specified mitra with optional date range filters
+        $pemasukan = Pemasukan::with(['detail', 'mitra', 'produk', 'user'])
+            ->whereHas('mitra', function($query) use ($nama_mitra) {
+                $query->where('nama_mitra', $nama_mitra);
+            });
+    
+        // Apply date range filters if provided
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $tgl_awal = $_GET['tgl_awal'];
+            $tgl_akhir = $_GET['tgl_akhir'];
+    
+            $pemasukan = $pemasukan->whereBetween('tgl_pemasukan', [$tgl_awal, $tgl_akhir]);
+        }
+    
+        $pemasukan = $pemasukan->get();
+    
+        // Group data by tgl_pemasukan
+        $groupedPemasukan = $pemasukan->groupBy('tgl_pemasukan');
+    
+        return view(
+            'admin.laporan-pemasukan-admin-show',
+            compact('pemasukan', 'groupedPemasukan'),
+            [
+                'title' => 'Detail Laporan Pemasukan Admin'
+            ]
+        );
+    }
     
 }

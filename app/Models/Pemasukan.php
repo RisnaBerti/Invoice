@@ -17,6 +17,8 @@ class Pemasukan extends Model
         'tgl_pemasukan',
         'id_user',
         'total_harga',
+        'bayar',
+        'jenis_bayar',
         'keterangan'
     ];
 
